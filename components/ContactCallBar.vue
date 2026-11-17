@@ -19,7 +19,8 @@ const show = computed(() => !!links.value.phone || !!links.value.telegram)
         class="flex flex-1 items-center justify-center gap-2 rounded-full bg-night-text p-3 text-[15px] font-medium text-night no-underline"
       >
         <UiIcon name="phone" class="size-[18px]" />
-        {{ t('contact.phone.short') }}
+        <!-- Kept as "Call" in both languages, as requested. -->
+        <span lang="en">{{ t('contact.phone.short') }}</span>
       </a>
       <a
         v-if="links.telegram"
