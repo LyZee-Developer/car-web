@@ -99,7 +99,7 @@ const c = computed(() =>
     </div>
 
     <p
-      class="quote m-0 whitespace-pre-wrap text-[17px] leading-[1.8] [overflow-wrap:anywhere]"
+      class="quote m-0 whitespace-pre-wrap font-quote text-[17px] leading-[1.8] [overflow-wrap:anywhere]"
       :class="placeholder && c.muted"
       :lang="langOf(review.body)"
     >

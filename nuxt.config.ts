@@ -61,16 +61,15 @@ export default defineNuxtConfig({
     // Locale files are lazy-loaded from /i18n/locales.
     langDir: 'locales',
     vueI18n: './i18n.config.ts',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
-      alwaysRedirect: false,
-    },
+    // Always open in Khmer: no redirect based on the browser language.
+    // English is only shown when the visitor picks EN (it stays in the /en URL while they browse).
+    detectBrowserLanguage: false,
   },
 
-  // Archivo for Latin text, Kantumruy Pro for Khmer. Downloaded at build time and self-hosted.
-  // Archivo's width axis (wdth) is requested so headings can use font-stretch: 125% like the design.
+  // Fonts are downloaded from Google Fonts at build time and self-hosted (no requests to Google at runtime).
+  // English: Archivo (width axis requested so headings can use font-stretch: 125% like the design).
+  // Khmer:   Battambang (body), Nokora (headings), Hanuman (customer review quotes),
+  //          Google Sans Flex for the Latin characters inside Khmer text. See assets/css/fonts.css.
   fonts: {
     google: {
       experimental: {
@@ -81,12 +80,34 @@ export default defineNuxtConfig({
     },
     families: [
       { name: 'Archivo', provider: 'google', weights: ['300 700'], styles: ['normal'] },
+      // `global: true` always emits the @font-face. Without it @nuxt/fonts only picks up the first
+      // family of each stack, so the Khmer fonts (2nd in the stacks) would never be loaded.
       {
-        name: 'Kantumruy Pro',
+        name: 'Google Sans Flex',
         provider: 'google',
-        weights: ['300 700'],
-        styles: ['normal'],
+        weights: ['400', '500', '600', '700'],
+        global: true,
+      },
+      {
+        name: 'Battambang',
+        provider: 'google',
+        weights: ['100', '300', '400', '700', '900'],
         subsets: ['khmer', 'latin'],
+        global: true,
+      },
+      {
+        name: 'Nokora',
+        provider: 'google',
+        weights: ['100 900'],
+        subsets: ['khmer', 'latin'],
+        global: true,
+      },
+      {
+        name: 'Hanuman',
+        provider: 'google',
+        weights: ['100 900'],
+        subsets: ['khmer', 'latin'],
+        global: true,
       },
     ],
   },

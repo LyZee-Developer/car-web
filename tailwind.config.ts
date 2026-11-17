@@ -46,6 +46,8 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-sans)'],
+        heading: ['var(--font-heading)'],
+        quote: ['var(--font-quote)'],
       },
       maxWidth: {
         page: '1180px',

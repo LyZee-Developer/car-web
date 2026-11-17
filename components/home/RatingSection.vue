@@ -116,7 +116,7 @@ const latestBy = computed(() => {
             <div v-if="reviews.latest">
               <UiStars :value="reviews.latest.rating" :size="15" tone="night" />
               <q
-                class="my-2 mb-2.5 block text-[17px] leading-[1.75] text-night-text [overflow-wrap:anywhere] [quotes:none]"
+                class="my-2 mb-2.5 block font-quote text-[17px] leading-[1.75] text-night-text [overflow-wrap:anywhere] [quotes:none]"
                 :lang="/[ក-៿]/.test(latestQuote) ? 'km' : undefined"
               >
                 {{ latestQuote }}
