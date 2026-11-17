@@ -1,0 +1,481 @@
+{
+  "meta": {
+    "title": "Heng Auto Service – Service & reviews",
+    "description": "Servicing, repairs and diagnostics for every make, with a clear quote before any work starts. Read real customer reviews."
+  },
+  "common": {
+    "brand": "Heng Auto Service",
+    "customer": "Customer",
+    "today": "Today",
+    "loading": "Loading…",
+    "starsOutOf": "{n} out of 5 stars",
+    "stars": "{n} star | {n} stars",
+    "buttons": {
+      "writeReview": "Write a review",
+      "readAllReviews": "Read all reviews",
+      "cancel": "Cancel"
+    }
+  },
+  "nav": {
+    "label": "Main menu",
+    "services": "Services",
+    "rating": "Rating",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "quickContact": "Quick contact"
+  },
+  "language": {
+    "label": "Language",
+    "switchTo": "Switch to {language}"
+  },
+  "theme": {
+    "label": "Color mode",
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "system": "Match system setting"
+  },
+  "hero": {
+    "label": "Featured services",
+    "roledescription": "carousel",
+    "slideRoledescription": "slide",
+    "slideOf": "{current} of {total}",
+    "prev": "Previous slide",
+    "next": "Next slide",
+    "pause": "Pause slideshow",
+    "play": "Play slideshow",
+    "showSlide": "Show slide {n}: {title}",
+    "slides": {
+      "fixed": {
+        "title": "Fixed right the first time",
+        "text": "Servicing, repairs and diagnostics for every make, with a clear quote before any work starts.",
+        "cta": "See all services"
+      },
+      "brakes": {
+        "title": "Brakes that stop like new",
+        "text": "We measure your pads and discs, show you what’s worn, and replace only what needs it.",
+        "cta": "How we fix brakes"
+      },
+      "ac": {
+        "title": "Cold A/C on the hottest day",
+        "text": "Leak test, gas recharge and a fresh cabin filter, usually done while you wait.",
+        "cta": "How we fix A/C"
+      },
+      "diag": {
+        "title": "A warning light came on?",
+        "text": "Our computer scan finds the cause in under an hour, and you get a written report.",
+        "cta": "About diagnostics"
+      }
+    }
+  },
+  "stats": {
+    "label": "Visitor stats",
+    "views": "Total visits",
+    "unique": "Unique visitors",
+    "today": "Visitors today",
+    "online": "Online now"
+  },
+  "services": {
+    "title": "What we fix, and how",
+    "intro": "Every service starts with the problem you notice. We show you the worn part and give you a quote before any work begins.",
+    "finderTitle": "What’s wrong with your car?",
+    "finderHint": "Pick a problem to see the likely fix",
+    "finderResult": "Most likely: {services}. Marked below.",
+    "or": " or ",
+    "likelyFix": "Likely fix",
+    "moreInfo": "Signs and repair steps",
+    "signsTitle": "Signs you need it",
+    "stepsTitle": "How we fix it",
+    "readReviews": "Read reviews",
+    "ratingFrom": "{avg} ★ from {n} review | {avg} ★ from {n} reviews",
+    "noReviews": "No reviews yet",
+    "items": {
+      "oil": {
+        "name": "Oil & filter",
+        "short": "Fresh oil and filter to keep your engine smooth and quiet.",
+        "time": "About 30 minutes",
+        "signs": [
+          "Oil warning light comes on",
+          "Engine sounds louder or ticks",
+          "It’s been 5,000–10,000 km since the last change",
+          "Oil on the dipstick is dark and gritty"
+        ],
+        "steps": [
+          "Drain the old oil",
+          "Fit a new oil filter",
+          "Refill with the grade your engine needs",
+          "Top up other fluids and reset the service light"
+        ]
+      },
+      "brakes": {
+        "name": "Brakes",
+        "short": "For squealing, grinding, or a soft brake pedal.",
+        "time": "1–2 hours",
+        "signs": [
+          "Squealing or grinding when you brake",
+          "Pedal feels soft or sinks",
+          "Car pulls to one side when stopping",
+          "Steering wheel shakes when braking"
+        ],
+        "steps": [
+          "Measure pad and disc wear",
+          "Show you the worn parts",
+          "Replace pads or discs as needed",
+          "Bleed and refresh the brake fluid",
+          "Road test before handover"
+        ]
+      },
+      "engine": {
+        "name": "Engine",
+        "short": "For warning lights, rough idling, or lost power.",
+        "time": "Half a day to 3 days",
+        "signs": [
+          "Check engine light is on",
+          "Rough idle or shaking at stops",
+          "Loss of power when climbing or overtaking",
+          "Overheating or white smoke"
+        ],
+        "steps": [
+          "Computer scan for fault codes",
+          "Check plugs, ignition, belts and cooling",
+          "Quote the repair before starting",
+          "Repair or replace the faulty parts",
+          "Re-scan to confirm the fault is gone"
+        ]
+      },
+      "tires": {
+        "name": "Tires & alignment",
+        "short": "For drifting, shaking, or tires wearing unevenly.",
+        "time": "About 1 hour",
+        "signs": [
+          "Car drifts left or right on a straight road",
+          "Steering wheel sits off-centre",
+          "Tires wearing on one edge",
+          "Vibration at higher speeds"
+        ],
+        "steps": [
+          "Check tread depth and pressure",
+          "Repair punctures or fit new tires",
+          "Balance the wheels",
+          "Set wheel alignment on our machine"
+        ]
+      },
+      "ac": {
+        "name": "Air conditioning",
+        "short": "For warm air, weak airflow, or a musty smell.",
+        "time": "1–2 hours",
+        "signs": [
+          "A/C blows warm or only cool, not cold",
+          "Musty smell from the vents",
+          "Weak airflow even on full",
+          "Clicking or rattling when A/C is on"
+        ],
+        "steps": [
+          "Test for gas leaks",
+          "Recharge the refrigerant",
+          "Replace the cabin air filter",
+          "Clean the evaporator and check the compressor"
+        ]
+      },
+      "electrical": {
+        "name": "Electrical",
+        "short": "For flat batteries, slow starts, and flickering lights.",
+        "time": "1 hour and up",
+        "signs": [
+          "Won’t start or slow to start",
+          "Battery keeps going flat",
+          "Lights flicker or dim",
+          "Windows, locks or gauges stop working"
+        ],
+        "steps": [
+          "Test the battery, alternator and starter",
+          "Trace the faulty circuit",
+          "Replace the battery, fuse or failed part",
+          "Check everything works before handover"
+        ]
+      },
+      "body": {
+        "name": "Body & paint",
+        "short": "For dents, scratches, rust, and accident damage.",
+        "time": "1–5 days",
+        "signs": [
+          "Dents from a bump or parking knock",
+          "Scratches through the paint",
+          "Rust bubbles on panels",
+          "Accident damage"
+        ],
+        "steps": [
+          "Assess the damage and quote",
+          "Pull out dents or replace the panel",
+          "Colour-match and spray the paint",
+          "Polish so the repair blends in"
+        ]
+      },
+      "diag": {
+        "name": "Diagnostics",
+        "short": "Find the cause of a warning light or a strange noise.",
+        "time": "About 45 minutes",
+        "signs": [
+          "A warning light you don’t recognise",
+          "A noise you can’t place",
+          "The car just feels different",
+          "You want a check before buying a used car"
+        ],
+        "steps": [
+          "Plug in the computer scanner",
+          "Road test with a mechanic",
+          "Give you a written report",
+          "Quote any repair, with no pressure to book"
+        ]
+      },
+      "general": {
+        "name": "General service",
+        "short": "A full check-up of everything that keeps you safe.",
+        "time": "2–3 hours",
+        "signs": [
+          "Your scheduled service is due",
+          "A long trip is coming up",
+          "It’s been a year since anyone looked at it"
+        ],
+        "steps": [
+          "Multi-point safety check",
+          "Change oil, filters and fluids",
+          "Check brakes, tires, lights and wipers",
+          "Hand you a checklist of what we found"
+        ]
+      }
+    },
+    "clearSelection": "Clear selection"
+  },
+  "symptoms": {
+    "brakesNoise": "Squealing or grinding brakes",
+    "warningLight": "Warning light on the dash",
+    "acWarm": "A/C blows warm air",
+    "pullsSide": "Car pulls to one side",
+    "wontStart": "Won’t start or slow to start",
+    "overheating": "Engine overheating",
+    "oilOverdue": "Oil change overdue",
+    "bodyDamage": "Dents, scratches or rust",
+    "unknownNoise": "A noise I can’t place"
+  },
+  "aspects": {
+    "quality": "Workmanship",
+    "price": "Fair price",
+    "time": "Ready on time"
+  },
+  "rating": {
+    "title": "Rated by the people who drive away",
+    "intro": "Every score here comes from a customer who picked up their car from our workshop.",
+    "summary": "{pct}% of {n} customer would recommend us to a friend. | {pct}% of {n} customers would recommend us to a friend.",
+    "gaugeTitle": "Average customer rating",
+    "averageLabel": "Average {avg} out of 5",
+    "loading": "Loading reviews…",
+    "unavailable": "Reviews unavailable right now",
+    "average": "Average of {n} review, out of 5 | Average of {n} reviews, out of 5",
+    "noReviews": "No reviews yet",
+    "count": "Reviews",
+    "recommend": "Would recommend us",
+    "byArea": "Scores by area",
+    "latest": "Latest review",
+    "latestPending": "Reviews will appear here.",
+    "latestNone": "No reviews yet. The first one will show here.",
+    "liveNote": "Scores update live as customers post reviews."
+  },
+  "reviews": {
+    "title": "What customers say",
+    "intro": "Real reviews from customers who had their car serviced with us. Filter by stars or by the service they had.",
+    "filterStars": "Filter by star rating",
+    "all": "All",
+    "starFilter": "{stars}-star reviews, {count}",
+    "service": "Service",
+    "allServices": "All services",
+    "sortBy": "Sort by",
+    "sort": {
+      "new": "Newest first",
+      "high": "Highest rated",
+      "low": "Lowest rated"
+    },
+    "loadFailed": "Couldn’t load reviews. Check your connection and refresh the page.",
+    "empty": {
+      "title": "No reviews yet",
+      "text": "Had your car serviced with us? Be the first to say how it went.",
+      "cta": "Write the first review"
+    },
+    "noMatch": {
+      "title": "No reviews match these filters",
+      "text": "Try another service or star rating.",
+      "cta": "Show all reviews"
+    },
+    "showMore": "Show more reviews",
+    "recommends": "Recommends us",
+    "edited": "edited",
+    "yours": "Your review",
+    "editMine": "Edit my review",
+    "delete": "Delete review",
+    "confirmDelete": "Delete this review? This can’t be undone.",
+    "actionFailed": "That didn’t go through. Try again in a moment.",
+    "showFewer": "Show fewer",
+    "moreCount": "{n} more customer review | {n} more customer reviews",
+    "showing": "Showing {shown} of {total}",
+    "showingAll": "Showing all {total} reviews"
+  },
+  "band": {
+    "title": "Picked up your car from us lately?",
+    "text": "Tell us how it drives now. It takes about a minute, and the workshop team reads every review.",
+    "cta": "Write a review"
+  },
+  "write": {
+    "title": "Write a review",
+    "titleEdit": "Update your review",
+    "lead": "It takes about a minute, and you can come back to update it any time.",
+    "steps": {
+      "rating": "Rate your visit",
+      "visit": "Tell us what we worked on",
+      "body": "Say how your car drives now"
+    },
+    "preview": "Live preview",
+    "previewBody": "Your review will appear here as you type.",
+    "progress": "{n} of 3 steps done",
+    "ready": "Ready to post",
+    "overall": "Overall rating",
+    "tapStar": "Tap a star to rate.",
+    "captions": {
+      "1": "Poor – it wasn’t fixed properly",
+      "2": "Below what I expected",
+      "3": "Okay",
+      "4": "Good work",
+      "5": "Excellent – car runs like new"
+    },
+    "visit": "About your visit",
+    "name": "Your name",
+    "nameHint": "shown on the review",
+    "namePlaceholder": "e.g. Dara",
+    "car": "Your car",
+    "optional": "optional",
+    "carPlaceholder": "e.g. 2018 Toyota Camry",
+    "whatWorked": "What did we work on?",
+    "perArea": "Rate each part",
+    "perAreaHint": "optional · 1 is poor, 5 is excellent",
+    "yourReview": "Your review",
+    "bodyPlaceholder": "What was the problem, how was it handled, and how is the car running now?",
+    "count": "{n} / {max}",
+    "recommend": "I’d recommend Heng Auto Service to a friend",
+    "submit": "Post review",
+    "submitEdit": "Update review",
+    "posting": "Posting…",
+    "posted": "Review posted. Thank you!",
+    "updated": "Review updated. Thanks for keeping us honest.",
+    "errors": {
+      "rating": "Choose an overall rating from 1 to 5 stars.",
+      "name": "Add the name to show on your review.",
+      "service": "Pick the service we worked on.",
+      "body": "Write at least a sentence about your visit (10 characters or more).",
+      "generic": "Couldn’t post your review. Check your connection and try again."
+    }
+  },
+  "contact": {
+    "title": "Contact and visit us",
+    "intro": "Call or message us to book a service, ask about a repair, or get a quote. Walk in any time, day or night, with no booking needed.",
+    "phone": {
+      "label": "Call us",
+      "missing": "Phone number coming soon",
+      "cta": "Call now",
+      "short": "Call",
+      "hint": "Call us any time, day or night."
+    },
+    "telegram": {
+      "label": "Message us on Telegram",
+      "missing": "Telegram coming soon",
+      "cta": "Open Telegram",
+      "short": "Telegram",
+      "hint": "Send us a message on Telegram."
+    },
+    "email": {
+      "label": "Email",
+      "missing": "Email coming soon",
+      "cta": "Send an email",
+      "hint": "We reply to emails as soon as we can."
+    },
+    "address": {
+      "label": "Workshop address",
+      "missing": "Address coming soon",
+      "cta": "Get directions",
+      "value": "Google Maps",
+      "hint": "Opens our workshop location in Google Maps."
+    },
+    "hours": {
+      "title": "Opening hours",
+      "alwaysText": "Open 08 hours, Monday to Sunday, with no days off.",
+      "note": "Broken down at night or on the weekend? Call us any time.",
+      "closed": "Closed",
+      "open24": "Open 24 hours",
+      "openNowAlways": "Open now · 08 hours, every day",
+      "openNowToday": "Open now · 08 hours today",
+      "openNowCloses": "Open now · closes {time}",
+      "closedOpens": "Closed · opens {day} at {time}",
+      "todaySuffix": "{day} (today)",
+      "today": "today",
+      "tomorrow": "tomorrow",
+      "everyDay": "Open 24 hours, every day",
+      "monSat": "Mon–Sat, {hours}",
+      "seeHours": "See opening hours"
+    },
+    "days": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    },
+    "daysShort": {
+      "0": "Su",
+      "1": "Mo",
+      "2": "Tu",
+      "3": "We",
+      "4": "Th",
+      "5": "Fr",
+      "6": "Sa"
+    },
+    "allDetails": "All contact details",
+    "modal": {
+      "close": "Close",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copyFailed": "Couldn’t copy. Select the text and copy it yourself."
+    }
+  },
+  "footer": {
+    "tagline": "Servicing, repairs and diagnostics for every make, with a quote before any work starts.",
+    "website": "Website",
+    "contact": "Contact",
+    "customers": "Customers",
+    "findProblem": "Find your problem",
+    "copyright": "© {year} Heng Auto Service",
+    "note": "Reviews are written and posted by our customers.",
+    "developedBy": "Website developed by {name}",
+    "developerLink": "Chat with {name} on Telegram Web (opens in a new browser tab)"
+  },
+  "error": {
+    "notFound": "Page not found",
+    "generic": "Something went wrong",
+    "home": "Back to the home page"
+  },
+  "date": {
+    "months": {
+      "0": "January",
+      "1": "February",
+      "2": "March",
+      "3": "April",
+      "4": "May",
+      "5": "June",
+      "6": "July",
+      "7": "August",
+      "8": "September",
+      "9": "October",
+      "10": "November",
+      "11": "December"
+    },
+    "pattern": "{month} {day}, {year}"
+  }
+}

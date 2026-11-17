@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+  try{ var t = localStorage.getItem("theme"); if(t==="light"||t==="dark") document.documentElement.setAttribute("data-theme", t); }catch(e){}
+  try{ if(localStorage.getItem("lang")==="en") document.documentElement.setAttribute("lang","en"); }catch(e){}
+</script>
+<title>Heng Auto Service – សេវាកម្ម និងមតិអតិថិជន</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&family=Kantumruy+Pro:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F2F0; --panel:#FFFFFF; --panel-2:#E8E8E5; --ink:#0A0A0A; --muted:#5E5E5E; --line:#D4D4D0;
+  --accent:#8A6F3E; --accent-ink:#FFFFFF; --accent-soft:rgba(138,111,62,.12); --ok:#2F7D4F; --err:#B3261E;
+  --night:#000000; --night-2:#111111; --night-ink:#F2F2F2; --night-muted:#8E8E8E; --night-line:#262626;
+  --font:"Archivo","Kantumruy Pro","Khmer OS Siemreap","Noto Sans Khmer","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#000000; --panel:#0E0E0E; --panel-2:#171717; --ink:#F2F2F2; --muted:#8E8E8E; --line:#262626;
+    --accent:#D9C7A3; --accent-ink:#000000; --accent-soft:rgba(217,199,163,.12); --ok:#7BC79B; --err:#FF8A7A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#000000; --panel:#0E0E0E; --panel-2:#171717; --ink:#F2F2F2; --muted:#8E8E8E; --line:#262626;
+  --accent:#D9C7A3; --accent-ink:#000000; --accent-soft:rgba(217,199,163,.12); --ok:#7BC79B; --err:#FF8A7A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth; scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+body{margin:0; background:var(--bg); color:var(--ink); font:400 16.5px/1.75 var(--font)}
+img,svg{max-width:100%}
+a{color:inherit}
+button,input,textarea,select{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+h1,h2,h3{font-family:var(--font); font-stretch:125%; font-weight:500; line-height:1.35; letter-spacing:0; margin:0}
+.arrow-ic{width:16px; height:16px; flex:none}
+
+/* header */
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:#000}
+.site{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:rgba(0,0,0,.82); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); color:var(--night-ink); border-bottom:1px solid var(--night-line)}
+.site .wrap{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:66px; gap:20px}
+.brand{white-space:nowrap; font-stretch:125%; font-weight:600; font-size:17px; text-decoration:none; letter-spacing:-.01em; display:flex; align-items:center; gap:10px}
+.brand i{width:9px; height:9px; border-radius:50%; background:var(--night-ink); box-shadow:0 0 12px rgba(255,255,255,.7)}
+.site nav{display:flex; gap:30px; font-size:14px}
+.site nav a{text-decoration:none; color:var(--night-muted)}
+.site nav a:hover{color:var(--night-ink)}
+.site .right{justify-self:end; display:flex; align-items:center; gap:10px}
+:root[data-theme="light"]{color-scheme:light}
+.lang-btn{display:inline-flex; align-items:center; gap:2px; border:1px solid var(--night-line); border-radius:999px; padding:3px; background:transparent; cursor:pointer; flex:none}
+.lang-btn:hover{border-color:var(--night-ink)}
+.lang-btn span{padding:6px 10px; border-radius:999px; font-size:13px; line-height:1.2; color:var(--night-muted); transition:background .2s, color .2s}
+.lang-btn span.on{background:var(--night-ink); color:#000; font-weight:600}
+@media (max-width:520px){ .site .right .pill{display:none} }
+html[lang="en"] body{line-height:1.6}
+html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3{line-height:1.08; letter-spacing:-.02em}
+html[lang="en"] .slide h2{font-size:clamp(38px,7vw,92px); max-width:16ch}
+.theme-btn{width:40px; height:40px; border-radius:50%; border:1px solid var(--night-line); background:transparent; color:var(--night-ink); cursor:pointer; display:grid; place-items:center; flex:none; transition:border-color .2s, background .2s}
+.theme-btn:hover{border-color:var(--night-ink); background:rgba(255,255,255,.06)}
+.theme-btn svg{width:18px; height:18px}
+.theme-btn .sun{display:none}
+.theme-btn.is-dark .sun{display:block}
+.theme-btn.is-dark .moon{display:none}
+html.theme-anim, html.theme-anim *{transition:background-color .3s ease, color .3s ease, border-color .3s ease !important}
+.pill{display:inline-flex; align-items:center; gap:8px; border:1px solid currentColor; border-radius:999px; padding:9px 18px; font-size:14px; font-weight:500; text-decoration:none; background:transparent; cursor:pointer; line-height:1.2}
+.pill:hover{background:var(--night-ink); color:#000; border-color:var(--night-ink)}
+@media (max-width:760px){ .site nav{display:none} .site .wrap{grid-template-columns:1fr auto} }
+
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; border-radius:999px; padding:13px 24px; font-weight:500; cursor:pointer; text-decoration:none; line-height:1.2}
+.btn-solid{background:var(--ink); color:var(--bg)}
+.btn-solid:hover{opacity:.88}
+.btn-line{background:transparent; color:inherit; box-shadow:inset 0 0 0 1px currentColor}
+.btn-line:hover{background:var(--ink); color:var(--bg); box-shadow:none}
+.btn-small{padding:8px 15px; font-size:14px}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+.go{display:inline-flex; align-items:center; gap:10px; font-weight:500; text-decoration:none; padding-bottom:4px; border-bottom:1px solid currentColor; background:none; border-top:0; border-left:0; border-right:0; cursor:pointer}
+
+/* slideshow */
+.slider-sec{position:relative; background:var(--night); color:var(--night-ink); padding:72px 0 36px; overflow:hidden}
+.slider-sec::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,.10), transparent 70%),
+             repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 96px);
+  -webkit-mask-image:linear-gradient(#000 40%, transparent 85%); mask-image:linear-gradient(#000 40%, transparent 85%)}
+.slider{position:relative; touch-action:pan-y}
+.track{display:grid}
+.slide{grid-area:1/1; opacity:0; transition:opacity .9s ease; text-align:center}
+.slide.on{opacity:1}
+.slide h2{font-size:clamp(34px,6vw,76px); max-width:18ch; margin:0 auto; text-wrap:balance}
+.slide p{color:var(--night-muted); max-width:46ch; margin:20px auto 22px; font-size:17px}
+.slide .art{max-width:980px; margin:4px auto 0}
+.slide .art svg{display:block; width:100%; height:auto}
+.slider-ui{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-top:4px}
+.dots{display:flex; gap:8px; align-items:center}
+.dot{width:36px; height:2px; border:0; padding:8px 0; background:linear-gradient(var(--night-line),var(--night-line)) center/100% 2px no-repeat; cursor:pointer}
+.dot[aria-current="true"]{background:linear-gradient(var(--night-ink),var(--night-ink)) center/100% 2px no-repeat}
+.counter{white-space:nowrap; font-size:13px; color:var(--night-muted); margin-left:10px; font-variant-numeric:tabular-nums}
+.arrows{display:flex; gap:8px}
+.arrow{width:42px; height:42px; border-radius:50%; border:1px solid var(--night-line); background:transparent; color:var(--night-ink); cursor:pointer; display:grid; place-items:center}
+.arrow:hover{border-color:var(--night-ink)}
+.arrow svg{width:16px; height:16px}
+@media (max-width:640px){ .slider-sec{padding-top:44px} .counter{display:none} .dot{width:24px} .brand{font-size:15px} .pill{padding:8px 14px; font-size:13px} }
+@media (prefers-reduced-motion:reduce){ .slide{transition:none} html{scroll-behavior:auto} }
+
+/* section head (hairline + split intro) */
+section.block{padding:96px 0}
+.intro{border-top:1px solid var(--line); padding-top:28px; display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:start; margin-bottom:44px}
+.intro h2{font-size:clamp(32px,4.4vw,52px)}
+.intro p{color:var(--muted); margin:6px 0 0; max-width:46ch}
+@media (max-width:760px){ .intro{grid-template-columns:1fr; gap:14px} section.block{padding:72px 0} }
+
+/* rating dashboard */
+.dash{position:relative; overflow:hidden; border-radius:28px; color:var(--night-ink);
+  background:radial-gradient(55% 80% at 22% 30%, #262626 0%, #0B0B0B 60%, #000 100%); border:1px solid #1E1E1E;
+  display:grid; grid-template-columns:1.05fr 1fr}
+.dash::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 80px);
+  -webkit-mask-image:linear-gradient(90deg,#000,transparent 55%); mask-image:linear-gradient(90deg,#000,transparent 55%)}
+.gauge-cell{position:relative; padding:44px 40px 40px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--night-line)}
+.gauge{width:100%; max-width:440px; display:block}
+.gauge .track-arc{stroke:rgba(255,255,255,.1)}
+.gauge .tick{stroke:#5A5A5A}
+.gauge .tick.major{stroke:#D0D0D0}
+.gauge .num{fill:var(--night-muted); font:500 13px var(--font)}
+.gauge .needle{transform-box:view-box; transform-origin:150px 150px; transition:transform 1.6s cubic-bezier(.2,.9,.25,1.12)}
+.gauge .needle line{stroke:#D9C7A3}
+.gauge .hub{fill:#F2F2F2}
+.gauge .hub-ring{fill:none; stroke:#D9C7A3; stroke-opacity:.4}
+.gauge .avg{fill:#F7F7F7; font:500 58px var(--font); font-stretch:125%; letter-spacing:-.035em}
+.gauge .avg-of{fill:var(--night-muted); font:400 16px var(--font)}
+.under{display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:-4px}
+.under .stars svg{width:20px; height:20px}
+.under .stars .on{fill:#D9C7A3} .under .stars .off{fill:#333}
+.under .sub{color:var(--night-muted); font-size:14px}
+.tiles{display:grid; grid-template-columns:1fr 1fr}
+.tile{padding:28px 30px; border-bottom:1px solid var(--night-line); min-width:0}
+.tile + .tile:nth-child(2){border-left:1px solid var(--night-line)}
+.tile.wide{grid-column:1/-1}
+.tile.wide:last-child{border-bottom:0}
+.tile h3{font:500 13px var(--font); color:var(--night-muted); margin:0 0 10px; letter-spacing:0}
+.big{font-stretch:125%; font-weight:500; font-size:44px; line-height:1; letter-spacing:-.03em}
+.big small{font-size:18px; color:var(--night-muted); letter-spacing:0; margin-left:4px}
+.rec{display:flex; align-items:center; gap:16px}
+.ring{width:64px; height:64px; flex:none}
+.ring .bg{stroke:rgba(255,255,255,.1)}
+.ring .fg{stroke:#D9C7A3; transition:stroke-dashoffset 1.2s ease; transform:rotate(-90deg); transform-origin:50% 50%}
+.rings{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.mini{display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center}
+.mini .wrap-ring{position:relative; width:84px; height:84px}
+.mini .ring{width:84px; height:84px}
+.mini b{position:absolute; inset:0; display:grid; place-items:center; font-stretch:125%; font-weight:500; font-size:22px}
+.mini span{font-size:13px; color:var(--night-muted)}
+.latest q{display:block; quotes:none; font-size:17px; line-height:1.75; color:#EDEDED; margin:8px 0 10px; overflow-wrap:anywhere}
+.latest .by{font-size:13px; color:var(--night-muted)}
+.latest .stars svg{width:15px; height:15px}
+.latest .stars .on{fill:#D9C7A3} .latest .stars .off{fill:#333}
+.latest .none{color:var(--night-muted); margin:0}
+.rating-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; justify-content:space-between; align-items:center}
+.rating-ctas p{margin:0; color:var(--muted); font-size:14px}
+@media (max-width:900px){ .dash{grid-template-columns:1fr} .gauge-cell{border-right:0; border-bottom:1px solid var(--night-line); padding:32px 20px} }
+@media (max-width:480px){ .tile{padding:22px 20px} .big{font-size:36px} .rec{gap:10px} .rec .ring{width:46px; height:46px} .mini .wrap-ring,.mini .ring{width:68px; height:68px} .mini b{font-size:18px} }
+@media (prefers-reduced-motion:reduce){ .gauge .needle,.ring .fg{transition:none} }
+
+/* chips */
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{border:1px solid var(--line); background:transparent; border-radius:999px; padding:8px 15px; font-size:14px; cursor:pointer}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"],.chip[aria-checked="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+
+/* visitor counter */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); margin-top:32px; border-top:1px solid var(--night-line)}
+.stat{padding:26px 22px 18px; display:flex; flex-direction:column; gap:14px; border-left:1px solid var(--night-line); min-width:0}
+.stat:first-child{border-left:0; padding-left:0}
+.odo{font-family:var(--font); font-stretch:125%; font-weight:500; font-size:clamp(30px,4.2vw,50px); line-height:1; letter-spacing:-.02em; color:var(--night-ink); display:inline-flex; font-variant-numeric:tabular-nums; height:1em}
+.odo .digits{display:inline-flex}
+.odo .d{display:inline-block; height:1em; overflow:hidden}
+.odo .col{display:flex; flex-direction:column; transition:transform 1.8s cubic-bezier(.16,.84,.24,1)}
+.odo .col span{display:block; height:1em; line-height:1em}
+.odo .sep{opacity:.45; margin:0 .02em}
+.stat-label{font-size:14px; line-height:1.5; color:var(--night-muted); display:flex; align-items:center; gap:8px}
+.stat.live .odo{color:#7BC79B}
+.live-dot{position:relative; width:8px; height:8px; border-radius:50%; background:#7BC79B; flex:none}
+.live-dot::after{content:""; position:absolute; inset:0; border-radius:50%; background:#7BC79B; animation:livePing 1.6s ease-out infinite}
+@keyframes livePing{0%{transform:scale(1); opacity:.8} 100%{transform:scale(3.2); opacity:0}}
+.stat .odo.flash{animation:odoFlash .9s ease}
+@keyframes odoFlash{0%{text-shadow:0 0 0 rgba(217,199,163,0)} 30%{text-shadow:0 0 18px rgba(217,199,163,.7)} 100%{text-shadow:0 0 0 rgba(217,199,163,0)}}
+@media (max-width:760px){
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(odd){border-left:0; padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--night-line)}
+  .stat{padding:18px 16px 14px}
+}
+@media (prefers-reduced-motion:reduce){ .odo .col{transition:none} .live-dot::after{animation:none} .stat .odo.flash{animation:none} }
+
+/* services */
+.finder{display:grid; grid-template-columns:auto 1fr; gap:14px 32px; align-items:start; margin-bottom:40px}
+.finder h3{font-size:20px; padding-top:6px}
+.finder-result{grid-column:2; margin:0; color:var(--muted); min-height:1.6em}
+@media (max-width:760px){ .finder{grid-template-columns:1fr} .finder-result{grid-column:1} }
+.svc-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr)); gap:20px; align-items:start}
+.svc{display:flex; flex-direction:column; gap:14px; transition:opacity .25s; background:var(--panel); border:1px solid var(--line); border-radius:22px; padding:12px 12px 18px}
+.svc > :not(.svc-visual){padding:0 8px}
+.svc.dim{opacity:.3}
+.svc-visual{position:relative; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:radial-gradient(80% 70% at 50% 35%, #2A2A2A, #000 75%); display:grid; place-items:center; color:#D6D6D6}
+.svc-visual::after{content:""; position:absolute; left:10%; right:10%; bottom:18%; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent)}
+.svc-visual svg{stroke-width:1.1; width:22%; height:auto; filter:drop-shadow(0 0 18px rgba(255,255,255,.18))}
+.svc.match .svc-visual{box-shadow:0 0 0 2px var(--accent)}
+.chip.sym{display:inline-flex; align-items:center; gap:8px}
+.chip.sym .tick{width:16px; height:16px; border-radius:50%; border:1.5px solid var(--line); flex:none; display:grid; place-items:center; transition:background .15s, border-color .15s}
+.chip.sym[aria-pressed="true"] .tick{background:var(--accent); border-color:var(--accent)}
+.chip.sym[aria-pressed="true"] .tick::after{content:""; width:7px; height:4px; border-left:2px solid #000; border-bottom:2px solid #000; transform:translateY(-1px) rotate(-45deg)}
+.chip.clear-sym{border-style:dashed; color:var(--muted)}
+.finder-hint{display:block; font-size:13px; font-weight:400; color:var(--muted); font-stretch:100%; letter-spacing:0; margin-top:4px}
+.svc{cursor:pointer; transition:opacity .25s, border-color .2s}
+.svc:hover{border-color:var(--muted)}
+.svc.match{border-color:var(--accent)}
+.svc .more-info .cols{cursor:auto}
+.svc:focus{outline:none}
+.svc:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.chip.clear-sym:hover{color:var(--ink)}
+.svc.match{border-color:var(--accent)}
+.svc.pulse{animation:svcPulse 1.8s ease-out}
+@keyframes svcPulse{0%{box-shadow:0 0 0 0 rgba(217,199,163,.75)} 100%{box-shadow:0 0 0 22px rgba(217,199,163,0)}}
+@media (prefers-reduced-motion:reduce){ .svc.pulse{animation:none} }
+.svc-visual .badge{position:absolute; top:14px; left:14px; font-size:12px; background:var(--accent); color:#000; padding:4px 10px; border-radius:999px; font-weight:600}
+.svc .title{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
+.svc h3{font-size:22px}
+.svc-meta{font-size:13px; color:var(--muted); display:flex; gap:10px; flex-wrap:wrap; margin-top:4px}
+.svc-meta .rt{color:var(--ink)}
+.svc .short{margin:0; color:var(--muted); font-size:15px; line-height:1.5}
+.more-info{border-top:1px solid var(--line); padding-top:4px}
+.more-info summary{list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:10px 0; font-size:14px; font-weight:500}
+.more-info summary::-webkit-details-marker{display:none}
+.more-info summary::after{content:""; width:8px; height:8px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:translateY(-3px) rotate(45deg); transition:transform .2s}
+.more-info[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.more-info .cols{display:grid; grid-template-columns:1fr 1fr; gap:18px; padding:4px 0 8px}
+@media (max-width:420px){ .more-info .cols{grid-template-columns:1fr} }
+.svc h4{font:500 12px var(--font); color:var(--muted); margin:0 0 6px}
+.svc ul,.svc ol{margin:0; padding-left:18px; font-size:14px}
+.svc li{margin:3px 0}
+.svc .go{align-self:flex-start; font-size:13px; margin-left:8px}
+@media (prefers-reduced-motion:reduce){ .more-info summary::after{transition:none} }
+
+/* reviews */
+.filterbar{display:flex; justify-content:space-between; align-items:center; gap:12px 16px; flex-wrap:wrap; padding:8px; border:1px solid var(--line); border-radius:999px; background:var(--panel); margin-bottom:28px}
+@media (max-width:760px){ .filterbar{border-radius:22px; padding:10px} }
+.starfilter{display:flex; gap:4px; flex-wrap:wrap}
+.starfilter button{border:0; background:transparent; border-radius:999px; padding:9px 15px; cursor:pointer; font-size:14px; display:inline-flex; align-items:center; gap:6px}
+.starfilter button:hover{background:var(--panel-2)}
+.starfilter button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+.starfilter svg{width:13px; height:13px; fill:var(--accent)}
+.starfilter .n{font-size:12px; opacity:.6}
+.selects{display:flex; gap:8px; flex-wrap:wrap}
+.select{position:relative; display:inline-block}
+.select select{appearance:none; -webkit-appearance:none; background:var(--panel-2); border:0; border-radius:999px; padding:10px 38px 10px 16px; font-size:14px; cursor:pointer}
+.select::after{content:""; position:absolute; right:16px; top:50%; width:7px; height:7px; border-right:1.5px solid var(--muted); border-bottom:1.5px solid var(--muted); transform:translateY(-70%) rotate(45deg); pointer-events:none}
+.list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:start}
+@media (max-width:860px){ .list{grid-template-columns:1fr} }
+.list > .empty{grid-column:1/-1}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:22px; padding:26px; display:flex; flex-direction:column; gap:16px; transition:border-color .2s; min-width:0}
+.card:hover{border-color:var(--muted)}
+.card.mine{border-color:var(--accent)}
+.card .head{display:flex; align-items:center; gap:12px; min-width:0}
+.avatar{width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-weight:600; font-stretch:112%; background:var(--panel-2); border:1px solid var(--line); flex:none}
+.card .who{font-weight:600; line-height:1.3; overflow-wrap:anywhere}
+.card .sub{font-size:13px; color:var(--muted); overflow-wrap:anywhere}
+.card .head .stars{margin-left:auto; flex:none}
+.stars{display:inline-flex; gap:2px; vertical-align:middle}
+.stars svg{width:16px; height:16px}
+.stars .on{fill:var(--accent)} .stars .off{fill:var(--line)}
+.card .quote{margin:0; font-size:17px; line-height:1.8; white-space:pre-wrap; overflow-wrap:anywhere}
+.card .quote::before{content:"“"; display:block; font-size:46px; line-height:.55; color:var(--accent); margin-bottom:10px; font-stretch:125%}
+.card .quote.placeholder{color:var(--muted)}
+.chipline{display:flex; flex-wrap:wrap; gap:6px}
+.mchip{font-size:12px; padding:5px 11px; border-radius:999px; background:var(--panel-2); color:var(--muted); display:inline-flex; align-items:center; gap:5px}
+.mchip b{color:var(--ink); font-weight:600}
+.mchip.svc{background:transparent; border:1px solid var(--line); color:var(--ink)}
+.mchip.rec{background:var(--accent-soft); color:var(--ink)}
+.mchip.rec svg{width:12px; height:12px; stroke:var(--accent)}
+.card .foot{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px}
+.reply{background:var(--panel-2); border-radius:14px; padding:14px 16px; font-size:14.5px}
+.reply strong{display:flex; align-items:center; gap:8px; font-weight:600; margin-bottom:4px; font-size:13px}
+.reply strong i{width:8px; height:8px; border-radius:50%; background:var(--accent); flex:none}
+.reply p{margin:0; white-space:pre-wrap; overflow-wrap:anywhere; color:var(--muted)}
+.reply-form textarea{width:100%; min-height:84px; background:var(--panel)}
+.card .actions{display:flex; gap:14px; flex-wrap:wrap}
+.linkbtn{background:none; border:0; padding:0; color:var(--muted); text-decoration:underline; text-underline-offset:3px; cursor:pointer; font-size:13px}
+.linkbtn:hover{color:var(--ink)}
+.empty{border:1px dashed var(--line); border-radius:22px; padding:48px 24px; text-align:center}
+.empty h3{font-size:24px; margin-bottom:8px}
+.empty p{color:var(--muted); margin:0 0 20px}
+.notice{background:var(--accent-soft); border-radius:14px; padding:14px 18px; font-size:15px; margin-bottom:16px}
+.more{display:flex; justify-content:center; margin-top:28px}
+.more:empty{display:none}
+
+/* CTA band */
+.band{position:relative; overflow:hidden; border-radius:24px; background:radial-gradient(70% 90% at 80% 60%, #2B2B2B, #0A0A0A 70%); color:var(--night-ink); display:grid; grid-template-columns:1fr 1.2fr; align-items:center; min-height:380px}
+.band .copy{padding:56px 48px; position:relative; z-index:1}
+.band h2{font-size:clamp(32px,4.2vw,50px)}
+.band p{color:var(--night-muted); max-width:36ch; margin:18px 0 26px}
+.band .art{margin-right:-14%; align-self:end}
+.band .art svg{display:block; width:100%; height:auto}
+@media (max-width:760px){ .band{grid-template-columns:1fr} .band .copy{padding:36px 26px 0} .band .art{margin:0 -20% 0 10%} }
+
+/* write a review */
+.write-grid{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr); gap:24px; align-items:start}
+@media (max-width:900px){ .write-grid{grid-template-columns:1fr} }
+.write-aside{position:sticky; top:calc(env(safe-area-inset-top,0px) + 90px); background:radial-gradient(70% 55% at 30% 0%, #262626, #0A0A0A 70%); color:var(--night-ink); border:1px solid #1E1E1E; border-radius:28px; padding:36px 30px; display:flex; flex-direction:column; gap:28px}
+@media (max-width:900px){ .write-aside{position:static} }
+.write-aside h2{font-size:clamp(32px,3.6vw,46px)}
+.write-aside .lead{color:var(--night-muted); margin:12px 0 0}
+.steps{list-style:none; margin:0; padding:0}
+.steps li{display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--night-line); color:var(--night-muted); font-size:15px; transition:color .2s}
+.steps li:last-child{border-bottom:0}
+.steps .dotn{width:26px; height:26px; border-radius:50%; border:1px solid #3A3A3A; display:grid; place-items:center; font-size:12px; flex:none; transition:background .2s, border-color .2s}
+.steps .dotn svg{width:13px; height:13px; display:none}
+.steps li.done{color:var(--night-ink)}
+.steps li.done .dotn{background:#D9C7A3; border-color:#D9C7A3; color:#000}
+.steps li.done .dotn span{display:none}
+.steps li.done .dotn svg{display:block}
+.preview-label{font-size:13px; color:var(--night-muted); margin-bottom:10px}
+.write-aside .card{--ink:#F2F2F2; --muted:#8E8E8E; --line:#2A2A2A; --panel-2:#1A1A1A; --accent:#D9C7A3; --accent-soft:rgba(217,199,163,.14); background:#0F0F0F; color:var(--ink)}
+.write-aside .card:hover{border-color:var(--line)}
+.form-card{background:var(--panel); border:1px solid var(--line); border-radius:28px; padding:34px 36px}
+@media (max-width:600px){ .form-card{padding:24px 20px} }
+.progress{display:flex; align-items:center; gap:14px; font-size:13px; color:var(--muted); padding-bottom:8px}
+.progress .bar{flex:1; height:3px; background:var(--line); border-radius:2px; overflow:hidden}
+.progress .bar i{display:block; height:100%; width:0; background:var(--accent); transition:width .4s ease}
+fieldset.group{border:0; margin:0; padding:26px 0; border-bottom:1px solid var(--line); min-width:0}
+legend.g{display:flex; align-items:baseline; gap:12px; padding:0; margin-bottom:18px; font-stretch:125%; font-weight:500; font-size:21px; letter-spacing:-.015em; float:left; width:100%}
+legend.g + *{clear:both}
+legend .num{font-size:12px; color:var(--muted); font-stretch:100%; letter-spacing:0; width:22px; flex:none}
+legend .opt{font-size:13px; color:var(--muted); font-stretch:100%; font-weight:400; letter-spacing:0}
+.row2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px}
+@media (max-width:600px){ .row2{grid-template-columns:1fr} }
+label.f,.f-label{display:block; font-weight:500; margin-bottom:8px; font-size:14px}
+.hint{font-weight:400; color:var(--muted); font-size:13px}
+input[type=text],textarea{width:100%; background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:13px 15px; transition:border-color .2s}
+input[type=text]:focus,textarea:focus{border-color:var(--ink); outline:none}
+textarea{min-height:150px; resize:vertical}
+.star-input{display:flex; gap:6px}
+.star-input button{background:none; border:0; padding:2px; cursor:pointer; border-radius:10px}
+.star-input svg{width:46px; height:46px; transition:transform .15s}
+.star-input button:hover svg{transform:scale(1.08)}
+.star-input .on{fill:var(--accent)} .star-input .off{fill:var(--line)}
+.star-caption{color:var(--muted); font-size:14px; margin-top:8px; min-height:1.5em}
+.aspect-row{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:10px 0; border-bottom:1px solid var(--line)}
+.aspect-row:last-child{border-bottom:0; padding-bottom:0}
+.seg{display:inline-flex; gap:4px; background:var(--panel-2); border-radius:999px; padding:4px}
+.seg button{border:0; background:transparent; width:40px; height:34px; border-radius:999px; cursor:pointer; font-size:14px}
+.seg button:hover{background:var(--panel)}
+.seg button[aria-checked="true"]{background:var(--ink); color:var(--bg)}
+.count{font-size:12px; color:var(--muted); text-align:right; margin-top:6px}
+.switch{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:15px 18px; border:1px solid var(--line); border-radius:16px; margin-top:16px; cursor:pointer}
+.switch input{appearance:none; -webkit-appearance:none; width:46px; height:26px; border-radius:999px; background:var(--line); position:relative; cursor:pointer; flex:none; margin:0; transition:background .2s}
+.switch input::after{content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.3); transition:transform .2s}
+.switch input:checked{background:var(--accent)}
+.switch input:checked::after{transform:translateX(20px)}
+.submit-row{display:flex; flex-direction:column; gap:12px; padding-top:26px}
+.submit-row .btn{width:100%; padding:17px; font-size:16px}
+.submit-row #f-msg{text-align:center; min-height:1.5em}
+.err{color:var(--err); font-size:14px}
+.ok-msg{color:var(--ok); font-weight:500}
+@media (prefers-reduced-motion:reduce){ .star-input svg,.switch input,.switch input::after,.progress .bar i{transition:none} }
+
+/* contact */
+#contact{padding-top:96px}
+.contact-grid{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:24px; align-items:stretch}
+@media (max-width:900px){ .contact-grid{grid-template-columns:1fr} }
+.c-list{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+@media (max-width:600px){ .c-list{grid-template-columns:1fr} }
+.c-item{background:var(--panel); border:1px solid var(--line); border-radius:22px; padding:22px; display:flex; flex-direction:column; gap:14px; min-width:0}
+.c-icon{width:44px; height:44px; border-radius:50%; background:var(--ink); color:var(--bg); display:grid; place-items:center}
+.c-icon svg{width:20px; height:20px}
+.c-item h3{font:500 13px var(--font); color:var(--muted); margin:0; letter-spacing:0}
+.c-value{font-stretch:112%; font-weight:500; font-size:18px; line-height:1.6; overflow-wrap:anywhere}
+.c-value.missing{color:var(--muted); font-weight:400; font-size:15px; font-stretch:100%}
+.c-item .btn{align-self:flex-start; margin-top:auto}
+.c-item a.btn[aria-disabled="true"]{opacity:.4; pointer-events:none}
+.hours{background:radial-gradient(70% 55% at 30% 0%, #262626, #0A0A0A 70%); color:var(--night-ink); border:1px solid #1E1E1E; border-radius:28px; padding:30px; display:flex; flex-direction:column; gap:20px}
+.hours .top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+.hours h3{font-size:24px}
+.open-pill{display:inline-flex; align-items:center; gap:8px; font-size:13px; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.08)}
+.open-pill i{width:8px; height:8px; border-radius:50%; background:#7BC79B; box-shadow:0 0 10px #7BC79B}
+.open-pill.closed i{background:#FF8A7A; box-shadow:0 0 10px #FF8A7A}
+.hours table{width:100%; border-collapse:collapse; font-size:15px}
+.hours td{padding:10px 0; border-bottom:1px solid var(--night-line); color:var(--night-muted)}
+.hours tr:last-child td{border-bottom:0}
+.hours td:last-child{text-align:right; font-variant-numeric:tabular-nums}
+.hours tr.today td{color:var(--night-ink); font-weight:600}
+.hours .note{font-size:13px; color:var(--night-muted); margin:0}
+.always{display:flex; flex-direction:column; gap:10px; flex:1; justify-content:center; padding:8px 0}
+.always[hidden],#hours-table[hidden]{display:none}
+.always b{font-stretch:125%; font-weight:500; font-size:clamp(72px,9vw,112px); line-height:1; letter-spacing:-.04em; background:linear-gradient(180deg,#FFFFFF,#D9C7A3); -webkit-background-clip:text; background-clip:text; color:transparent}
+.always p{margin:0; color:var(--night-muted)}
+.week{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:8px}
+.week span{text-align:center; padding:8px 0; border-radius:10px; background:rgba(217,199,163,.12); color:#D9C7A3; font-size:14px; border:1px solid rgba(217,199,163,.25)}
+.week span.today{background:#D9C7A3; color:#000; font-weight:600}
+.callbar{display:none}
+@media (max-width:760px){
+  .callbar.show{display:flex; position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px)); z-index:6; gap:8px; padding:8px; border-radius:999px; background:rgba(0,0,0,.85); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border:1px solid #262626}
+  .callbar a{flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:999px; text-decoration:none; font-weight:500; font-size:15px; color:#F2F2F2}
+  .callbar a.primary{background:#F2F2F2; color:#000}
+  .callbar svg{width:18px; height:18px}
+  body.has-callbar footer{padding-bottom:96px}
+}
+
+footer{background:var(--night); color:var(--night-muted); padding:64px 0 28px; font-size:14px; margin-top:96px}
+footer .cols{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:32px; padding-bottom:40px; border-bottom:1px solid var(--night-line)}
+footer .fbrand{font-stretch:125%; font-weight:600; color:var(--night-ink); font-size:17px; margin-bottom:10px}
+footer h4{font:500 13px var(--font); color:var(--night-muted); margin:0 0 12px}
+footer a{display:block; color:var(--night-ink); text-decoration:none; margin:6px 0}
+footer a:hover{text-decoration:underline}
+footer .base{display:flex; justify-content:space-between; gap:16px; padding-top:22px; flex-wrap:wrap}
+@media (max-width:760px){ footer .cols{grid-template-columns:1fr 1fr} footer .cols > :first-child{grid-column:1/-1} }
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top"><i aria-hidden="true"></i>Heng Auto Service</a>
+    <nav aria-label="ម៉ឺនុយមេ">
+      <a href="#services">សេវាកម្ម</a>
+      <a href="#rating">ការវាយតម្លៃ</a>
+      <a href="#reviews">មតិអតិថិជន</a>
+      <a href="#contact">ទំនាក់ទំនង</a>
+    </nav>
+    <div class="right">
+      <button type="button" class="lang-btn" id="lang-btn" data-noi18n aria-label="ភាសា / Language"><span data-l="km">ខ្មែរ</span><span data-l="en">EN</span></button>
+      <button type="button" class="theme-btn" id="theme-btn" aria-label="ប្តូររបៀបពណ៌">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="pill" href="#write">សរសេរមតិ</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="slider-sec" aria-roledescription="ផ្ទាំងស្លាយ" aria-label="សេវាកម្មពិសេស">
+    <div class="wrap">
+      <div class="slider" id="slider">
+        <div class="track" id="track" aria-live="off"></div>
+        <div class="slider-ui">
+          <div class="dots"><span id="dots" class="dots"></span><span class="counter" id="counter" aria-hidden="true"></span></div>
+          <div class="arrows">
+            <button type="button" class="arrow" id="prev" aria-label="ស្លាយមុន"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="arrow" id="pause" aria-label="ផ្អាកស្លាយ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="pause-icon"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+            <button type="button" class="arrow" id="next" aria-label="ស្លាយបន្ទាប់"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="stats" id="stats" role="group" aria-label="ស្ថិតិអ្នកទស្សនា">
+        <div class="stat"><span class="odo" id="st-views">–</span><span class="stat-label">ចំនួនចូលមើលសរុប</span></div>
+        <div class="stat"><span class="odo" id="st-unique">–</span><span class="stat-label">អ្នកទស្សនាផ្សេងៗគ្នា</span></div>
+        <div class="stat"><span class="odo" id="st-today">–</span><span class="stat-label">អ្នកទស្សនាថ្ងៃនេះ</span></div>
+        <div class="stat live"><span class="odo" id="st-online">–</span><span class="stat-label"><i class="live-dot" aria-hidden="true"></i>កំពុងមើលឥឡូវនេះ</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="intro">
+        <h2>យើងជួសជុលអ្វីខ្លះ និងជួសជុលយ៉ាងដូចម្តេច</h2>
+        <p>សេវាកម្មនីមួយៗចាប់ផ្តើមពីបញ្ហាដែលអ្នកសង្កេតឃើញ។ យើងបង្ហាញគ្រឿងដែលរេចរឹលដល់អ្នក ហើយប្រាប់តម្លៃមុនពេលចាប់ផ្តើមការងារ។</p>
+      </div>
+      <div class="finder">
+        <h3>ឡានរបស់អ្នកមានបញ្ហាអ្វី?</h3>
+        <div class="chips" id="symptoms"></div>
+        <p class="finder-result" id="finder-result" role="status" aria-live="polite"></p>
+      </div>
+      <div class="svc-grid" id="svc-grid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="rating" style="padding-top:0">
+    <div class="wrap">
+      <div class="intro">
+        <h2>វាយតម្លៃដោយអតិថិជនដែលបើកឡានចេញពីយើង</h2>
+        <p id="reviews-summary">ពិន្ទុនីមួយៗនៅទីនេះ មកពីអតិថិជនដែលបានមកយកឡានពីរោងជាងរបស់យើង។</p>
+      </div>
+      <div class="dash">
+        <div class="gauge-cell">
+          <svg class="gauge" viewBox="0 0 300 236" role="img" aria-labelledby="gauge-title">
+            <title id="gauge-title">ការវាយតម្លៃមធ្យមរបស់អតិថិជន</title>
+            <defs>
+              <linearGradient id="gfill" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#7A6A4F"/><stop offset=".7" stop-color="#D9C7A3"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+              <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="300" height="236"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path class="track-arc" fill="none" stroke-width="10" stroke-linecap="round" id="g-track"/>
+            <path fill="none" stroke="url(#gfill)" stroke-width="10" stroke-linecap="round" id="g-fill" filter="url(#glow)"/>
+            <g id="g-ticks"></g>
+            <g class="needle" id="g-needle" style="transform:rotate(-120deg)" filter="url(#glow)">
+              <line x1="150" y1="164" x2="150" y2="58" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            <circle class="hub-ring" cx="150" cy="150" r="13" stroke-width="1"/>
+            <circle class="hub" cx="150" cy="150" r="6"/>
+            <text class="avg" x="150" y="214" text-anchor="middle" id="g-avg">–</text>
+          </svg>
+          <div class="under"><span id="g-stars"></span><span class="sub" id="g-sub">កំពុងផ្ទុកមតិ…</span></div>
+        </div>
+        <div class="tiles">
+          <div class="tile"><h3>ចំនួនមតិ</h3><div class="big" id="s-count">–</div></div>
+          <div class="tile"><h3>នឹងណែនាំយើងទៅអ្នកដទៃ</h3><div class="rec"><svg class="ring" viewBox="0 0 70 70" aria-hidden="true"><circle class="bg" cx="35" cy="35" r="28" fill="none" stroke-width="4"/><circle class="fg" id="ring-rec" cx="35" cy="35" r="28" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"/></svg><div class="big" id="s-rec">–</div></div></div>
+          <div class="tile wide"><h3>ពិន្ទុតាមផ្នែក</h3><div class="rings"><div class="mini"><div class="wrap-ring"><svg class="ring" viewBox="0 0 70 70" aria-hidden="true"><circle class="bg" cx="35" cy="35" r="30" fill="none" stroke-width="4"/><circle class="fg" id="ring-quality" cx="35" cy="35" r="30" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="188.50" stroke-dashoffset="188.50"/></svg><b id="a-quality">–</b></div><span>គុណភាពការងារ</span></div><div class="mini"><div class="wrap-ring"><svg class="ring" viewBox="0 0 70 70" aria-hidden="true"><circle class="bg" cx="35" cy="35" r="30" fill="none" stroke-width="4"/><circle class="fg" id="ring-price" cx="35" cy="35" r="30" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="188.50" stroke-dashoffset="188.50"/></svg><b id="a-price">–</b></div><span>តម្លៃសមរម្យ</span></div><div class="mini"><div class="wrap-ring"><svg class="ring" viewBox="0 0 70 70" aria-hidden="true"><circle class="bg" cx="35" cy="35" r="30" fill="none" stroke-width="4"/><circle class="fg" id="ring-time" cx="35" cy="35" r="30" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="188.50" stroke-dashoffset="188.50"/></svg><b id="a-time">–</b></div><span>រួចរាល់ទាន់ពេល</span></div></div></div>
+          <div class="tile wide latest"><h3>មតិចុងក្រោយ</h3><div id="latest"><p class="none">មតិនឹងបង្ហាញនៅទីនេះ។</p></div></div>
+        </div>
+      </div>
+      <div class="rating-ctas">
+        <p>ពិន្ទុធ្វើបច្ចុប្បន្នភាពភ្លាមៗ នៅពេលអតិថិជនបង្ហោះមតិ។</p>
+        <div class="ctas"><a class="btn btn-solid" href="#write">សរសេរមតិ</a><a class="btn btn-line" href="#reviews">អានមតិទាំងអស់</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="reviews" style="padding-top:0">
+    <div class="wrap">
+      <div class="intro">
+        <h2>អតិថិជននិយាយអ្វីខ្លះ</h2>
+        <p>មតិពិតពីអតិថិជន ជាមួយការឆ្លើយតបពីក្រុមជាងរបស់យើង។ អាចត្រងតាមចំនួនផ្កាយ ឬតាមសេវាកម្មដែលពួកគេបានប្រើ។</p>
+      </div>
+      <div class="filterbar">
+        <div class="starfilter" id="dist" aria-label="ត្រងតាមចំនួនផ្កាយ"></div>
+        <div class="selects">
+          <label class="select"><span class="sr">សេវាកម្ម</span><select id="service-filter"></select></label>
+          <label class="select"><span class="sr">តម្រៀបតាម</span>
+            <select id="sort">
+              <option value="new">ថ្មីបំផុតមុន</option>
+              <option value="high">ពិន្ទុខ្ពស់បំផុត</option>
+              <option value="low">ពិន្ទុទាបបំផុត</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="status" role="status" aria-live="polite"></div>
+      <div class="list" id="list"></div>
+      <div class="more" id="more"></div>
+    </div>
+  </section>
+
+  <section style="padding:0 0 96px">
+    <div class="wrap">
+      <div class="band">
+        <div class="copy">
+          <h2>ទើបតែមកយកឡានពីយើងមែនទេ?</h2>
+          <p>ប្រាប់យើងថាឡានបើកយ៉ាងម៉េចឥឡូវនេះ។ ចំណាយពេលប្រហែលមួយនាទីប៉ុណ្ណោះ ហើយក្រុមជាងរបស់យើងអានរាល់មតិទាំងអស់។</p>
+          <a class="go" href="#write">សរសេរមតិ <svg class="arrow-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div>
+        <div class="art" id="band-art"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="write">
+    <div class="wrap">
+      <div class="write-grid">
+        <aside class="write-aside">
+          <div><h2 id="form-title">សរសេរមតិ</h2><p class="lead">ចំណាយពេលប្រហែលមួយនាទី ហើយអ្នកអាចត្រឡប់មកកែប្រែវាវិញបានគ្រប់ពេល។</p></div>
+          <ol class="steps" id="steps">
+            <li data-step="rating"><span class="dotn"><span>1</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>ដាក់ពិន្ទុលើការមកលើកនេះ</li>
+            <li data-step="visit"><span class="dotn"><span>2</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>ប្រាប់យើងថាយើងបានជួសជុលអ្វី</li>
+            <li data-step="body"><span class="dotn"><span>3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>ប្រាប់ពីស្ថានភាពឡានរបស់អ្នកឥឡូវនេះ</li>
+          </ol>
+          <div><div class="preview-label">មើលជាមុន</div><div id="preview" aria-hidden="true"></div></div>
+        </aside>
+        <form class="form-card" id="form" novalidate>
+          <div class="progress"><span id="prog-text">បានបំពេញ 0 ក្នុងចំណោម 3 ជំហាន</span><div class="bar"><i id="prog-bar"></i></div></div>
+          <fieldset class="group">
+            <legend class="g" id="rating-label"><span class="num">01</span>ពិន្ទុរួម</legend>
+            <div class="star-input" id="star-input" role="radiogroup" aria-labelledby="rating-label"></div>
+            <div class="star-caption" id="star-caption">ចុចលើផ្កាយដើម្បីដាក់ពិន្ទុ។</div>
+          </fieldset>
+          <fieldset class="group">
+            <legend class="g"><span class="num">02</span>អំពីការមកលើកនេះ</legend>
+            <div class="row2">
+              <div><label class="f" for="f-name">ឈ្មោះរបស់អ្នក <span class="hint">បង្ហាញលើមតិ</span></label><input type="text" id="f-name" maxlength="40" autocomplete="given-name" placeholder="ឧ. ដារ៉ា"></div>
+              <div><label class="f" for="f-car">ឡានរបស់អ្នក <span class="hint">មិនចាំបាច់</span></label><input type="text" id="f-car" maxlength="40" placeholder="ឧ. Toyota Camry ឆ្នាំ 2018"></div>
+            </div>
+            <span class="f-label" id="svc-label">យើងបានជួសជុលអ្វី?</span>
+            <div class="chips" id="svc-input" role="radiogroup" aria-labelledby="svc-label"></div>
+          </fieldset>
+          <fieldset class="group">
+            <legend class="g"><span class="num">03</span>ដាក់ពិន្ទុតាមផ្នែក <span class="opt">មិនចាំបាច់ · 1 ខ្សោយ ដល់ 5 ល្អបំផុត</span></legend>
+            <div id="aspect-inputs"></div>
+          </fieldset>
+          <fieldset class="group" style="border-bottom:0">
+            <legend class="g"><span class="num">04</span>មតិរបស់អ្នក</legend>
+            <label class="sr" for="f-body">មតិរបស់អ្នក</label>
+            <textarea id="f-body" maxlength="800" placeholder="តើមានបញ្ហាអ្វី? យើងដោះស្រាយយ៉ាងដូចម្តេច? ហើយឥឡូវនេះឡានដំណើរការយ៉ាងណា?"></textarea>
+            <div class="count" id="f-count">0 / 800</div>
+            <label class="switch"><span>ខ្ញុំនឹងណែនាំ Heng Auto Service ទៅមិត្តភក្តិ</span><input type="checkbox" id="f-rec" checked></label>
+          </fieldset>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-solid" id="f-submit">បង្ហោះមតិ</button>
+            <span id="f-msg" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="contact">
+    <div class="wrap">
+      <div class="intro">
+        <h2>ទំនាក់ទំនង និងមកលេងយើង</h2>
+        <p>ទូរស័ព្ទ ឬផ្ញើសារមកយើង ដើម្បីកក់សេវាកម្ម សួរអំពីការជួសជុល ឬសុំតម្លៃ។ អាចមកផ្ទាល់បានគ្រប់ពេល ទាំងថ្ងៃ និងយប់ ដោយមិនចាំបាច់កក់ទុក។</p>
+      </div>
+      <div class="contact-grid">
+        <div class="c-list" id="c-list"></div>
+        <div class="hours">
+          <div class="top"><h3>ម៉ោងធ្វើការ</h3><span class="open-pill" id="open-pill"><i aria-hidden="true"></i><span></span></span></div>
+          <div class="always" id="always" hidden><b>24/7</b><p>បើក 24 ម៉ោង ពីថ្ងៃច័ន្ទ ដល់ថ្ងៃអាទិត្យ មិនឈប់សម្រាក។</p><div class="week" id="week" aria-hidden="true"></div></div>
+          <table id="hours-table"><tbody id="hours-rows"></tbody></table>
+          <p class="note">ឡានខូចពេលយប់ ឬថ្ងៃចុងសប្តាហ៍? ទូរស័ព្ទមកយើងបានគ្រប់ពេល។</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<nav class="callbar" id="callbar" aria-label="ទំនាក់ទំនងរហ័ស"></nav>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><div class="fbrand">Heng Auto Service</div>សេវាថែទាំ ជួសជុល និងពិនិត្យរកបញ្ហាសម្រាប់គ្រប់ម៉ាកឡាន ដោយប្រាប់តម្លៃមុនចាប់ផ្តើមការងារ។</div>
+      <div><h4>គេហទំព័រ</h4><a href="#services">សេវាកម្ម</a><a href="#rating">ការវាយតម្លៃ</a><a href="#reviews">មតិអតិថិជន</a></div>
+      <div><h4>ទំនាក់ទំនង</h4><div id="foot-contact"></div></div>
+      <div><h4>អតិថិជន</h4><a href="#write">សរសេរមតិ</a><a href="#services">ស្វែងរកបញ្ហារបស់អ្នក</a></div>
+    </div>
+    <div class="base"><span>© 2026 Heng Auto Service</span><span>មតិត្រូវបានបង្ហោះដោយអតិថិជន ហើយឆ្លើយតបដោយក្រុមរបស់យើង។</span></div>
+  </div>
+</footer>
+
+<script>
+
+(function(){
+  const SERVICES = ["Oil & filter","Brakes","Engine","Tires & alignment","Air conditioning","Electrical","Body & paint","Diagnostics","General service"];
+  const ASPECTS = [["quality","គុណភាពការងារ"],["price","តម្លៃសមរម្យ"],["time","រួចរាល់ទាន់ពេល"]];
+  let LANG = "km";
+  try{ if(localStorage.getItem("lang")==="en") LANG = "en"; }catch(e){}
+  const DICT = {"ប្រេង និងតម្រងថ្មី ដើម្បីឱ្យម៉ាស៊ីនដំណើរការរលូន និងស្ងាត់។": "Fresh oil and filter to keep your engine smooth and quiet.", "ប្រហែល 30 នាទី": "About 30 minutes", "ភ្លើងព្រមានប្រេងឆេះ": "Oil warning light comes on", "ម៉ាស៊ីនឮខ្លាំងជាងមុន ឬមានសំឡេងគោះ": "Engine sounds louder or ticks", "បានបើក 5,000–10,000 គ.ម. ក្រោយការប្តូរប្រេងចុងក្រោយ": "It’s been 5,000–10,000 km since the last change", "ប្រេងលើដំបងវាស់មានពណ៌ខ្មៅ និងកករ": "Oil on the dipstick is dark and gritty", "បង្ហូរប្រេងចាស់ចេញ": "Drain the old oil", "ដាក់តម្រងប្រេងថ្មី": "Fit a new oil filter", "ចាក់ប្រេងថ្មីតាមប្រភេទដែលម៉ាស៊ីនត្រូវការ": "Refill with the grade your engine needs", "បំពេញទឹកផ្សេងៗ និងកំណត់ភ្លើងសេវាឡើងវិញ": "Top up other fluids and reset the service light", "សម្រាប់ហ្វ្រាំងមានសំឡេងស្រែក កកិត ឬឈ្នាន់ហ្វ្រាំងទន់។": "For squealing, grinding, or a soft brake pedal.", "1–2 ម៉ោង": "1–2 hours", "មានសំឡេងស្រែក ឬកកិតពេលជាន់ហ្វ្រាំង": "Squealing or grinding when you brake", "ឈ្នាន់ហ្វ្រាំងទន់ ឬលិចចុះ": "Pedal feels soft or sinks", "ឡានទាញទៅម្ខាងពេលឈប់": "Car pulls to one side when stopping", "ចង្កូតញ័រពេលជាន់ហ្វ្រាំង": "Steering wheel shakes when braking", "វាស់កម្រិតស៊ីសំបកហ្វ្រាំង និងថាស": "Measure pad and disc wear", "បង្ហាញគ្រឿងដែលរេចរឹលដល់អ្នក": "Show you the worn parts", "ប្តូរសំបកហ្វ្រាំង ឬថាសតាមតម្រូវការ": "Replace pads or discs as needed", "បង្ហូរខ្យល់ និងប្តូរប្រេងហ្វ្រាំង": "Bleed and refresh the brake fluid", "សាកល្បងបើកមុនប្រគល់ឡាន": "Road test before handover", "សម្រាប់ភ្លើងព្រមាន ម៉ាស៊ីនញ័រ ឬខ្សោយកម្លាំង។": "For warning lights, rough idling, or lost power.", "កន្លះថ្ងៃ ដល់ 3 ថ្ងៃ": "Half a day to 3 days", "ភ្លើងព្រមានម៉ាស៊ីន (Check Engine) ឆេះ": "Check engine light is on", "ម៉ាស៊ីនញ័រពេលឈប់នៅនឹងកន្លែង": "Rough idle or shaking at stops", "ខ្សោយកម្លាំងពេលឡើងទួល ឬវ៉ាជែង": "Loss of power when climbing or overtaking", "ម៉ាស៊ីនក្តៅខ្លាំង ឬចេញផ្សែងស": "Overheating or white smoke", "ស្កេនកុំព្យូទ័ររកកូដកំហុស": "Computer scan for fault codes", "ពិនិត្យប៊ូហ្ស៊ី ប្រព័ន្ធឆេះ ខ្សែពាន និងប្រព័ន្ធត្រជាក់": "Check plugs, ignition, belts and cooling", "ប្រាប់តម្លៃជួសជុលមុនចាប់ផ្តើម": "Quote the repair before starting", "ជួសជុល ឬប្តូរគ្រឿងដែលខូច": "Repair or replace the faulty parts", "ស្កេនម្តងទៀតដើម្បីបញ្ជាក់ថាបញ្ហាបានបាត់": "Re-scan to confirm the fault is gone", "សម្រាប់ឡានរេ ញ័រ ឬកង់ស៊ីមិនស្មើគ្នា។": "For drifting, shaking, or tires wearing unevenly.", "ប្រហែល 1 ម៉ោង": "About 1 hour", "ឡានរេទៅឆ្វេង ឬស្តាំលើផ្លូវត្រង់": "Car drifts left or right on a straight road", "ចង្កូតមិននៅចំកណ្តាល": "Steering wheel sits off-centre", "កង់ស៊ីតែម្ខាង": "Tires wearing on one edge", "ញ័រពេលបើកលឿន": "Vibration at higher speeds", "ពិនិត្យជម្រៅផ្ទៃកង់ និងសម្ពាធខ្យល់": "Check tread depth and pressure", "ប៉ះកង់ធ្លុះ ឬដាក់កង់ថ្មី": "Repair punctures or fit new tires", "ថ្លឹងតុល្យភាពកង់": "Balance the wheels", "តម្រឹមកង់ដោយម៉ាស៊ីនរបស់យើង": "Set wheel alignment on our machine", "សម្រាប់ខ្យល់ក្តៅ ខ្យល់ខ្សោយ ឬមានក្លិនស្អុយ។": "For warm air, weak airflow, or a musty smell.", "ម៉ាស៊ីនត្រជាក់បញ្ចេញខ្យល់ក្តៅ ឬមិនសូវត្រជាក់": "A/C blows warm or only cool, not cold", "មានក្លិនផ្សិតចេញពីរន្ធខ្យល់": "Musty smell from the vents", "ខ្យល់ខ្សោយ ទោះបីបើកពេញ": "Weak airflow even on full", "មានសំឡេងគោះ ឬរញ្ជួយពេលបើកម៉ាស៊ីនត្រជាក់": "Clicking or rattling when A/C is on", "ពិនិត្យរកការលេចហ្គាស": "Test for gas leaks", "បញ្ចូលហ្គាសត្រជាក់": "Recharge the refrigerant", "ប្តូរតម្រងខ្យល់ក្នុងឡាន": "Replace the cabin air filter", "សម្អាតទូត្រជាក់ (Evaporator) និងពិនិត្យកុំប្រេសឺរ": "Clean the evaporator and check the compressor", "សម្រាប់អាគុយអស់ ឡានឆេះយឺត និងភ្លើងភ្លឹបភ្លែត។": "For flat batteries, slow starts, and flickering lights.", "ចាប់ពី 1 ម៉ោង": "1 hour and up", "ឡានមិនឆេះ ឬឆេះយឺត": "Won’t start or slow to start", "អាគុយអស់ញឹកញាប់": "Battery keeps going flat", "ភ្លើងភ្លឹបភ្លែត ឬស្រអាប់": "Lights flicker or dim", "កញ្ចក់ សោ ឬនាឡិកាលើផ្ទាំងបញ្ជាលែងដំណើរការ": "Windows, locks or gauges stop working", "តេស្តអាគុយ ឌីណាម៉ូសាក និងម៉ូទ័រឆេះ": "Test the battery, alternator and starter", "តាមរកខ្សែភ្លើងដែលខូច": "Trace the faulty circuit", "ប្តូរអាគុយ ហ្វុយស៊ីប ឬគ្រឿងដែលខូច": "Replace the battery, fuse or failed part", "ពិនិត្យថាអ្វីៗដំណើរការល្អមុនប្រគល់ឡាន": "Check everything works before handover", "សម្រាប់ស្នាមផត ស្នាមកោស ច្រេះ និងការខូចខាតពីគ្រោះថ្នាក់។": "For dents, scratches, rust, and accident damage.", "1–5 ថ្ងៃ": "1–5 days", "ស្នាមផតពីការបុក ឬប៉ះពេលចត": "Dents from a bump or parking knock", "ស្នាមកោសដល់ថ្នាំ": "Scratches through the paint", "ច្រេះប៉ោងលើតួឡាន": "Rust bubbles on panels", "ខូចខាតពីគ្រោះថ្នាក់": "Accident damage", "វាយតម្លៃការខូចខាត និងប្រាប់តម្លៃ": "Assess the damage and quote", "ទាញស្នាមផតចេញ ឬប្តូរបន្ទះតួ": "Pull out dents or replace the panel", "លាយពណ៌ឱ្យដូចដើម ហើយបាញ់ថ្នាំ": "Colour-match and spray the paint", "ប៉ូលាឱ្យស្នាមជួសជុលលាយចូលគ្នា": "Polish so the repair blends in", "ស្វែងរកមូលហេតុនៃភ្លើងព្រមាន ឬសំឡេងចម្លែក។": "Find the cause of a warning light or a strange noise.", "ប្រហែល 45 នាទី": "About 45 minutes", "ភ្លើងព្រមានដែលអ្នកមិនស្គាល់": "A warning light you don’t recognise", "សំឡេងដែលរកមិនឃើញថាមកពីណា": "A noise you can’t place", "មានអារម្មណ៍ថាឡានខុសពីមុន": "The car just feels different", "ចង់ពិនិត្យមុនទិញឡានមួយទឹក": "You want a check before buying a used car", "ភ្ជាប់ម៉ាស៊ីនស្កេនកុំព្យូទ័រ": "Plug in the computer scanner", "សាកល្បងបើកជាមួយជាង": "Road test with a mechanic", "ផ្តល់របាយការណ៍ជាលាយលក្ខណ៍អក្សរ": "Give you a written report", "ប្រាប់តម្លៃជួសជុល ដោយមិនបង្ខំឱ្យកក់": "Quote any repair, with no pressure to book", "ការពិនិត្យពេញលេញលើអ្វីៗដែលធ្វើឱ្យអ្នកមានសុវត្ថិភាព។": "A full check-up of everything that keeps you safe.", "2–3 ម៉ោង": "2–3 hours", "ដល់ពេលថែទាំតាមកាលវិភាគ": "Your scheduled service is due", "ជិតធ្វើដំណើរឆ្ងាយ": "A long trip is coming up", "មួយឆ្នាំហើយមិនទាន់មាននរណាពិនិត្យ": "It’s been a year since anyone looked at it", "ពិនិត្យសុវត្ថិភាពច្រើនចំណុច": "Multi-point safety check", "ប្តូរប្រេង តម្រង និងទឹកផ្សេងៗ": "Change oil, filters and fluids", "ពិនិត្យហ្វ្រាំង កង់ ភ្លើង និងដៃជូតកញ្ចក់": "Check brakes, tires, lights and wipers", "ប្រគល់បញ្ជីអ្វីដែលយើងបានរកឃើញ": "Hand you a checklist of what we found", "ហ្វ្រាំងមានសំឡេងស្រែក ឬកកិត": "Squealing or grinding brakes", "ភ្លើងព្រមានឆេះលើផ្ទាំងបញ្ជា": "Warning light on the dash", "ម៉ាស៊ីនត្រជាក់បញ្ចេញខ្យល់ក្តៅ": "A/C blows warm air", "ឡានទាញទៅម្ខាង": "Car pulls to one side", "ម៉ាស៊ីនក្តៅខ្លាំង": "Engine overheating", "ហួសពេលប្តូរប្រេង": "Oil change overdue", "ស្នាមផត ស្នាមកោស ឬច្រេះ": "Dents, scratches or rust", "សំឡេងចម្លែកដែលរកមិនឃើញ": "A noise I can’t place", "ជួសជុលត្រឹមត្រូវតាំងពីលើកដំបូង": "Fixed right the first time", "សេវាថែទាំ ជួសជុល និងពិនិត្យរកបញ្ហាសម្រាប់គ្រប់ម៉ាកឡាន ដោយប្រាប់តម្លៃច្បាស់លាស់មុនចាប់ផ្តើមការងារ។": "Servicing, repairs and diagnostics for every make, with a clear quote before any work starts.", "មើលសេវាកម្មទាំងអស់": "See all services", "ហ្វ្រាំងឈប់ល្អដូចថ្មី": "Brakes that stop like new", "យើងវាស់សំបកហ្វ្រាំង និងថាស បង្ហាញអ្នកនូវអ្វីដែលរេចរឹល ហើយប្តូរតែអ្វីដែលចាំបាច់ប៉ុណ្ណោះ។": "We measure your pads and discs, show you what’s worn, and replace only what needs it.", "របៀបជួសជុលហ្វ្រាំង": "How we fix brakes", "ម៉ាស៊ីនត្រជាក់ត្រជាក់ ទោះថ្ងៃក្តៅបំផុត": "Cold A/C on the hottest day", "ពិនិត្យការលេច បញ្ចូលហ្គាស និងប្តូរតម្រងខ្យល់ថ្មី ជាធម្មតារួចរាល់ខណៈអ្នករង់ចាំ។": "Leak test, gas recharge and a fresh cabin filter, usually done while you wait.", "របៀបជួសជុលម៉ាស៊ីនត្រជាក់": "How we fix A/C", "ភ្លើងព្រមានឆេះឡើង?": "A warning light came on?", "ការស្កេនកុំព្យូទ័ររបស់យើងរកឃើញមូលហេតុក្នុងរយៈពេលមិនដល់មួយម៉ោង ហើយអ្នកទទួលបានរបាយការណ៍ជាលាយលក្ខណ៍អក្សរ។": "Our computer scan finds the cause in under an hour, and you get a written report.", "អំពីការពិនិត្យរកបញ្ហា": "About diagnostics", "ខ្សោយ – មិនបានជួសជុលត្រឹមត្រូវ": "Poor – it wasn’t fixed properly", "ទាបជាងការរំពឹងទុក": "Below what I expected", "មធ្យម": "Okay", "ការងារល្អ": "Good work", "ល្អបំផុត – ឡានដូចថ្មី": "Excellent – car runs like new", "គុណភាពការងារ": "Workmanship", "តម្លៃសមរម្យ": "Fair price", "រួចរាល់ទាន់ពេល": "Ready on time", "ប្តូរប្រេងម៉ាស៊ីន និងតម្រង": "Oil & filter", "ហ្វ្រាំង": "Brakes", "ម៉ាស៊ីន": "Engine", "កង់ និងតម្រឹមកង់": "Tires & alignment", "ម៉ាស៊ីនត្រជាក់": "Air conditioning", "ប្រព័ន្ធអគ្គិសនី": "Electrical", "តួឡាន និងថ្នាំលាប": "Body & paint", "ពិនិត្យរកបញ្ហា": "Diagnostics", "ថែទាំទូទៅ": "General service", "ម៉ឺនុយមេ": "Main menu", "សេវាកម្ម": "Services", "ការវាយតម្លៃ": "Rating", "មតិអតិថិជន": "Reviews", "ទំនាក់ទំនង": "Contact", "ប្តូររបៀបពណ៌": "Change color mode", "សរសេរមតិ": "Write a review", "ផ្ទាំងស្លាយ": "carousel", "សេវាកម្មពិសេស": "Featured services", "ស្លាយមុន": "Previous slide", "ផ្អាកស្លាយ": "Pause slideshow", "ចាក់ស្លាយ": "Play slideshow", "ស្លាយបន្ទាប់": "Next slide", "ស្លាយ": "slide", "យើងជួសជុលអ្វីខ្លះ និងជួសជុលយ៉ាងដូចម្តេច": "What we fix, and how", "សេវាកម្មនីមួយៗចាប់ផ្តើមពីបញ្ហាដែលអ្នកសង្កេតឃើញ។ យើងបង្ហាញគ្រឿងដែលរេចរឹលដល់អ្នក ហើយប្រាប់តម្លៃមុនពេលចាប់ផ្តើមការងារ។": "Every service starts with the problem you notice. We show you the worn part and give you a quote before any work begins.", "ឡានរបស់អ្នកមានបញ្ហាអ្វី?": "What’s wrong with your car?", "វាយតម្លៃដោយអតិថិជនដែលបើកឡានចេញពីយើង": "Rated by the people who drive away", "ពិន្ទុនីមួយៗនៅទីនេះ មកពីអតិថិជនដែលបានមកយកឡានពីរោងជាងរបស់យើង។": "Every score here comes from a customer who picked up their car from our workshop.", "ការវាយតម្លៃមធ្យមរបស់អតិថិជន": "Average customer rating", "កំពុងផ្ទុកមតិ…": "Loading reviews…", "ចំនួនមតិ": "Reviews", "នឹងណែនាំយើងទៅអ្នកដទៃ": "Would recommend us", "ពិន្ទុតាមផ្នែក": "Scores by area", "មតិចុងក្រោយ": "Latest review", "មតិនឹងបង្ហាញនៅទីនេះ។": "Reviews will appear here.", "ពិន្ទុធ្វើបច្ចុប្បន្នភាពភ្លាមៗ នៅពេលអតិថិជនបង្ហោះមតិ។": "Scores update live as customers post reviews.", "អានមតិទាំងអស់": "Read all reviews", "អតិថិជននិយាយអ្វីខ្លះ": "What customers say", "មតិពិតពីអតិថិជន ជាមួយការឆ្លើយតបពីក្រុមជាងរបស់យើង។ អាចត្រងតាមចំនួនផ្កាយ ឬតាមសេវាកម្មដែលពួកគេបានប្រើ។": "Real reviews from customers, with replies from our workshop team. Filter by stars or by the service they had.", "ត្រងតាមចំនួនផ្កាយ": "Filter by star rating", "តម្រៀបតាម": "Sort by", "ថ្មីបំផុតមុន": "Newest first", "ពិន្ទុខ្ពស់បំផុត": "Highest rated", "ពិន្ទុទាបបំផុត": "Lowest rated", "ទើបតែមកយកឡានពីយើងមែនទេ?": "Picked up your car from us lately?", "ប្រាប់យើងថាឡានបើកយ៉ាងម៉េចឥឡូវនេះ។ ចំណាយពេលប្រហែលមួយនាទីប៉ុណ្ណោះ ហើយក្រុមជាងរបស់យើងអានរាល់មតិទាំងអស់។": "Tell us how it drives now. It takes about a minute, and the workshop team reads every review.", "ចំណាយពេលប្រហែលមួយនាទី ហើយអ្នកអាចត្រឡប់មកកែប្រែវាវិញបានគ្រប់ពេល។": "It takes about a minute, and you can come back to update it any time.", "ដាក់ពិន្ទុលើការមកលើកនេះ": "Rate your visit", "ប្រាប់យើងថាយើងបានជួសជុលអ្វី": "Tell us what we worked on", "ប្រាប់ពីស្ថានភាពឡានរបស់អ្នកឥឡូវនេះ": "Say how your car drives now", "មើលជាមុន": "Live preview", "ពិន្ទុរួម": "Overall rating", "ចុចលើផ្កាយដើម្បីដាក់ពិន្ទុ។": "Tap a star to rate.", "អំពីការមកលើកនេះ": "About your visit", "ឈ្មោះរបស់អ្នក": "Your name", "បង្ហាញលើមតិ": "shown on the review", "ឧ. ដារ៉ា": "e.g. Dara", "ឡានរបស់អ្នក": "Your car", "មិនចាំបាច់": "optional", "ឧ. Toyota Camry ឆ្នាំ 2018": "e.g. 2018 Toyota Camry", "យើងបានជួសជុលអ្វី?": "What did we work on?", "ដាក់ពិន្ទុតាមផ្នែក": "Rate each part", "មិនចាំបាច់ · 1 ខ្សោយ ដល់ 5 ល្អបំផុត": "optional · 1 is poor, 5 is excellent", "មតិរបស់អ្នក": "Your review", "តើមានបញ្ហាអ្វី? យើងដោះស្រាយយ៉ាងដូចម្តេច? ហើយឥឡូវនេះឡានដំណើរការយ៉ាងណា?": "What was the problem, how was it handled, and how is the car running now?", "ខ្ញុំនឹងណែនាំ Heng Auto Service ទៅមិត្តភក្តិ": "I’d recommend Heng Auto Service to a friend", "បង្ហោះមតិ": "Post review", "ទំនាក់ទំនង និងមកលេងយើង": "Contact and visit us", "ទូរស័ព្ទ ឬផ្ញើសារមកយើង ដើម្បីកក់សេវាកម្ម សួរអំពីការជួសជុល ឬសុំតម្លៃ។ អាចមកផ្ទាល់បានគ្រប់ពេល ទាំងថ្ងៃ និងយប់ ដោយមិនចាំបាច់កក់ទុក។": "Call or message us to book a service, ask about a repair, or get a quote. Walk in any time, day or night, with no booking needed.", "ម៉ោងធ្វើការ": "Opening hours", "បើក 24 ម៉ោង ពីថ្ងៃច័ន្ទ ដល់ថ្ងៃអាទិត្យ មិនឈប់សម្រាក។": "Open 24 hours, Monday to Sunday, with no days off.", "ឡានខូចពេលយប់ ឬថ្ងៃចុងសប្តាហ៍? ទូរស័ព្ទមកយើងបានគ្រប់ពេល។": "Broken down at night or on the weekend? Call us any time.", "ទំនាក់ទំនងរហ័ស": "Quick contact", "សេវាថែទាំ ជួសជុល និងពិនិត្យរកបញ្ហាសម្រាប់គ្រប់ម៉ាកឡាន ដោយប្រាប់តម្លៃមុនចាប់ផ្តើមការងារ។": "Servicing, repairs and diagnostics for every make, with a quote before any work starts.", "គេហទំព័រ": "Website", "អតិថិជន": "Customers", "ស្វែងរកបញ្ហារបស់អ្នក": "Find your problem", "មតិត្រូវបានបង្ហោះដោយអតិថិជន ហើយឆ្លើយតបដោយក្រុមរបស់យើង។": "Reviews are posted by customers and replied to by our team.", "អាចជាដំណោះស្រាយ": "Likely fix", "សញ្ញាព្រមាន និងជំហានជួសជុល": "Signs and repair steps", "សញ្ញាដែលបង្ហាញថាត្រូវការ": "Signs you need it", "របៀបដែលយើងជួសជុល": "How we fix it", "អានមតិ": "Read reviews", "មិនទាន់មានមតិ": "No reviews yet", "មិនអាចមើលមតិនៅទីនេះបានទេ": "Reviews unavailable here", "មិនទាន់មានមតិ។ មតិដំបូងនឹងបង្ហាញនៅទីនេះ។": "No reviews yet. The first one will show here.", "ទាំងអស់": "All", "សេវាកម្មទាំងអស់": "All services", "មតិត្រូវបានរក្សាទុកនៅលើ claude.ai។ សូមបើកទំព័រនេះ ពេលអ្នកបានចូលគណនី ដើម្បីអាន និងបង្ហោះមតិ។": "Reviews are stored on claude.ai. Open this page while signed in to read and post reviews.", "អ្នកអាចអានមតិនៅទីនេះ ប៉ុន្តែកម្រិតសិទ្ធិរបស់អ្នកមិនអនុញ្ញាតឱ្យបង្ហោះទេ។ សូមស្នើម្ចាស់ទំព័រឱ្យផ្តល់សិទ្ធិ Contributor។": "You can read reviews here, but your access level doesn’t allow posting. Ask the page owner for Contributor access.", "បានយកឡានមកថែទាំជាមួយយើងមែនទេ? សូមក្លាយជាអ្នកដំបូងដែលចែករំលែកបទពិសោធន៍។": "Had your car serviced with us? Be the first to say how it went.", "សរសេរមតិដំបូង": "Write the first review", "គ្មានមតិត្រូវនឹងតម្រងនេះទេ": "No reviews match these filters", "សាកល្បងសេវាកម្ម ឬចំនួនផ្កាយផ្សេង។": "Try another service or star rating.", "បង្ហាញមតិទាំងអស់": "Show all reviews", "Heng Auto Service បានឆ្លើយតប": "Heng Auto Service replied", "ឆ្លើយតប": "Reply", "អរគុណអតិថិជន ឬពន្យល់ពីអ្វីដែលអ្នកនឹងធ្វើ": "Thank the customer, or explain what you’ll do about it", "បង្ហោះការឆ្លើយតប": "Post reply", "បោះបង់": "Cancel", "លុបការឆ្លើយតប": "Remove reply", "កែការឆ្លើយតប": "Edit reply", "ឆ្លើយតបក្នុងនាមរោងជាង": "Reply as garage", "កែមតិរបស់ខ្ញុំ": "Edit my review", "លុបមតិ": "Delete review", "ណែនាំយើង": "Recommends us", "ថ្ងៃនេះ": "Today", "មតិរបស់អ្នកនឹងបង្ហាញនៅទីនេះ ពេលអ្នកវាយ។": "Your review will appear here as you type.", "រួចរាល់សម្រាប់បង្ហោះ": "Ready to post", "កែប្រែមតិរបស់អ្នក": "Update your review", "កែប្រែមតិ": "Update review", "សូមចូលគណនី claude.ai ដើម្បីបង្ហោះមតិ។": "Sign in to claude.ai to post a review.", "កម្រិតសិទ្ធិរបស់អ្នកមិនអនុញ្ញាតឱ្យបង្ហោះមតិទេ។": "Your access level doesn’t allow posting reviews.", "សូមជ្រើសរើសពិន្ទុរួមពី 1 ដល់ 5 ផ្កាយ។": "Choose an overall rating from 1 to 5 stars.", "សូមបញ្ចូលឈ្មោះដែលចង់បង្ហាញលើមតិ។": "Add the name to show on your review.", "សូមជ្រើសរើសសេវាកម្មដែលយើងបានធ្វើ។": "Pick the service we worked on.", "សូមសរសេរយ៉ាងហោចណាស់មួយប្រយោគអំពីការមករបស់អ្នក (10 តួអក្សរឡើងទៅ)។": "Write at least a sentence about your visit (10 characters or more).", "កំពុងបង្ហោះ…": "Posting…", "បានកែប្រែមតិ។ អរគុណដែលជួយឱ្យយើងកាន់តែប្រសើរ។": "Review updated. Thanks for keeping us honest.", "បានបង្ហោះមតិ។ អរគុណច្រើន!": "Review posted. Thank you!", "ផ្ទាំងមតិពេញហើយ។ សូមស្នើម្ចាស់ទំព័រឱ្យលុបមតិចាស់ៗ។": "The review board is full. Ask the page owner to remove old reviews.", "មិនអាចបង្ហោះមតិបានទេ។ សូមពិនិត្យអ៊ីនធឺណិត ហើយព្យាយាមម្តងទៀត។": "Couldn’t post your review. Check your connection and try again.", "លុបមតិនេះមែនទេ? មិនអាចយកមកវិញបានទេ។": "Delete this review? This can’t be undone.", "មិនបានជោគជ័យទេ។ សូមព្យាយាមម្តងទៀតបន្តិចទៀត។": "That didn’t go through. Try again in a moment.", "ថ្ងៃអាទិត្យ": "Sunday", "ថ្ងៃច័ន្ទ": "Monday", "ថ្ងៃអង្គារ": "Tuesday", "ថ្ងៃពុធ": "Wednesday", "ថ្ងៃព្រហស្បតិ៍": "Thursday", "ថ្ងៃសុក្រ": "Friday", "ថ្ងៃសៅរ៍": "Saturday", "ថ្ងៃស្អែក": "tomorrow", "អា": "Su", "ច": "Mo", "អ": "Tu", "ព": "We", "ព្រ": "Th", "សុ": "Fr", "ស": "Sa", "ទូរស័ព្ទមកយើង": "Call us", "លេខទូរស័ព្ទនឹងមានឆាប់ៗ": "Phone number coming soon", "ហៅឥឡូវនេះ": "Call now", "ផ្ញើសារតាម Telegram": "Message us on Telegram", "Telegram នឹងមានឆាប់ៗ": "Telegram coming soon", "បើក Telegram": "Open Telegram", "អ៊ីមែល": "Email", "អ៊ីមែលនឹងមានឆាប់ៗ": "Email coming soon", "ផ្ញើអ៊ីមែល": "Send an email", "អាសយដ្ឋានរោងជាង": "Workshop address", "អាសយដ្ឋាននឹងមានឆាប់ៗ": "Address coming soon", "មើលផ្លូវ": "Get directions", "បិទ": "Closed", "បើក 24 ម៉ោង": "Open 24 hours", "បើកឥឡូវនេះ · 24 ម៉ោង រាល់ថ្ងៃ": "Open now · 24 hours, every day", "បើកឥឡូវនេះ · 24 ម៉ោងថ្ងៃនេះ": "Open now · 24 hours today", "បើក 24 ម៉ោង រាល់ថ្ងៃ": "Open 24 hours, every day", "មើលម៉ោងធ្វើការ": "See opening hours", "ព័ត៌មានទំនាក់ទំនងទាំងអស់": "All contact details", "ហៅ": "Call", "ប្តូរទៅរបៀបភ្លឺ": "Switch to light mode", "ប្តូរទៅរបៀបងងឹត": "Switch to dark mode", "របៀបភ្លឺ": "Light mode", "របៀបងងឹត": "Dark mode", "Heng Auto Service – សេវាកម្ម និងមតិអតិថិជន": "Heng Auto Service – Service & reviews"};
+  const T = km => LANG==="en" ? (DICT[km] ?? km) : km;
+  DICT["សម្អាតការជ្រើសរើស"] = "Clear selection";
+  Object.assign(DICT, {"ស្ថិតិអ្នកទស្សនា":"Visitor stats","ចំនួនចូលមើលសរុប":"Total visits","អ្នកទស្សនាផ្សេងៗគ្នា":"Unique visitors","អ្នកទស្សនាថ្ងៃនេះ":"Visitors today","កំពុងមើលឥឡូវនេះ":"Online now"});
+  DICT["ជ្រើសរើសបានច្រើនជាងមួយ"] = "You can pick more than one";
+  const SVC_KM = {"Oil & filter":"ប្តូរប្រេងម៉ាស៊ីន និងតម្រង","Brakes":"ហ្វ្រាំង","Engine":"ម៉ាស៊ីន","Tires & alignment":"កង់ និងតម្រឹមកង់","Air conditioning":"ម៉ាស៊ីនត្រជាក់","Electrical":"ប្រព័ន្ធអគ្គិសនី","Body & paint":"តួឡាន និងថ្នាំលាប","Diagnostics":"ពិនិត្យរកបញ្ហា","General service":"ថែទាំទូទៅ"};
+  const svcLabel = x => LANG==="en" ? x : (SVC_KM[x] || x);
+  const CAPTIONS = ["","ខ្សោយ – មិនបានជួសជុលត្រឹមត្រូវ","ទាបជាងការរំពឹងទុក","មធ្យម","ការងារល្អ","ល្អបំផុត – ឡានដូចថ្មី"];
+  const STAR = '<path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/>';
+  const $ = id => document.getElementById(id);
+  const R = 118, CX = 150, CY = 150;
+
+  /* ---------- services breakdown ---------- */
+  const I = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+  const ICONS = {
+    oil: I('<path d="M12 3C9 8 6 11 6 14.5a6 6 0 0 0 12 0C18 11 15 8 12 3z"/>'),
+    brakes: I('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M17 4.5a9 9 0 0 1 3.5 5" stroke-width="3.5"/>'),
+    engine: I('<path d="M3 10h3l2-2h5l2 2h2v2h3v4h-3v2H8l-2-2H3z"/><path d="M9 5h4M11 5v3"/>'),
+    tires: I('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/>'),
+    ac: I('<path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9 4l3 2 3-2M9 20l3-2 3 2"/>'),
+    electrical: I('<path d="M13 2L5 13h6l-1 9 8-11h-6z"/>'),
+    body: I('<path d="M4 20l4-1 10-10-3-3L5 16z"/><path d="M13 6l3-3 3 3-3 3"/>'),
+    diag: I('<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M7.5 10.5h1.5l1-2 2 4 1-2h1"/>'),
+    general: I('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>')
+  };
+  const SERVICE_INFO = [
+    {name:"Oil & filter", slug:"oil", short:"ប្រេង និងតម្រងថ្មី ដើម្បីឱ្យម៉ាស៊ីនដំណើរការរលូន និងស្ងាត់។", time:"ប្រហែល 30 នាទី",
+     signs:["ភ្លើងព្រមានប្រេងឆេះ","ម៉ាស៊ីនឮខ្លាំងជាងមុន ឬមានសំឡេងគោះ","បានបើក 5,000–10,000 គ.ម. ក្រោយការប្តូរប្រេងចុងក្រោយ","ប្រេងលើដំបងវាស់មានពណ៌ខ្មៅ និងកករ"],
+     steps:["បង្ហូរប្រេងចាស់ចេញ","ដាក់តម្រងប្រេងថ្មី","ចាក់ប្រេងថ្មីតាមប្រភេទដែលម៉ាស៊ីនត្រូវការ","បំពេញទឹកផ្សេងៗ និងកំណត់ភ្លើងសេវាឡើងវិញ"]},
+    {name:"Brakes", slug:"brakes", short:"សម្រាប់ហ្វ្រាំងមានសំឡេងស្រែក កកិត ឬឈ្នាន់ហ្វ្រាំងទន់។", time:"1–2 ម៉ោង",
+     signs:["មានសំឡេងស្រែក ឬកកិតពេលជាន់ហ្វ្រាំង","ឈ្នាន់ហ្វ្រាំងទន់ ឬលិចចុះ","ឡានទាញទៅម្ខាងពេលឈប់","ចង្កូតញ័រពេលជាន់ហ្វ្រាំង"],
+     steps:["វាស់កម្រិតស៊ីសំបកហ្វ្រាំង និងថាស","បង្ហាញគ្រឿងដែលរេចរឹលដល់អ្នក","ប្តូរសំបកហ្វ្រាំង ឬថាសតាមតម្រូវការ","បង្ហូរខ្យល់ និងប្តូរប្រេងហ្វ្រាំង","សាកល្បងបើកមុនប្រគល់ឡាន"]},
+    {name:"Engine", slug:"engine", short:"សម្រាប់ភ្លើងព្រមាន ម៉ាស៊ីនញ័រ ឬខ្សោយកម្លាំង។", time:"កន្លះថ្ងៃ ដល់ 3 ថ្ងៃ",
+     signs:["ភ្លើងព្រមានម៉ាស៊ីន (Check Engine) ឆេះ","ម៉ាស៊ីនញ័រពេលឈប់នៅនឹងកន្លែង","ខ្សោយកម្លាំងពេលឡើងទួល ឬវ៉ាជែង","ម៉ាស៊ីនក្តៅខ្លាំង ឬចេញផ្សែងស"],
+     steps:["ស្កេនកុំព្យូទ័ររកកូដកំហុស","ពិនិត្យប៊ូហ្ស៊ី ប្រព័ន្ធឆេះ ខ្សែពាន និងប្រព័ន្ធត្រជាក់","ប្រាប់តម្លៃជួសជុលមុនចាប់ផ្តើម","ជួសជុល ឬប្តូរគ្រឿងដែលខូច","ស្កេនម្តងទៀតដើម្បីបញ្ជាក់ថាបញ្ហាបានបាត់"]},
+    {name:"Tires & alignment", slug:"tires", short:"សម្រាប់ឡានរេ ញ័រ ឬកង់ស៊ីមិនស្មើគ្នា។", time:"ប្រហែល 1 ម៉ោង",
+     signs:["ឡានរេទៅឆ្វេង ឬស្តាំលើផ្លូវត្រង់","ចង្កូតមិននៅចំកណ្តាល","កង់ស៊ីតែម្ខាង","ញ័រពេលបើកលឿន"],
+     steps:["ពិនិត្យជម្រៅផ្ទៃកង់ និងសម្ពាធខ្យល់","ប៉ះកង់ធ្លុះ ឬដាក់កង់ថ្មី","ថ្លឹងតុល្យភាពកង់","តម្រឹមកង់ដោយម៉ាស៊ីនរបស់យើង"]},
+    {name:"Air conditioning", slug:"ac", short:"សម្រាប់ខ្យល់ក្តៅ ខ្យល់ខ្សោយ ឬមានក្លិនស្អុយ។", time:"1–2 ម៉ោង",
+     signs:["ម៉ាស៊ីនត្រជាក់បញ្ចេញខ្យល់ក្តៅ ឬមិនសូវត្រជាក់","មានក្លិនផ្សិតចេញពីរន្ធខ្យល់","ខ្យល់ខ្សោយ ទោះបីបើកពេញ","មានសំឡេងគោះ ឬរញ្ជួយពេលបើកម៉ាស៊ីនត្រជាក់"],
+     steps:["ពិនិត្យរកការលេចហ្គាស","បញ្ចូលហ្គាសត្រជាក់","ប្តូរតម្រងខ្យល់ក្នុងឡាន","សម្អាតទូត្រជាក់ (Evaporator) និងពិនិត្យកុំប្រេសឺរ"]},
+    {name:"Electrical", slug:"electrical", short:"សម្រាប់អាគុយអស់ ឡានឆេះយឺត និងភ្លើងភ្លឹបភ្លែត។", time:"ចាប់ពី 1 ម៉ោង",
+     signs:["ឡានមិនឆេះ ឬឆេះយឺត","អាគុយអស់ញឹកញាប់","ភ្លើងភ្លឹបភ្លែត ឬស្រអាប់","កញ្ចក់ សោ ឬនាឡិកាលើផ្ទាំងបញ្ជាលែងដំណើរការ"],
+     steps:["តេស្តអាគុយ ឌីណាម៉ូសាក និងម៉ូទ័រឆេះ","តាមរកខ្សែភ្លើងដែលខូច","ប្តូរអាគុយ ហ្វុយស៊ីប ឬគ្រឿងដែលខូច","ពិនិត្យថាអ្វីៗដំណើរការល្អមុនប្រគល់ឡាន"]},
+    {name:"Body & paint", slug:"body", short:"សម្រាប់ស្នាមផត ស្នាមកោស ច្រេះ និងការខូចខាតពីគ្រោះថ្នាក់។", time:"1–5 ថ្ងៃ",
+     signs:["ស្នាមផតពីការបុក ឬប៉ះពេលចត","ស្នាមកោសដល់ថ្នាំ","ច្រេះប៉ោងលើតួឡាន","ខូចខាតពីគ្រោះថ្នាក់"],
+     steps:["វាយតម្លៃការខូចខាត និងប្រាប់តម្លៃ","ទាញស្នាមផតចេញ ឬប្តូរបន្ទះតួ","លាយពណ៌ឱ្យដូចដើម ហើយបាញ់ថ្នាំ","ប៉ូលាឱ្យស្នាមជួសជុលលាយចូលគ្នា"]},
+    {name:"Diagnostics", slug:"diag", short:"ស្វែងរកមូលហេតុនៃភ្លើងព្រមាន ឬសំឡេងចម្លែក។", time:"ប្រហែល 45 នាទី",
+     signs:["ភ្លើងព្រមានដែលអ្នកមិនស្គាល់","សំឡេងដែលរកមិនឃើញថាមកពីណា","មានអារម្មណ៍ថាឡានខុសពីមុន","ចង់ពិនិត្យមុនទិញឡានមួយទឹក"],
+     steps:["ភ្ជាប់ម៉ាស៊ីនស្កេនកុំព្យូទ័រ","សាកល្បងបើកជាមួយជាង","ផ្តល់របាយការណ៍ជាលាយលក្ខណ៍អក្សរ","ប្រាប់តម្លៃជួសជុល ដោយមិនបង្ខំឱ្យកក់"]},
+    {name:"General service", slug:"general", short:"ការពិនិត្យពេញលេញលើអ្វីៗដែលធ្វើឱ្យអ្នកមានសុវត្ថិភាព។", time:"2–3 ម៉ោង",
+     signs:["ដល់ពេលថែទាំតាមកាលវិភាគ","ជិតធ្វើដំណើរឆ្ងាយ","មួយឆ្នាំហើយមិនទាន់មាននរណាពិនិត្យ"],
+     steps:["ពិនិត្យសុវត្ថិភាពច្រើនចំណុច","ប្តូរប្រេង តម្រង និងទឹកផ្សេងៗ","ពិនិត្យហ្វ្រាំង កង់ ភ្លើង និងដៃជូតកញ្ចក់","ប្រគល់បញ្ជីអ្វីដែលយើងបានរកឃើញ"]}
+  ];
+  const SYMPTOMS = [
+    {label:"ហ្វ្រាំងមានសំឡេងស្រែក ឬកកិត", svc:["Brakes"]},
+    {label:"ភ្លើងព្រមានឆេះលើផ្ទាំងបញ្ជា", svc:["Diagnostics","Engine"]},
+    {label:"ម៉ាស៊ីនត្រជាក់បញ្ចេញខ្យល់ក្តៅ", svc:["Air conditioning"]},
+    {label:"ឡានទាញទៅម្ខាង", svc:["Tires & alignment","Brakes"]},
+    {label:"ឡានមិនឆេះ ឬឆេះយឺត", svc:["Electrical"]},
+    {label:"ម៉ាស៊ីនក្តៅខ្លាំង", svc:["Engine"]},
+    {label:"ហួសពេលប្តូរប្រេង", svc:["Oil & filter","General service"]},
+    {label:"ស្នាមផត ស្នាមកោស ឬច្រេះ", svc:["Body & paint"]},
+    {label:"សំឡេងចម្លែកដែលរកមិនឃើញ", svc:["Diagnostics"]}
+  ];
+  let symptom = -1, pickedSvc = null;
+  function focusCard(slug){
+    const el = $("svc-"+slug); if(!el) return;
+    el.focus({preventScroll:true});
+    setTimeout(()=>{
+      el.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+      el.classList.remove("pulse"); void el.offsetWidth; el.classList.add("pulse");
+    }, 60);
+  }
+  function pickCard(name){
+    const s = SERVICE_INFO.find(x=>x.name===name); if(!s) return;
+    if(pickedSvc===name && symptom<0){ pickedSvc = null; openSvc.delete(s.slug); render(); const el=$("svc-"+s.slug); el&&el.focus({preventScroll:true}); return; }
+    pickedSvc = name; symptom = -1; openSvc.add(s.slug);
+    render(); focusCard(s.slug);
+  }
+  $("svc-grid").addEventListener("click", e=>{
+    const card = e.target.closest(".svc"); if(!card) return;
+    if(e.target.closest("button, a, summary, .more-info")) return;
+    pickCard(card.dataset.card);
+  });
+  $("svc-grid").addEventListener("keydown", e=>{
+    if((e.key==="Enter"||e.key===" ") && e.target.classList && e.target.classList.contains("svc")){ e.preventDefault(); pickCard(e.target.dataset.card); }
+  });
+  const openSvc = new Set();
+  document.addEventListener("toggle", e=>{ const d=e.target; if(d && d.dataset && d.dataset.svcSlug){ d.open ? openSvc.add(d.dataset.svcSlug) : openSvc.delete(d.dataset.svcSlug); } }, true);
+
+  function renderServices(all){
+    const match = symptom>=0 ? SYMPTOMS[symptom].svc : (pickedSvc ? [pickedSvc] : null);
+    $("symptoms").innerHTML = SYMPTOMS.map((x,i)=>`<button type="button" class="chip" data-symptom="${i}" aria-pressed="${symptom===i}">${esc(x.label)}</button>`).join("");
+    $("finder-result").textContent = symptom>=0 ? `ទំនងជា៖ ${match.map(svcLabel).join(" ឬ ")}។ បានសម្គាល់ខាងក្រោម។` : "";
+    $("svc-grid").innerHTML = SERVICE_INFO.map(s=>{
+      const rs = all.filter(r=>r.service===s.name);
+      const avg = rs.length ? rs.reduce((a,r)=>a+r.rating,0)/rs.length : 0;
+      const cls = match ? (match.includes(s.name)?" match":" dim") : "";
+      const rating = !loaded ? "" : rs.length ? `${avg.toFixed(1)} ★ ពី ${rs.length} មតិ` : "មិនទាន់មានមតិ";
+      return `<article class="svc${cls}" id="svc-${s.slug}" data-card="${esc(s.name)}" tabindex="0">
+        <div class="svc-visual">${ICONS[s.slug]}${symptom>=0&&match.includes(s.name)?'<span class="badge">អាចជាដំណោះស្រាយ</span>':""}</div>
+        <div><h3>${esc(svcLabel(s.name))}</h3><div class="svc-meta"><span>${esc(s.time)}</span>${rating?`<span class="rt">${rating}</span>`:""}</div></div>
+        <p class="short">${esc(s.short)}</p>
+        <details class="more-info" data-svc-slug="${s.slug}"${openSvc.has(s.slug)?" open":""}><summary>សញ្ញាព្រមាន និងជំហានជួសជុល</summary>
+          <div class="cols"><div><h4>សញ្ញាដែលបង្ហាញថាត្រូវការ</h4><ul>${s.signs.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+          <div><h4>របៀបដែលយើងជួសជុល</h4><ol>${s.steps.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div></div>
+        </details>
+        ${rs.length?`<button type="button" class="go" data-see-svc="${esc(s.name)}">អានមតិ ${ARROW}</button>`:""}
+      </article>`;
+    }).join("");
+  }
+
+  /* ---------- slideshow ---------- */
+  const PAINT = {
+    silver:["#F7F7F7","#A8A8A8","#2E2E2E"],
+    graphite:["#9A9A9A","#3C3C3C","#0B0B0B"],
+    pearl:["#FFFFFF","#D9D9D6","#5A5A58"],
+    champagne:["#F4E9D3","#B9A27A","#3A3020"]
+  };
+  const GLINTS = [[120,262],[188,276],[260,255],[331,290],[402,262],[455,281],[520,258],[588,284],[650,266],[716,278],[90,300],[700,304],[300,310],[560,312]];
+  function carSVG(i, paint){
+    const [p1,p2,p3] = PAINT[paint];
+    const wheel = cx => `<circle cx="${cx}" cy="196" r="49" fill="#000"/><circle cx="${cx}" cy="196" r="44" fill="#0B0B0B"/><circle cx="${cx}" cy="196" r="31" fill="#161616" stroke="#BDBDBD" stroke-width="1.6"/>`
+      + Array.from({length:10},(_,k)=>{const t=k*36*Math.PI/180; return `<line x1="${(cx+8*Math.cos(t)).toFixed(1)}" y1="${(196+8*Math.sin(t)).toFixed(1)}" x2="${(cx+29*Math.cos(t)).toFixed(1)}" y2="${(196+29*Math.sin(t)).toFixed(1)}" stroke="#8C8C8C" stroke-width="2.4"/>`;}).join("")
+      + `<circle cx="${cx}" cy="196" r="7" fill="#CFCFCF"/>`;
+    return `<svg viewBox="0 40 800 300" aria-hidden="true"><defs>
+      <linearGradient id="bd${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p1}"/><stop offset=".5" stop-color="${p2}"/><stop offset="1" stop-color="${p3}"/></linearGradient>
+      <linearGradient id="sh${i}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>
+      <linearGradient id="fd${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".32"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <mask id="mk${i}"><rect x="0" y="240" width="800" height="110" fill="url(#fd${i})"/></mask>
+      <radialGradient id="gl${i}"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    </defs>
+    <ellipse cx="404" cy="240" rx="390" ry="46" fill="url(#gl${i})"/>
+    <g id="car${i}">
+      <ellipse cx="404" cy="240" rx="330" ry="7" fill="#000" opacity=".8"/>
+      <path d="M70 206 C70 182 80 166 104 160 L214 146 C256 118 304 94 362 88 L470 86 C522 86 562 106 602 132 L688 146 C722 152 738 168 740 190 L740 214 L70 214 Z" fill="url(#bd${i})"/>
+      <path d="M70 206 C70 182 80 166 104 160 L214 146 C256 118 304 94 362 88 L470 86 C522 86 562 106 602 132 L688 146 C722 152 738 168 740 190 L740 214 L70 214 Z" fill="url(#sh${i})"/>
+      <path d="M296 136 C326 112 356 100 398 98 L452 98 L452 136 Z" fill="#0A0A0A"/>
+      <path d="M462 98 L488 98 C522 100 550 114 574 136 L462 136 Z" fill="#0A0A0A"/>
+      <path d="M316 128 C340 112 362 104 392 102" stroke="#fff" stroke-opacity=".22" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M118 166 C300 146 520 146 712 160" stroke="#fff" stroke-opacity=".45" stroke-width="1.4" fill="none"/>
+      <path d="M457 138 L460 204" stroke="#000" stroke-opacity=".35" stroke-width="1.5"/>
+      <path d="M708 160 L734 168 L730 175 L704 168 Z" fill="#fff" opacity=".9"/>
+      <rect x="72" y="168" width="16" height="5" rx="2" fill="#C62828"/>
+      ${wheel(210)}${wheel(606)}
+    </g>
+    <g mask="url(#mk${i})"><use href="#car${i}" transform="translate(0,480) scale(1,-1)"/></g>
+    <line x1="10" y1="240" x2="790" y2="240" stroke="#fff" stroke-opacity=".07"/>
+    ${GLINTS.map(([x,y],k)=>`<circle cx="${x}" cy="${y}" r="${k%3?1:1.6}" fill="#fff" opacity="${k%2?.35:.6}"/>`).join("")}
+    </svg>`;
+  }
+  const ARROW = '<svg class="arrow-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+  const SLIDES = [
+    {title:"ជួសជុលត្រឹមត្រូវតាំងពីលើកដំបូង", text:"សេវាថែទាំ ជួសជុល និងពិនិត្យរកបញ្ហាសម្រាប់គ្រប់ម៉ាកឡាន ដោយប្រាប់តម្លៃច្បាស់លាស់មុនចាប់ផ្តើមការងារ។", cta:"មើលសេវាកម្មទាំងអស់", href:"#services", paint:"silver"},
+    {title:"ហ្វ្រាំងឈប់ល្អដូចថ្មី", text:"យើងវាស់សំបកហ្វ្រាំង និងថាស បង្ហាញអ្នកនូវអ្វីដែលរេចរឹល ហើយប្តូរតែអ្វីដែលចាំបាច់ប៉ុណ្ណោះ។", cta:"របៀបជួសជុលហ្វ្រាំង", href:"#svc-brakes", paint:"graphite"},
+    {title:"ម៉ាស៊ីនត្រជាក់ត្រជាក់ ទោះថ្ងៃក្តៅបំផុត", text:"ពិនិត្យការលេច បញ្ចូលហ្គាស និងប្តូរតម្រងខ្យល់ថ្មី ជាធម្មតារួចរាល់ខណៈអ្នករង់ចាំ។", cta:"របៀបជួសជុលម៉ាស៊ីនត្រជាក់", href:"#svc-ac", paint:"pearl"},
+    {title:"ភ្លើងព្រមានឆេះឡើង?", text:"ការស្កេនកុំព្យូទ័ររបស់យើងរកឃើញមូលហេតុក្នុងរយៈពេលមិនដល់មួយម៉ោង ហើយអ្នកទទួលបានរបាយការណ៍ជាលាយលក្ខណ៍អក្សរ។", cta:"អំពីការពិនិត្យរកបញ្ហា", href:"#svc-diag", paint:"champagne"}
+  ];
+  let slide = 0, timer = null, paused = false, hovering = false;
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function buildSlides(){
+    $("track").innerHTML = SLIDES.map((s,i)=>`<div class="slide" role="group" aria-roledescription="ស្លាយ" aria-label="${i+1} នៃ ${SLIDES.length}">
+      <h2>${esc(s.title)}</h2><p>${esc(s.text)}</p><a class="go" href="${s.href}">${esc(s.cta)} ${ARROW}</a>
+      <div class="art">${carSVG(i, s.paint)}</div></div>`).join("");
+    $("dots").innerHTML = SLIDES.map((s,i)=>`<button type="button" class="dot" data-slide="${i}" aria-label="បង្ហាញស្លាយទី ${i+1}៖ ${esc(s.title)}"></button>`).join("");
+    $("band-art").innerHTML = carSVG(9, "graphite");
+    goSlide(0);
+    if(reduce) setPaused(true); else restart();
+    const sl = $("slider");
+    sl.addEventListener("mouseenter", ()=>{hovering=true;});
+    sl.addEventListener("mouseleave", ()=>{hovering=false;});
+    sl.addEventListener("focusin", ()=>{hovering=true;});
+    sl.addEventListener("focusout", ()=>{hovering=false;});
+    let x0 = null;
+    sl.addEventListener("pointerdown", e=>{ x0 = e.clientX; });
+    sl.addEventListener("pointerup", e=>{ if(x0===null) return; const dx = e.clientX-x0; x0=null; if(Math.abs(dx)>50){ goSlide(slide+(dx<0?1:-1)); restart(); } });
+    $("prev").addEventListener("click", ()=>{ goSlide(slide-1); restart(); });
+    $("next").addEventListener("click", ()=>{ goSlide(slide+1); restart(); });
+    $("pause").addEventListener("click", ()=>{ setPaused(!paused); if(!paused) restart(); });
+  }
+  function goSlide(i){
+    slide = (i+SLIDES.length)%SLIDES.length;
+    [...$("track").children].forEach((el,k)=>{ const on = k===slide; el.classList.toggle("on", on); el.setAttribute("aria-hidden", String(!on)); el.inert = !on; });
+    [...$("dots").children].forEach((d,k)=>d.setAttribute("aria-current", String(k===slide)));
+    $("counter").textContent = `${String(slide+1).padStart(2,"0")} / ${String(SLIDES.length).padStart(2,"0")}`;
+  }
+  function restart(){ clearInterval(timer); if(!paused) timer = setInterval(()=>{ if(!hovering && !document.hidden) goSlide(slide+1); }, 6500); }
+  function setPaused(p){
+    paused = p; if(p) clearInterval(timer);
+    $("pause").setAttribute("aria-label", p ? "ចាក់ស្លាយ" : "ផ្អាកស្លាយ");
+    $("pause-icon").innerHTML = p ? '<path d="M8 5v14l11-7z"/>' : '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
+  }
+
+  let db = null, user = null, uid = null, isAdmin = false, writeBlocked = false;
+  let reviews = [], replies = {}, loaded = false, unavailable = false, prefilled = false;
+  const filter = {service:"all", stars:0, sort:"new"};
+  const form = {rating:0, service:"", aspects:{quality:0, price:0, time:0}};
+  let replyOpen = null;
+  const PAGE = 6; let shownCount = PAGE, lastKey = "";
+
+  /* ---------- gauge ---------- */
+  function pt(a, r){ const t = a*Math.PI/180; return [CX + r*Math.sin(t), CY - r*Math.cos(t)]; }
+  function arc(a0, a1){ const [x0,y0]=pt(a0,R),[x1,y1]=pt(a1,R); return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R} ${R} 0 ${(a1-a0)>180?1:0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`; }
+  const ang = v => -120 + (v-1)/4*240;
+  $("g-track").setAttribute("d", arc(-120,120));
+  (function ticks(){
+    let s = "";
+    for(let v=1; v<=5.001; v+=0.25){
+      const a = ang(v), major = Math.abs(v-Math.round(v))<.01;
+      const [x0,y0] = pt(a, R-14), [x1,y1] = pt(a, R-(major?28:21));
+      s += `<line class="tick${major?" major":""}" x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke-width="${major?2.5:1.5}"/>`;
+      if(major){ const [tx,ty] = pt(a, R-42); s += `<text class="num" x="${tx}" y="${ty+5}" text-anchor="middle">${Math.round(v)}</text>`; }
+    }
+    $("g-ticks").innerHTML = s;
+  })();
+  function setGauge(avg, n){
+    if(!n){ $("g-fill").setAttribute("d",""); $("g-needle").style.transform="rotate(-120deg)"; $("g-avg").textContent="–"; return; }
+    const a = ang(avg);
+    $("g-fill").setAttribute("d", a > -119.5 ? arc(-120, a) : "");
+    $("g-needle").style.transform = `rotate(${a}deg)`;
+    $("g-avg").textContent = avg.toFixed(1);
+  }
+
+  /* ---------- helpers ---------- */
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const stars = (n, size) => `<span class="stars" aria-label="${n} ក្នុងចំណោម 5 ផ្កាយ">${[1,2,3,4,5].map(i=>`<svg viewBox="0 0 24 24" aria-hidden="true" class="${i<=n?"on":"off"}">${STAR}</svg>`).join("")}</span>`;
+  const fmtDate = ts => ts ? new Date(ts).toLocaleDateString(LANG==="en"?"en-GB":"km-KH",{year:"numeric",month:LANG==="en"?"short":"long",day:"numeric"}) : "";
+  const valid = r => r && Number.isInteger(r.rating) && r.rating>=1 && r.rating<=5 && typeof r.body==="string";
+
+  /* ---------- render ---------- */
+  function render(){
+    const all = reviews.filter(valid);
+    const n = all.length;
+    renderServices(all);
+    const avg = n ? all.reduce((s,r)=>s+r.rating,0)/n : 0;
+    setGauge(avg, n);
+    $("g-sub").textContent = !loaded ? (unavailable ? "មិនអាចមើលមតិនៅទីនេះបានទេ" : "កំពុងផ្ទុកមតិ…") : n ? `មធ្យមភាគពី ${n} មតិ (ពិន្ទុពេញ 5)` : "មិនទាន់មានមតិ";
+    const setRing = (id, frac) => { const c=$(id); if(!c) return; const L=+c.getAttribute("stroke-dasharray"); c.style.strokeDashoffset = String(L*(1-Math.max(0,Math.min(1,frac)))); };
+    ASPECTS.forEach(([k])=>{
+      const vals = all.map(r=>r.aspects && r.aspects[k]).filter(v=>v>=1&&v<=5);
+      const m = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
+      $("a-"+k).textContent = vals.length ? m.toFixed(1) : "–";
+      setRing("ring-"+k, vals.length ? m/5 : 0);
+    });
+    $("g-stars").innerHTML = n ? `<span class="stars" aria-label="មធ្យម ${avg.toFixed(1)} ក្នុងចំណោម 5">${[1,2,3,4,5].map(i=>`<svg viewBox="0 0 24 24" aria-hidden="true" class="${i<=Math.round(avg)?"on":"off"}">${STAR}</svg>`).join("")}</span>` : "";
+    $("s-count").textContent = loaded ? String(n) : "–";
+    const recPct = n ? Math.round(all.filter(r=>r.recommend).length/n*100) : 0;
+    $("s-rec").innerHTML = n ? `${recPct}<small>%</small>` : "–";
+    setRing("ring-rec", n ? recPct/100 : 0);
+    const last = all.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0))[0];
+    $("latest").innerHTML = last
+      ? `${stars(last.rating)}<q data-noi18n>${esc(last.body.length>180 ? last.body.slice(0,177).trimEnd()+"…" : last.body)}</q><div class="by" data-noi18n>${esc(last.name||(LANG==="en"?"Customer":"អតិថិជន"))}${last.car?" · "+esc(last.car):""}${last.service?" · "+esc(svcLabel(last.service)):""} · ${fmtDate(last.createdAt)}</div>`
+      : `<p class="none">${loaded ? "មិនទាន់មានមតិ។ មតិដំបូងនឹងបង្ហាញនៅទីនេះ។" : "មតិនឹងបង្ហាញនៅទីនេះ។"}</p>`;
+    if(loaded && n){
+      $("reviews-summary").textContent = `${recPct}% នៃអតិថិជន ${n} នាក់ នឹងណែនាំយើងទៅមិត្តភក្តិ។`;
+    }
+
+    // star filter
+    const counts = [0,0,0,0,0,0]; all.forEach(r=>counts[r.rating]++);
+    $("dist").innerHTML = `<button type="button" data-star="0" aria-pressed="${!filter.stars}">ទាំងអស់ <span class="n">${n}</span></button>`
+      + [5,4,3,2,1].map(st=>`<button type="button" data-star="${st}" aria-pressed="${filter.stars===st}" aria-label="មតិ ${st} ផ្កាយ ចំនួន ${counts[st]}">${st}<svg viewBox="0 0 24 24" aria-hidden="true">${STAR}</svg><span class="n">${counts[st]}</span></button>`).join("");
+
+    // service filter
+    const used = new Set(all.map(r=>r.service));
+    const opts = ["all", ...SERVICES.filter(x=>used.has(x))];
+    if(filter.service!=="all" && !used.has(filter.service)) opts.push(filter.service);
+    $("service-filter").innerHTML = opts.map(x=>`<option value="${esc(x)}"${filter.service===x?" selected":""}>${x==="all"?"សេវាកម្មទាំងអស់":esc(svcLabel(x))}</option>`).join("");
+
+    // list
+    let shown = all.filter(r => (filter.service==="all" || r.service===filter.service) && (!filter.stars || r.rating===filter.stars));
+    shown.sort((a,b)=> filter.sort==="high" ? (b.rating-a.rating)||(b.createdAt-a.createdAt)
+                     : filter.sort==="low" ? (a.rating-b.rating)||(b.createdAt-a.createdAt)
+                     : (b.createdAt||0)-(a.createdAt||0));
+
+    const status = $("status");
+    if(unavailable){
+      status.innerHTML = `<div class="notice">មតិត្រូវបានរក្សាទុកនៅលើ claude.ai។ សូមបើកទំព័រនេះ ពេលអ្នកបានចូលគណនី ដើម្បីអាន និងបង្ហោះមតិ។</div>`;
+    } else if(writeBlocked){
+      status.innerHTML = `<div class="notice">អ្នកអាចអានមតិនៅទីនេះ ប៉ុន្តែកម្រិតសិទ្ធិរបស់អ្នកមិនអនុញ្ញាតឱ្យបង្ហោះទេ។ សូមស្នើម្ចាស់ទំព័រឱ្យផ្តល់សិទ្ធិ Contributor។</div>`;
+    } else status.innerHTML = "";
+
+    const key = filter.service+"|"+filter.stars+"|"+filter.sort;
+    if(key!==lastKey){ lastKey = key; shownCount = PAGE; }
+    $("more").innerHTML = "";
+    if(!loaded && !unavailable){ $("list").innerHTML = `<div class="empty"><p>កំពុងផ្ទុកមតិ…</p></div>`; return; }
+    if(loaded && !n){
+      $("list").innerHTML = `<div class="empty"><h3>មិនទាន់មានមតិ</h3><p>បានយកឡានមកថែទាំជាមួយយើងមែនទេ? សូមក្លាយជាអ្នកដំបូងដែលចែករំលែកបទពិសោធន៍។</p><a class="btn btn-solid" href="#write">សរសេរមតិដំបូង</a></div>`;
+      return;
+    }
+    if(!shown.length){
+      $("list").innerHTML = `<div class="empty"><h3>គ្មានមតិត្រូវនឹងតម្រងនេះទេ</h3><p>សាកល្បងសេវាកម្ម ឬចំនួនផ្កាយផ្សេង។</p><button type="button" class="btn btn-line" id="clear-filters">បង្ហាញមតិទាំងអស់</button></div>`;
+      return;
+    }
+    $("list").innerHTML = shown.slice(0, shownCount).map(r=>card(r)).join("");
+    if(shown.length > shownCount) $("more").innerHTML = `<button type="button" class="btn btn-line" id="more-btn">បង្ហាញមតិបន្ថែម (នៅសល់ ${shown.length-shownCount})</button>`;
+  }
+
+  const CHECK_SM = '<svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  function card(r, preview){
+    const mine = !preview && uid && r.id===uid;
+    const rep = preview ? null : replies[r.id];
+    const initial = esc(((r.name||"C").trim()[0]||"C").toUpperCase());
+    const sc = ASPECTS.filter(([k])=>r.aspects && r.aspects[k]>=1).map(([k,l])=>`<span class="mchip">${l} <b>${r.aspects[k]}</b></span>`).join("");
+    const canDel = !preview && (mine || isAdmin);
+    const replyBlock = rep && rep.text ? `<div class="reply"><strong><i aria-hidden="true"></i>Heng Auto Service បានឆ្លើយតប</strong><p data-noi18n>${esc(rep.text)}</p></div>` : "";
+    const replyForm = replyOpen===r.id ? `<div class="reply reply-form"><label class="sr" for="rt-${esc(r.id)}">ឆ្លើយតប</label><textarea id="rt-${esc(r.id)}" maxlength="600" placeholder="អរគុណអតិថិជន ឬពន្យល់ពីអ្វីដែលអ្នកនឹងធ្វើ">${esc(rep?.text||"")}</textarea>
+        <div class="actions" style="margin-top:10px"><button type="button" class="btn btn-solid btn-small" data-act="save-reply" data-id="${esc(r.id)}">បង្ហោះការឆ្លើយតប</button><button type="button" class="btn btn-line btn-small" data-act="cancel-reply">បោះបង់</button>${rep?`<button type="button" class="linkbtn" data-act="del-reply" data-id="${esc(r.id)}">លុបការឆ្លើយតប</button>`:""}</div></div>` : "";
+    const actions = !preview && (isAdmin||canDel) && replyOpen!==r.id ? `<div class="actions">${isAdmin?`<button type="button" class="linkbtn" data-act="reply" data-id="${esc(r.id)}">${rep?"កែការឆ្លើយតប":"ឆ្លើយតបក្នុងនាមរោងជាង"}</button>`:""}${mine?`<a class="linkbtn" href="#write">កែមតិរបស់ខ្ញុំ</a>`:""}${canDel?`<button type="button" class="linkbtn" data-act="del" data-id="${esc(r.id)}">លុបមតិ</button>`:""}</div>` : "";
+    return `<article class="card${mine?" mine":""}">
+      <div class="head"><div class="avatar" aria-hidden="true">${initial}</div><div><div class="who" data-noi18n>${esc(r.name||(LANG==="en"?"Customer":"អតិថិជន"))}</div>${r.car?`<div class="sub" data-noi18n>${esc(r.car)}</div>`:""}</div>${stars(r.rating)}</div>
+      <p class="quote${r.placeholder?" placeholder":""}" data-noi18n>${esc(r.body)}</p>
+      <div class="chipline">${r.service?`<span class="mchip svc">${esc(svcLabel(r.service))}</span>`:""}${sc}${r.recommend?`<span class="mchip rec">${CHECK_SM}ណែនាំយើង</span>`:""}</div>
+      ${replyOpen===r.id ? replyForm : replyBlock}
+      <div class="foot"><span>${preview?"ថ្ងៃនេះ":fmtDate(r.createdAt)}${r.updatedAt&&r.updatedAt-r.createdAt>60000?" · បានកែ":""}</span>${mine?"<span>មតិរបស់អ្នក</span>":""}</div>
+      ${actions}
+    </article>`;
+  }
+
+  function renderPreview(){
+    const body = $("f-body").value.trim();
+    $("preview").innerHTML = card({
+      id:"__preview", name:$("f-name").value.trim()||T("ឈ្មោះរបស់អ្នក"), car:$("f-car").value.trim(), service:form.service,
+      rating:form.rating, body: body || T("មតិរបស់អ្នកនឹងបង្ហាញនៅទីនេះ ពេលអ្នកវាយ។"), placeholder:!body,
+      aspects:form.aspects, recommend:$("f-rec").checked
+    }, true);
+  }
+  function updateProgress(){
+    const done = {
+      rating: form.rating>0,
+      visit: !!$("f-name").value.trim() && !!form.service,
+      body: $("f-body").value.trim().length>=10
+    };
+    const k = Object.values(done).filter(Boolean).length;
+    $("prog-text").textContent = k===3 ? "រួចរាល់សម្រាប់បង្ហោះ" : `បានបំពេញ ${k} ក្នុងចំណោម 3 ជំហាន`;
+    $("prog-bar").style.width = (k/3*100)+"%";
+    document.querySelectorAll("#steps li").forEach(li=>li.classList.toggle("done", !!done[li.dataset.step]));
+  }
+
+  /* ---------- form ---------- */
+  function renderForm(){
+    $("star-input").innerHTML = [1,2,3,4,5].map(i=>`<button type="button" role="radio" aria-checked="${form.rating===i}" aria-label="${i} ផ្កាយ" tabindex="${(form.rating||1)===i?0:-1}" data-rate="${i}"><svg viewBox="0 0 24 24" aria-hidden="true" class="${i<=form.rating?"on":"off"}">${STAR}</svg></button>`).join("");
+    $("star-caption").textContent = form.rating ? CAPTIONS[form.rating] : "ចុចលើផ្កាយដើម្បីដាក់ពិន្ទុ។";
+    $("svc-input").innerHTML = SERVICES.map(s=>`<button type="button" role="radio" class="chip" aria-checked="${form.service===s}" data-pick="${esc(s)}">${esc(svcLabel(s))}</button>`).join("");
+    setTimeout(()=>{ updateProgress(); renderPreview(); });
+    $("aspect-inputs").innerHTML = ASPECTS.map(([k,l])=>`<div class="aspect-row"><span id="al-${k}">${l}</span><div class="seg" role="radiogroup" aria-labelledby="al-${k}">${[1,2,3,4,5].map(v=>`<button type="button" role="radio" aria-checked="${form.aspects[k]===v}" data-aspect="${k}" data-v="${v}">${v}</button>`).join("")}</div></div>`).join("");
+  }
+
+  function prefill(){
+    if(prefilled || !uid) return;
+    const mine = reviews.find(r=>r.id===uid && valid(r));
+    if(!mine) return;
+    prefilled = true;
+    form.rating = mine.rating; form.service = mine.service||"";
+    form.aspects = Object.assign({quality:0,price:0,time:0}, mine.aspects||{});
+    $("f-name").value = mine.name||""; $("f-car").value = mine.car||""; $("f-body").value = mine.body||"";
+    $("f-rec").checked = !!mine.recommend;
+    $("f-count").textContent = `${$("f-body").value.length} / 800`;
+    $("form-title").textContent = "កែប្រែមតិរបស់អ្នក";
+    $("f-submit").textContent = "កែប្រែមតិ";
+    renderForm();
+  }
+
+  function msg(text, cls){ const m=$("f-msg"); m.className = cls||""; m.textContent = text; }
+
+  $("form").addEventListener("submit", async e=>{
+    e.preventDefault();
+    if(!db || !uid){ msg("សូមចូលគណនី claude.ai ដើម្បីបង្ហោះមតិ។","err"); return; }
+    if(writeBlocked){ msg("កម្រិតសិទ្ធិរបស់អ្នកមិនអនុញ្ញាតឱ្យបង្ហោះមតិទេ។","err"); return; }
+    const name = $("f-name").value.trim(), body = $("f-body").value.trim();
+    if(!form.rating) return msg("សូមជ្រើសរើសពិន្ទុរួមពី 1 ដល់ 5 ផ្កាយ។","err");
+    if(!name) { $("f-name").focus(); return msg("សូមបញ្ចូលឈ្មោះដែលចង់បង្ហាញលើមតិ។","err"); }
+    if(!form.service) return msg("សូមជ្រើសរើសសេវាកម្មដែលយើងបានធ្វើ។","err");
+    if(body.length < 10) { $("f-body").focus(); return msg("សូមសរសេរយ៉ាងហោចណាស់មួយប្រយោគអំពីការមករបស់អ្នក (10 តួអក្សរឡើងទៅ)។","err"); }
+    const existing = reviews.find(r=>r.id===uid);
+    const data = {
+      rating: form.rating, name, car: $("f-car").value.trim(), service: form.service, body,
+      aspects: Object.fromEntries(Object.entries(form.aspects).filter(([,v])=>v>=1)),
+      recommend: $("f-rec").checked,
+      createdAt: existing?.createdAt || Date.now(), updatedAt: Date.now()
+    };
+    const btn = $("f-submit"); btn.disabled = true; msg("កំពុងបង្ហោះ…");
+    try{
+      await db.collection("reviews").doc(uid).set(data);
+      prefilled = true;
+      $("form-title").textContent = "កែប្រែមតិរបស់អ្នក"; btn.textContent = "កែប្រែមតិ";
+      msg(existing ? "បានកែប្រែមតិ។ អរគុណដែលជួយឱ្យយើងកាន់តែប្រសើរ។" : "បានបង្ហោះមតិ។ អរគុណច្រើន!","ok-msg");
+    }catch(err){
+      if(err && err.code==="invalid_argument"){ writeBlocked = true; render(); msg("កម្រិតសិទ្ធិរបស់អ្នកមិនអនុញ្ញាតឱ្យបង្ហោះមតិទេ។","err"); }
+      else if(err && err.code==="quota_exceeded") msg("ផ្ទាំងមតិពេញហើយ។ សូមស្នើម្ចាស់ទំព័រឱ្យលុបមតិចាស់ៗ។","err");
+      else msg("មិនអាចបង្ហោះមតិបានទេ។ សូមពិនិត្យអ៊ីនធឺណិត ហើយព្យាយាមម្តងទៀត។","err");
+    }finally{ btn.disabled = false; }
+  });
+
+  $("f-body").addEventListener("input", e=> $("f-count").textContent = `${e.target.value.length} / 800`);
+  ["f-name","f-car","f-body","f-rec"].forEach(id=>$(id).addEventListener(id==="f-rec"?"change":"input", ()=>{ updateProgress(); renderPreview(); }));
+  $("service-filter").addEventListener("change", e=>{ filter.service = e.target.value; render(); });
+
+  document.addEventListener("click", async e=>{
+    const t = e.target.closest("button"); if(!t) return;
+    if(t.dataset.rate){ form.rating = +t.dataset.rate; renderForm(); $("star-input").querySelector(`[data-rate="${form.rating}"]`).focus(); return; }
+    if(t.dataset.pick){ form.service = t.dataset.pick; renderForm(); return; }
+    if(t.dataset.aspect){ const k=t.dataset.aspect, v=+t.dataset.v; form.aspects[k] = form.aspects[k]===v ? 0 : v; renderForm(); return; }
+    if(t.dataset.star){ const s=+t.dataset.star; filter.stars = filter.stars===s?0:s; render(); return; }
+    if(t.dataset.svc){ filter.service = t.dataset.svc; render(); return; }
+    if(t.dataset.slide){ goSlide(+t.dataset.slide); restart(); return; }
+    if(t.dataset.symptom){
+      const i=+t.dataset.symptom;
+      symptom = symptom===i ? -1 : i; pickedSvc = null;
+      let target = null;
+      if(symptom>=0){
+        const names = SYMPTOMS[i].svc;
+        SERVICE_INFO.filter(x=>names.includes(x.name)).forEach(x=>openSvc.add(x.slug));
+        target = SERVICE_INFO.find(x=>x.name===names[0]);
+      }
+      render();
+      const b=document.querySelector(`[data-symptom="${i}"]`); b&&b.focus({preventScroll:true});
+      if(target){
+        const el = $("svc-"+target.slug);
+        if(el){
+          setTimeout(()=>{
+            el.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+            el.classList.remove("pulse"); void el.offsetWidth; el.classList.add("pulse");
+          }, 60);
+        }
+      }
+      return;
+    }
+    if(t.dataset.seeSvc){ filter.service = t.dataset.seeSvc; filter.stars = 0; render(); $("reviews").scrollIntoView(); return; }
+    if(t.id==="more-btn"){ shownCount += PAGE; render(); return; }
+    if(t.id==="clear-filters"){ filter.service="all"; filter.stars=0; render(); return; }
+    const act = t.dataset.act, id = t.dataset.id;
+    if(act==="reply"){ replyOpen = id; render(); const ta=$("rt-"+id); ta&&ta.focus(); return; }
+    if(act==="cancel-reply"){ replyOpen = null; render(); return; }
+    try{
+      if(act==="save-reply"){
+        const text = ($("rt-"+id).value||"").trim(); if(!text) return;
+        t.disabled = true;
+        await db.collection("replies").doc(id).set({text, at:Date.now()});
+        replyOpen = null; render();
+      }
+      if(act==="del-reply"){ await db.collection("replies").doc(id).delete(); replyOpen=null; render(); }
+      if(act==="del"){
+        if(!confirm(T("លុបមតិនេះមែនទេ? មិនអាចយកមកវិញបានទេ។"))) return;
+        await db.collection("reviews").doc(id).delete();
+        if(isAdmin && replies[id]) await db.collection("replies").doc(id).delete().catch(()=>{});
+        if(id===uid){ prefilled=false; form.rating=0; form.service=""; form.aspects={quality:0,price:0,time:0}; $("form").reset(); $("f-count").textContent="0 / 800"; $("form-title").textContent="សរសេរមតិ"; $("f-submit").textContent="បង្ហោះមតិ"; renderForm(); }
+      }
+    }catch(err){ t.disabled=false; alert(T("មិនបានជោគជ័យទេ។ សូមព្យាយាមម្តងទៀតបន្តិចទៀត។")); }
+  });
+
+  $("star-input").addEventListener("keydown", e=>{
+    if(!["ArrowRight","ArrowLeft","ArrowUp","ArrowDown"].includes(e.key)) return;
+    e.preventDefault();
+    const d = (e.key==="ArrowRight"||e.key==="ArrowUp")?1:-1;
+    form.rating = Math.min(5, Math.max(1, (form.rating||0)+d)); renderForm();
+    $("star-input").querySelector(`[data-rate="${form.rating}"]`).focus();
+  });
+  $("sort").addEventListener("change", e=>{ filter.sort = e.target.value; render(); });
+
+  /* ---------- contact details: edit these ---------- */
+  const CONTACT = {
+    phone: "",            // e.g. "+855 12 345 678"
+    telegram: "",         // Telegram username without @, e.g. "northgateauto"
+    email: "",            // e.g. "service@northgateauto.com"
+    address: "",          // e.g. "No. 12, Street 271, Phnom Penh"
+    hours: [               // Sunday first, matching JavaScript’s getDay()
+      // allDay:true = open 24 hours. For set hours use {d:"...", open:"08:00", close:"18:00"}, or {d:"...", closed:true}
+      {d:"ថ្ងៃអាទិត្យ", s:"អា", allDay:true},
+      {d:"ថ្ងៃច័ន្ទ", s:"ច", allDay:true},
+      {d:"ថ្ងៃអង្គារ", s:"អ", allDay:true},
+      {d:"ថ្ងៃពុធ", s:"ព", allDay:true},
+      {d:"ថ្ងៃព្រហស្បតិ៍", s:"ព្រ", allDay:true},
+      {d:"ថ្ងៃសុក្រ", s:"សុ", allDay:true},
+      {d:"ថ្ងៃសៅរ៍", s:"ស", allDay:true}
+    ]
+  };
+  const CI = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+  const C_ICONS = {
+    phone: CI('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'),
+    telegram: CI('<path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l12-9"/>'),
+    email: CI('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>'),
+    address: CI('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>')
+  };
+  function renderContact(){
+    const c = CONTACT;
+    const tel = c.phone ? "tel:" + c.phone.replace(/[^\d+]/g, "") : "";
+    const tg = c.telegram ? "https://t.me/" + encodeURIComponent(c.telegram.replace(/^@/, "")) : "";
+    const mail = c.email ? "mailto:" + c.email : "";
+    const map = c.address ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(c.address) : "";
+    const item = (k, label, val, missing, href, cta, ext) => `<div class="c-item"><div class="c-icon">${C_ICONS[k]}</div>
+      <div><h3>${label}</h3><div class="c-value${val?"":" missing"}">${val?esc(val):missing}</div></div>
+      <a class="btn btn-line btn-small" ${href?`href="${esc(href)}"`:'aria-disabled="true"'}${ext&&href?' target="_blank" rel="noopener"':""}>${cta}</a></div>`;
+    $("c-list").innerHTML =
+      item("phone","ទូរស័ព្ទមកយើង",c.phone,"លេខទូរស័ព្ទនឹងមានឆាប់ៗ",tel,"ហៅឥឡូវនេះ") +
+      item("telegram","ផ្ញើសារតាម Telegram",c.telegram?"@"+c.telegram.replace(/^@/,""):"","Telegram នឹងមានឆាប់ៗ",tg,"បើក Telegram",true) +
+      item("email","អ៊ីមែល",c.email,"អ៊ីមែលនឹងមានឆាប់ៗ",mail,"ផ្ញើអ៊ីមែល") +
+      item("address","អាសយដ្ឋានរោងជាង",c.address,"អាសយដ្ឋាននឹងមានឆាប់ៗ",map,"មើលផ្លូវ",true);
+
+    const now = new Date(), day = now.getDay(), mins = now.getHours()*60 + now.getMinutes();
+    const toM = t => { const [h,m] = t.split(":").map(Number); return h*60+m; };
+    const always = c.hours.every(h=>h.allDay);
+    $("always").hidden = !always; $("hours-table").hidden = always;
+    if(always) $("week").innerHTML = [1,2,3,4,5,6,0].map(i=>`<span class="${i===day?"today":""}" title="${c.hours[i].d}">${c.hours[i].s||c.hours[i].d}</span>`).join("");
+    $("hours-rows").innerHTML = [1,2,3,4,5,6,0].map(i=>{ const h=c.hours[i]; return `<tr class="${i===day?"today":""}"><td>${h.d}${i===day?" (ថ្ងៃនេះ)":""}</td><td>${h.closed?"បិទ":h.allDay?"បើក 24 ម៉ោង":h.open+"–"+h.close}</td></tr>`; }).join("");
+    const t = c.hours[day];
+    const isOpen = !t.closed && (t.allDay || (mins >= toM(t.open) && mins < toM(t.close)));
+    let label;
+    if(always) label = "បើកឥឡូវនេះ · 24 ម៉ោង រាល់ថ្ងៃ";
+    else if(isOpen && t.allDay) label = "បើកឥឡូវនេះ · 24 ម៉ោងថ្ងៃនេះ";
+    else if(isOpen) label = `បើកឥឡូវនេះ · បិទម៉ោង ${t.close}`;
+    else {
+      let k = 0, nd, nh;
+      if(!t.closed && mins < toM(t.open)){ nd = "ថ្ងៃនេះ"; nh = t.open; }
+      else { for(k=1;k<=7;k++){ const h=c.hours[(day+k)%7]; if(!h.closed){ nd = k===1?"ថ្ងៃស្អែក":h.d; nh = h.allDay?"00:00":h.open; break; } } }
+      label = nd ? `បិទ · បើកវិញ${nd} ម៉ោង ${nh}` : "បិទ";
+    }
+    const pill = $("open-pill"); pill.classList.toggle("closed", !isOpen); pill.querySelector("span").textContent = label;
+
+    const days = c.hours.filter(h=>!h.closed);
+    $("foot-contact").innerHTML = (c.phone?`<a href="${esc(tel)}">${esc(c.phone)}</a>`:"") + (c.email?`<a href="${esc(mail)}">${esc(c.email)}</a>`:"")
+      + `<span style="display:block;margin-top:6px">${always?"បើក 24 ម៉ោង រាល់ថ្ងៃ":days.length===6&&c.hours[0].closed?`ច័ន្ទ–សៅរ៍ ${days[0].open}–${days[0].close}`:"មើលម៉ោងធ្វើការ"}</span>`
+      + (c.address?`<span style="display:block">${esc(c.address)}</span>`:"") + `<a href="#contact">ព័ត៌មានទំនាក់ទំនងទាំងអស់</a>`;
+
+    const bar = $("callbar");
+    if(tel || tg){
+      bar.innerHTML = (tel?`<a class="primary" href="${esc(tel)}">${C_ICONS.phone}ហៅ</a>`:"") + (tg?`<a href="${esc(tg)}" target="_blank" rel="noopener">${C_ICONS.telegram}Telegram</a>`:"");
+      bar.classList.add("show"); document.body.classList.add("has-callbar");
+    }
+  }
+
+  /* ---------- light / dark mode ---------- */
+  (function themeToggle(){
+    const btn = $("theme-btn"), root = document.documentElement;
+    const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    const current = () => root.getAttribute("data-theme") || (mq && mq.matches ? "dark" : "light");
+    const sync = () => {
+      const dark = current()==="dark";
+      btn.classList.toggle("is-dark", dark);
+      btn.setAttribute("aria-label", dark ? "ប្តូរទៅរបៀបភ្លឺ" : "ប្តូរទៅរបៀបងងឹត");
+      btn.title = dark ? "របៀបភ្លឺ" : "របៀបងងឹត";
+    };
+    btn.addEventListener("click", ()=>{
+      const next = current()==="dark" ? "light" : "dark";
+      if(!reduce){ root.classList.add("theme-anim"); setTimeout(()=>root.classList.remove("theme-anim"), 400); }
+      root.setAttribute("data-theme", next);
+      try{ localStorage.setItem("theme", next); }catch(e){}
+      sync();
+    });
+    if(mq && mq.addEventListener) mq.addEventListener("change", sync);
+    sync();
+  })();
+
+  /* ---------- language: Khmer (default) / English ---------- */
+  const DAY_EN = {"ថ្ងៃនេះ":"today","ថ្ងៃស្អែក":"tomorrow"};
+  const tr = k => DICT[k] ?? null;
+  const PATTERNS = [
+    [/^បានបំពេញ (\d+) ក្នុងចំណោម 3 ជំហាន$/, m=>`${m[1]} of 3 steps done`],
+    [/^([\d.]+) ★ ពី (\d+) មតិ$/, m=>`${m[1]} ★ from ${m[2]} review${m[2]==="1"?"":"s"}`],
+    [/^មធ្យមភាគពី (\d+) មតិ \(ពិន្ទុពេញ 5\)$/, m=>`Average of ${m[1]} review${m[1]==="1"?"":"s"}, out of 5`],
+    [/^(\d+)% នៃអតិថិជន (\d+) នាក់ នឹងណែនាំយើងទៅមិត្តភក្តិ។$/, m=>`${m[1]}% of ${m[2]} customer${m[2]==="1"?"":"s"} would recommend us to a friend.`],
+    [/^បង្ហាញមតិបន្ថែម \(នៅសល់ (\d+)\)$/, m=>`Show more reviews (${m[1]} more)`],
+    [/^ទំនងជា៖ (.+)។ បានសម្គាល់ខាងក្រោម។$/, m=>`Most likely: ${m[1].split(" ឬ ").map(x=>tr(x)||x).join(" or ")}. Marked below.`],
+    [/^បើកឥឡូវនេះ · បិទម៉ោង (.+)$/, m=>`Open now · closes ${m[1]}`],
+    [/^បិទ · បើកវិញ(.+) ម៉ោង (.+)$/, m=>`Closed · opens ${DAY_EN[m[1]]||tr(m[1])||m[1]} at ${m[2]}`],
+    [/^(.+) \(ថ្ងៃនេះ\)$/, m=>`${tr(m[1])||m[1]} (today)`],
+    [/^ច័ន្ទ–សៅរ៍ (.+)$/, m=>`Mon–Sat, ${m[1]}`],
+    [/^(.*) · បានកែ$/, m=>`${m[1]} · edited`],
+    [/^មតិ (\d) ផ្កាយ ចំនួន (\d+)$/, m=>`${m[1]}-star reviews, ${m[2]}`],
+    [/^(\d) ក្នុងចំណោម 5 ផ្កាយ$/, m=>`${m[1]} out of 5 stars`],
+    [/^(\d) ផ្កាយ$/, m=>`${m[1]} star${m[1]==="1"?"":"s"}`],
+    [/^បង្ហាញស្លាយទី (\d+)៖ (.+)$/, m=>`Show slide ${m[1]}: ${tr(m[2])||m[2]}`],
+    [/^(\d+) នៃ (\d+)$/, m=>`${m[1]} of ${m[2]}`],
+    [/^មធ្យម ([\d.]+) ក្នុងចំណោម 5$/, m=>`Average ${m[1]} out of 5`]
+  ];
+  const KHMER = /[\u1780-\u17FF]/;
+  function toEn(str){
+    const core = str.trim(); if(!core || !KHMER.test(core)) return null;
+    let out = tr(core);
+    if(out==null) for(const [re,fn] of PATTERNS){ const m = core.match(re); if(m){ out = fn(m); break; } }
+    if(out==null) return null;
+    const lead = str.match(/^\s*/)[0], trail = str.match(/\s*$/)[0];
+    return lead + out + trail;
+  }
+  const ATTRS = ["aria-label","placeholder","title","aria-roledescription"];
+  const origText = new Map(), origAttr = new Map();
+  const skip = el => el && el.closest && el.closest("[data-noi18n], script, style, textarea");
+  function trNode(n){
+    if(n.nodeType===3){
+      if(skip(n.parentElement)) return;
+      const en = toEn(n.nodeValue); if(en!=null){ origText.set(n, n.nodeValue); n.nodeValue = en; }
+    } else if(n.nodeType===1){
+      if(n.matches("[data-noi18n]")) return;
+      ATTRS.forEach(a=>{ const v = n.getAttribute(a); if(v){ const en = toEn(v); if(en!=null){ let o = origAttr.get(n); if(!o){ o={}; origAttr.set(n,o); } o[a]=v; n.setAttribute(a,en); } } });
+      if(skip(n)) return;
+      n.childNodes.forEach(trNode);
+    }
+  }
+  const observer = new MutationObserver(list=>{
+    list.forEach(m=>{
+      if(m.type==="childList") m.addedNodes.forEach(trNode);
+      else if(m.type==="characterData") trNode(m.target);
+      else if(m.type==="attributes") trNode(m.target.nodeType===1 ? Object.assign(m.target) : m.target);
+    });
+  });
+  function startObserver(){ observer.observe(document.body,{subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:ATTRS}); }
+  function restoreKm(){
+    observer.disconnect();
+    origText.forEach((v,n)=>{ n.nodeValue = v; }); origText.clear();
+    origAttr.forEach((o,el)=>{ Object.keys(o).forEach(a=>el.setAttribute(a,o[a])); }); origAttr.clear();
+  }
+  function paintLangBtn(){
+    $("lang-btn").querySelectorAll("span").forEach(sp=>sp.classList.toggle("on", sp.dataset.l===LANG));
+    $("lang-btn").setAttribute("aria-label", LANG==="en" ? "ប្តូរទៅភាសាខ្មែរ (Switch to Khmer)" : "Switch to English (ប្តូរទៅភាសាអង់គ្លេស)");
+  }
+  const TITLE_KM = document.title;
+  function applyLang(){
+    document.documentElement.setAttribute("lang", LANG);
+    document.title = LANG==="en" ? (DICT[TITLE_KM] || TITLE_KM) : TITLE_KM;
+    restoreKm();
+    renderForm(); render(); renderContact(); setPaused(paused);
+    if(LANG==="en"){ trNode(document.body); startObserver(); }
+    paintLangBtn();
+  }
+  $("lang-btn").addEventListener("click", ()=>{
+    LANG = LANG==="en" ? "km" : "en";
+    try{ localStorage.setItem("lang", LANG); }catch(e){}
+    applyLang();
+  });
+
+  /* ---------- visitor counter ---------- */
+  let visits = [], visitsReady = false, visitRecorded = false, statsVisible = false;
+  const DIGITS = Array.from({length:10},(_,i)=>`<span>${i}</span>`).join("");
+  function odo(id, value){
+    const el = $(id); if(!el) return;
+    if(value==null){ el.textContent = "–"; el.dataset.shape = ""; return; }
+    const shown = statsVisible ? value : 0;
+    const str = shown.toLocaleString("en-US");
+    const shape = str.replace(/\d/g,"0");
+    if(el.dataset.shape !== shape){
+      el.innerHTML = `<span class="sr"></span><span class="digits" aria-hidden="true">${[...str].map(c=>/\d/.test(c)?`<span class="d"><span class="col">${DIGITS}</span></span>`:`<span class="sep">${c}</span>`).join("")}</span>`;
+      el.dataset.shape = shape;
+    }
+    el.querySelector(".sr").textContent = value.toLocaleString("en-US");
+    const cols = [...el.querySelectorAll(".col")], ds = str.replace(/\D/g,"");
+    const changed = el.dataset.v !== String(shown);
+    el.dataset.v = String(shown);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      cols.forEach((c,k)=>{ c.style.transitionDelay = (k*90)+"ms"; c.style.transform = `translateY(-${+ds[k]}em)`; });
+    }));
+    if(changed && statsVisible && shown>0){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  }
+  function renderStats(){
+    if(!visitsReady){ ["st-views","st-unique","st-today","st-online"].forEach(id=>odo(id,null)); return; }
+    const now = Date.now(), d0 = new Date(); d0.setHours(0,0,0,0);
+    const ok = visits.filter(v=>v && typeof v.views==="number");
+    odo("st-views", ok.reduce((a,v)=>a+Math.max(0,v.views),0));
+    odo("st-unique", ok.length);
+    odo("st-today", ok.filter(v=>(v.last||0) >= d0.getTime() || (v.seen||0) >= d0.getTime()).length);
+    odo("st-online", Math.max(ok.filter(v=>(v.seen||0) >= now-150000).length, uid && visitRecorded ? 1 : 0));
+  }
+  function recordVisit(){
+    if(!db || !uid || visitRecorded) return;
+    visitRecorded = true;
+    const mine = visits.find(v=>v.id===uid);
+    let counted = false; try{ counted = sessionStorage.getItem("visit-counted")==="1"; }catch(e){}
+    const now = Date.now();
+    db.collection("visits").doc(uid).set({views:(mine && typeof mine.views==="number" ? mine.views : 0) + (counted?0:1), first:(mine&&mine.first)||now, last:now, seen:now})
+      .then(()=>{ try{ sessionStorage.setItem("visit-counted","1"); }catch(e){} }).catch(()=>{});
+  }
+  function heartbeat(){ if(db && uid && visitRecorded && !document.hidden) db.collection("visits").doc(uid).update({seen:Date.now()}).catch(()=>{}); }
+  if("IntersectionObserver" in window){
+    const io = new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)){ statsVisible = true; renderStats(); io.disconnect(); } }, {threshold:.3});
+    io.observe($("stats"));
+  } else statsVisible = true;
+  setInterval(()=>{ heartbeat(); renderStats(); }, 60000);
+  document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) heartbeat(); });
+
+  /* ---------- data ---------- */
+  async function init(){
+    renderForm(); buildSlides(); renderContact(); setInterval(renderContact, 60000); render(); applyLang();
+    if(!window.claude || typeof window.claude.use!=="function"){ unavailable = true; render(); return; }
+    const timer = setTimeout(()=>{ if(!loaded){ unavailable = true; render(); } }, 10000);
+    try{
+      [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+    }catch(_){ db = null; }
+    if(!db){ clearTimeout(timer); unavailable = true; render(); return; }
+    if(user){
+      try{ uid = await user.id(); }catch(_){}
+      try{ isAdmin = await user.canEdit(); }catch(_){}
+      if(!uid) writeBlocked = true;
+    }
+    db.collection("reviews").onSnapshot(snap=>{
+      clearTimeout(timer); unavailable = false; loaded = true;
+      reviews = snap.docs.map(d=>Object.assign({id:d.id}, d.data()));
+      prefill(); render();
+    }, ()=>{ clearTimeout(timer); unavailable = true; render(); });
+    db.collection("replies").onSnapshot(snap=>{
+      replies = {}; snap.docs.forEach(d=>replies[d.id]=d.data()); if(loaded) render();
+    }, ()=>{});
+    db.collection("visits").onSnapshot(snap=>{
+      visits = snap.docs.map(d=>Object.assign({id:d.id}, d.data()));
+      visitsReady = true;
+      if(!visitRecorded) recordVisit();
+      renderStats();
+    }, ()=>{});
+  }
+  init();
+})();
+
+</script>
+</body>
+</html>

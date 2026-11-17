@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 76px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: rgb(var(--color-bg));
+    color: rgb(var(--color-text));
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: var(--line-height-body);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-stretch: 125%;
+    font-weight: 500;
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--letter-spacing-heading);
+    margin: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 3px;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Page container used by every section. */
+  .page-wrap {
+    @apply mx-auto w-full max-w-page px-6;
+  }
+
+  /* Hairline-free surface used for the always-dark cards (hours, write-a-review aside). */
+  .night-card {
+    background:
+      radial-gradient(
+        70% 55% at 30% 0%,
+        rgb(var(--color-night-raised)),
+        rgb(var(--color-night-2) / 0.6) 70%
+      ),
+      rgb(var(--color-night-2));
+    @apply border border-night-edge text-night-text;
+  }
+}
+
+/* Short colour fade while switching theme (added by ThemeSwitcher). */
+html.theme-anim,
+html.theme-anim * {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease !important;
+}

@@ -1,0 +1,30 @@
+/*
+ * Font stacks. Font files are self-hosted by @nuxt/fonts (see nuxt.config.ts).
+ * Khmer: Archivo renders the Latin characters, Kantumruy Pro renders the Khmer script.
+ * English: Archivo only — the Khmer font is not loaded into the English stack.
+ */
+:root {
+  --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --line-height-body: 1.6;
+  --line-height-heading: 1.08;
+  --letter-spacing-heading: -0.02em;
+}
+
+html:lang(km),
+[lang='km'] {
+  --font-sans: 'Archivo', 'Kantumruy Pro', 'Noto Sans Khmer', 'Khmer OS Siemreap', sans-serif;
+  /* Room for stacked consonants and vowels so they are not clipped. */
+  --line-height-body: 1.8;
+  --line-height-heading: 1.4;
+  /* No tracking on Khmer text. */
+  --letter-spacing-heading: 0;
+}
+
+/*
+ * Khmer snippets inside an English page (e.g. a customer review written in Khmer):
+ * apply the Khmer stack directly, since font-family was already resolved on <body>.
+ */
+body [lang='km'] {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+}

@@ -1,0 +1,81 @@
+/*
+ * Theme tokens. Values are RGB channels so Tailwind can apply opacity (e.g. bg-primary/10).
+ * Use them as rgb(var(--color-x)) in CSS, or through the Tailwind color names in tailwind.config.ts.
+ * @nuxtjs/color-mode puts `light` or `dark` on <html>; `system` resolves to one of them.
+ */
+:root,
+html.light {
+  color-scheme: light;
+  --color-bg: 242 242 240;
+  --color-surface: 255 255 255;
+  --color-surface-2: 232 232 229;
+  --color-text: 10 10 10;
+  --color-muted: 94 94 94;
+  --color-border: 212 212 208;
+  --color-primary: 138 111 62;
+  --color-primary-contrast: 255 255 255;
+  --color-success: 47 125 79;
+  --color-danger: 179 38 30;
+  --color-warning: 154 103 0;
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-bg: 0 0 0;
+  --color-surface: 14 14 14;
+  --color-surface-2: 23 23 23;
+  --color-text: 242 242 242;
+  --color-muted: 142 142 142;
+  --color-border: 38 38 38;
+  --color-primary: 217 199 163;
+  --color-primary-contrast: 0 0 0;
+  --color-success: 123 199 155;
+  --color-danger: 255 138 122;
+  --color-warning: 230 180 80;
+}
+
+/*
+ * "Night" tokens: the header, hero, rating dashboard, CTA band, footer and hours card are
+ * always dark in the design (in both light and dark mode), so these do not change with the theme.
+ */
+:root {
+  --color-night: 0 0 0;
+  --color-night-2: 17 17 17;
+  --color-night-panel: 15 15 15;
+  --color-night-raised: 38 38 38;
+  --color-night-text: 242 242 242;
+  --color-night-strong: 247 247 247;
+  --color-night-muted: 142 142 142;
+  --color-night-line: 38 38 38;
+  --color-night-edge: 30 30 30;
+  --color-night-accent: 217 199 163;
+  --color-night-accent-deep: 122 106 79;
+  --color-night-success: 123 199 155;
+  --color-night-danger: 255 138 122;
+  --color-night-tick: 90 90 90;
+  --color-night-tick-major: 208 208 208;
+  --color-night-off: 51 51 51;
+
+  /* Car illustration (hero + CTA band). Always drawn on a dark backdrop. */
+  --art-black: 0 0 0;
+  --art-white: 255 255 255;
+  --art-tire: 11 11 11;
+  --art-rim: 22 22 22;
+  --art-rim-edge: 189 189 189;
+  --art-spoke: 140 140 140;
+  --art-hub: 207 207 207;
+  --art-glass: 10 10 10;
+  --art-taillight: 198 40 40;
+  --art-silver-1: 247 247 247;
+  --art-silver-2: 168 168 168;
+  --art-silver-3: 46 46 46;
+  --art-graphite-1: 154 154 154;
+  --art-graphite-2: 60 60 60;
+  --art-graphite-3: 11 11 11;
+  --art-pearl-1: 255 255 255;
+  --art-pearl-2: 217 217 214;
+  --art-pearl-3: 90 90 88;
+  --art-champagne-1: 244 233 211;
+  --art-champagne-2: 185 162 122;
+  --art-champagne-3: 58 48 32;
+}
