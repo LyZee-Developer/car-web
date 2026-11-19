@@ -1,12 +1,12 @@
 import type { StoredReview } from '~/server/utils/reviews'
 
 /**
- * DEVELOPMENT ONLY: fills an empty review board with 4 sample reviews so the
+ * DEVELOPMENT ONLY: writes 14 sample reviews (refreshed on every start) so the
  * "What customers say" section, the rating gauge and the service cards can be previewed.
  *
  * These are not real customer reviews. They are only written when
  * runtimeConfig.seedDemoReviews is true (on in `nuxt dev`, off in production builds)
- * and the board is empty. To remove them, delete the `.data/db` folder.
+ * and no real database (Upstash) is connected. To remove them, delete the `.data/db` folder.
  */
 const DAY = 24 * 60 * 60 * 1000
 
@@ -19,7 +19,7 @@ function demoReviews(now: number): { id: string; review: StoredReview }[] {
         car: 'Toyota Camry 2018',
         service: 'brakes',
         rating: 5,
-        body: 'ហ្វ្រាំងមានសំឡេងស្រែកខ្លាំង។ ជាងបានបង្ហាញសំបកហ្វ្រាំងដែលរេចរឹលមកខ្ញុំ ហើយប្រាប់តម្លៃមុនធ្វើ។ រួចរាល់ក្នុងរយៈពេលពីរម៉ោង ហើយឥឡូវហ្វ្រាំងស្ងាត់ និងឈប់ល្អណាស់។',
+        body: 'អរគុណបងៗជាងច្រើន ដែលបានពិនិត្យហ្វ្រាំងឡានខ្ញុំ។ ឥឡូវឈប់ល្អហើយ។',
         aspects: { quality: 5, price: 5, time: 5 },
         recommend: true,
         createdAt: now - 2 * DAY,
@@ -33,7 +33,7 @@ function demoReviews(now: number): { id: string; review: StoredReview }[] {
         car: 'Honda CR-V 2020',
         service: 'ac',
         rating: 5,
-        body: 'The A/C was only blowing cool air in the afternoon heat. They found a small leak, recharged the gas and changed the cabin filter while I waited. Ice cold now.',
+        body: 'Thank you for fixing my A/C. It is very cold now.',
         aspects: { quality: 5, price: 4, time: 5 },
         recommend: true,
         createdAt: now - 5 * DAY,
@@ -47,7 +47,7 @@ function demoReviews(now: number): { id: string; review: StoredReview }[] {
         car: 'Lexus RX 350',
         service: 'diag',
         rating: 5,
-        body: 'ភ្លើងព្រមានម៉ាស៊ីនឆេះ ហើយខ្ញុំបារម្ភខ្លាំង។ គេស្កេនរកឃើញថាជាសេនស័រអុកស៊ីសែន ផ្តល់របាយការណ៍ជាលាយលក្ខណ៍អក្សរ ហើយមិនបង្ខំឱ្យជួសជុលភ្លាមៗទេ។ ស្មោះត្រង់ណាស់។',
+        body: 'អរគុណដែលបានជួយពិនិត្យឡានខ្ញុំ ហើយពន្យល់ច្បាស់ណាស់។',
         aspects: { quality: 5, price: 5, time: 4 },
         recommend: true,
         createdAt: now - 9 * DAY,
@@ -61,11 +61,151 @@ function demoReviews(now: number): { id: string; review: StoredReview }[] {
         car: 'Mazda CX-5 2019',
         service: 'oil',
         rating: 4,
-        body: 'Quick oil and filter change, done in about 30 minutes. They also topped up the coolant and washer fluid without asking for extra. Engine is noticeably quieter.',
+        body: 'Thanks for the quick oil change. Good service.',
         aspects: { quality: 4, price: 5, time: 5 },
         recommend: true,
         createdAt: now - 14 * DAY,
         updatedAt: now - 14 * DAY,
+      },
+    },
+    {
+      id: 'demo-tires',
+      review: {
+        name: 'Sophea',
+        car: 'Ford Ranger 2021',
+        service: 'tires',
+        rating: 5,
+        body: 'Thank you for checking my car. It drives straight again.',
+        aspects: { quality: 5, price: 4, time: 5 },
+        recommend: true,
+        createdAt: now - 1 * DAY,
+        updatedAt: now - 1 * DAY,
+      },
+    },
+    {
+      id: 'demo-electrical',
+      review: {
+        name: 'វណ្ណា',
+        car: 'Toyota Prius 2015',
+        service: 'electrical',
+        rating: 5,
+        body: 'អរគុណច្រើន ឡានឆេះស្រួលវិញហើយ។',
+        aspects: { quality: 5, price: 5, time: 5 },
+        recommend: true,
+        createdAt: now - 3 * DAY,
+        updatedAt: now - 3 * DAY,
+      },
+    },
+    {
+      id: 'demo-body',
+      review: {
+        name: 'Rachana',
+        car: 'Hyundai Tucson 2019',
+        service: 'body',
+        rating: 5,
+        body: 'Thank you, the paint looks like new. Very happy.',
+        aspects: { quality: 5, price: 4, time: 5 },
+        recommend: true,
+        createdAt: now - 4 * DAY,
+        updatedAt: now - 4 * DAY,
+      },
+    },
+    {
+      id: 'demo-general',
+      review: {
+        name: 'ពិសិដ្ឋ',
+        car: 'Toyota Highlander 2017',
+        service: 'general',
+        rating: 5,
+        body: 'អរគុណដែលបានពិនិត្យឡានមុនខ្ញុំធ្វើដំណើរ។ សេវាល្អណាស់។',
+        aspects: { quality: 5, price: 5, time: 4 },
+        recommend: true,
+        createdAt: now - 6 * DAY,
+        updatedAt: now - 6 * DAY,
+      },
+    },
+    {
+      id: 'demo-engine',
+      review: {
+        name: 'Kimheng',
+        car: 'Nissan Navara 2016',
+        service: 'engine',
+        rating: 4,
+        body: 'Thanks for checking my engine. It runs well now.',
+        aspects: { quality: 5, price: 4, time: 4 },
+        recommend: true,
+        createdAt: now - 7 * DAY,
+        updatedAt: now - 7 * DAY,
+      },
+    },
+    {
+      id: 'demo-brakes-2',
+      review: {
+        name: 'ស្រីនាង',
+        car: 'Honda Civic 2018',
+        service: 'brakes',
+        rating: 5,
+        body: 'អរគុណបង សេវាល្អ និងរហ័ស។',
+        aspects: { quality: 5, price: 5, time: 5 },
+        recommend: true,
+        createdAt: now - 10 * DAY,
+        updatedAt: now - 10 * DAY,
+      },
+    },
+    {
+      id: 'demo-ac-2',
+      review: {
+        name: 'Bunthoeun',
+        car: 'Kia Sportage 2020',
+        service: 'ac',
+        rating: 4,
+        body: 'Thank you, no more bad smell from the A/C.',
+        aspects: { quality: 4, price: 4, time: 5 },
+        recommend: true,
+        createdAt: now - 12 * DAY,
+        updatedAt: now - 12 * DAY,
+      },
+    },
+    {
+      id: 'demo-diag-2',
+      review: {
+        name: 'Malis',
+        car: 'Toyota Corolla 2014',
+        service: 'diag',
+        rating: 5,
+        body: 'Thank you for checking my car before I bought it.',
+        aspects: { quality: 5, price: 5, time: 5 },
+        recommend: true,
+        createdAt: now - 16 * DAY,
+        updatedAt: now - 16 * DAY,
+      },
+    },
+    {
+      id: 'demo-oil-2',
+      review: {
+        name: 'សុភ័ក្ត្រ',
+        car: 'Lexus ES 300h',
+        service: 'oil',
+        rating: 5,
+        body: 'អរគុណសម្រាប់ការប្តូរប្រេង។ នឹងមកម្តងទៀត។',
+        aspects: { quality: 5, price: 5, time: 5 },
+        recommend: true,
+        createdAt: now - 19 * DAY,
+        updatedAt: now - 19 * DAY,
+      },
+    },
+    {
+      id: 'demo-general-2',
+      review: {
+        name: 'Narith',
+        car: 'Mitsubishi Pajero 2018',
+        service: 'general',
+        rating: 5,
+        body: 'Thank you for checking my car. Good price and friendly staff.',
+        aspects: { quality: 5, price: 4, time: 5 },
+        recommend: true,
+        createdAt: now - 23 * DAY,
+        updatedAt: now - 23 * DAY,
       },
     },
   ]
@@ -73,14 +213,20 @@ function demoReviews(now: number): { id: string; review: StoredReview }[] {
 
 export default defineNitroPlugin(async () => {
   if (!useRuntimeConfig().seedDemoReviews) return
+  // Never write samples into a real database (e.g. Upstash env vars pulled from Vercel).
+  if (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL || process.env.VERCEL) {
+    console.warn('[seed] Skipped sample reviews: a real database is connected.')
+    return
+  }
 
   const db = useStorage('db')
-  const existing = await db.getKeys('reviews')
-  if (existing.length) return
-
   const now = Date.now()
-  for (const { id, review } of demoReviews(now)) {
+  const reviews = demoReviews(now)
+  // Write every sample on each start, so edits to their text show up on an existing local board.
+  for (const { id, review } of reviews) {
     await db.setItem(`reviews:${id}`, review)
   }
-  console.info('[seed] Added 4 sample reviews for development (delete .data/db to remove).')
+  console.info(
+    `[seed] Wrote ${reviews.length} sample reviews for development (delete .data/db to remove).`,
+  )
 })

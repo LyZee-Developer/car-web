@@ -22,7 +22,11 @@ const { stop } = useIntersectionObserver(
 
 async function ping(view: boolean) {
   try {
-    stats.value = await $fetch<VisitStats>('/api/visits', { method: 'POST', body: { view } })
+    stats.value = await $fetch<VisitStats>('/api/visits', {
+      method: 'POST',
+      body: { view },
+      timeout: 8000,
+    })
   } catch {
     // The counter is decorative; keep the last numbers if the request fails.
   }
@@ -54,33 +58,43 @@ const items = computed(() => [
 </script>
 
 <template>
-  <div
-    ref="root"
-    role="group"
-    :aria-label="t('stats.label')"
-    class="mt-8 grid grid-cols-2 border-t border-night-line md:grid-cols-4"
+  <!--
+    Shown only once real numbers have loaded, so visitors never see "–" placeholders.
+    If the counter can't be reached (e.g. no storage connected on the host), the row stays hidden.
+  -->
+  <Transition
+    enter-active-class="transition-opacity duration-500 motion-reduce:transition-none"
+    enter-from-class="opacity-0"
   >
     <div
-      v-for="(item, i) in items"
-      :key="item.key"
-      class="flex min-w-0 flex-col gap-3.5 px-4 pb-3.5 pt-[18px] md:px-[22px] md:pb-[18px] md:pt-[26px]"
-      :class="[
-        i % 2 === 0 ? 'pl-0' : 'border-l border-night-line',
-        i >= 2 && 'border-t border-night-line md:border-t-0',
-        i === 2 && 'md:border-l md:pl-[22px]',
-      ]"
+      v-show="stats"
+      ref="root"
+      role="group"
+      :aria-label="t('stats.label')"
+      class="mt-8 grid grid-cols-2 border-t border-night-line md:grid-cols-4"
     >
-      <HomeOdometerNumber
-        :value="item.value"
-        :active="visible"
-        :class="item.live ? 'text-night-success' : 'text-night-text'"
-      />
-      <span class="flex items-center gap-2 text-sm leading-normal text-night-muted">
-        <i v-if="item.live" class="live-dot" aria-hidden="true" />
-        {{ item.label }}
-      </span>
+      <div
+        v-for="(item, i) in items"
+        :key="item.key"
+        class="flex min-w-0 flex-col gap-3.5 px-4 pb-3.5 pt-[18px] md:px-[22px] md:pb-[18px] md:pt-[26px]"
+        :class="[
+          i % 2 === 0 ? 'pl-0' : 'border-l border-night-line',
+          i >= 2 && 'border-t border-night-line md:border-t-0',
+          i === 2 && 'md:border-l md:pl-[22px]',
+        ]"
+      >
+        <HomeOdometerNumber
+          :value="item.value"
+          :active="visible"
+          :class="item.live ? 'text-night-success' : 'text-night-text'"
+        />
+        <span class="flex items-center gap-2 text-sm leading-normal text-night-muted">
+          <i v-if="item.live" class="live-dot" aria-hidden="true" />
+          {{ item.label }}
+        </span>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped>

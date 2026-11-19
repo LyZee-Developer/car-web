@@ -5,6 +5,5 @@
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ view?: unknown } | null>(event)
   const id = getVisitorId(event, true)
-  await recordVisit(id, body?.view === true)
-  return getVisitStats()
+  return withStorageTimeout(recordVisit(id, body?.view === true).then(() => getVisitStats()))
 })

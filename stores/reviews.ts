@@ -22,7 +22,8 @@ export const useReviewsStore = defineStore('reviews', () => {
   async function load() {
     if (status.value === 'idle') status.value = 'loading'
     try {
-      items.value = await requestFetch<Review[]>('/api/reviews')
+      // Give up after 5 s so a slow database never stalls the page.
+      items.value = await requestFetch<Review[]>('/api/reviews', { timeout: 5000, retry: 0 })
       status.value = 'ready'
     } catch {
       // Keep showing what we already have; only flag an error if nothing ever loaded.

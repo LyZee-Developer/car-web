@@ -1,2 +1,2 @@
 /** Visitor counter totals. */
-export default defineEventHandler(() => getVisitStats())
+export default defineEventHandler(() => withStorageTimeout(getVisitStats()))
