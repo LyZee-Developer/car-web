@@ -65,7 +65,7 @@ Before writing code, read the existing project files (`nuxt.config.ts`, `package
 ## Configuration
 - `@nuxtjs/color-mode` with `classSuffix: ''` (adds `dark` / `light` class to `<html>`)
 - Options: `light`, `dark`, `system`
-- Default preference: `system`; fallback: `light`
+- Default preference: `light`; fallback: `light`
 - System mode follows the OS and updates live when the OS setting changes
 - Persist the user's choice; no flash of wrong theme on load (SSR-safe)
 

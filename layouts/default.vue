@@ -1,3 +1,22 @@
+<template>
+  <div class="min-h-dvh">
+    <!-- Dark strip behind the iOS notch / status bar. -->
+    <div
+      class="fixed inset-x-0 top-0 z-40 h-[env(safe-area-inset-top,0px)] bg-night"
+      aria-hidden="true"
+    />
+    <!-- Site-wide interactive dot grid behind all content; follows light/dark mode. -->
+    <DotGrid fixed tone="theme" class="z-0" />
+    <AppHeader />
+    <!-- Content sits above the dot grid; cards and dark panels cover it, open areas show it. -->
+    <div class="relative z-[1]">
+      <slot />
+      <AppFooter />
+    </div>
+    <ContactCallBar />
+  </div>
+</template>
+
 <script setup lang="ts">
 const { t } = useI18n()
 
@@ -17,22 +36,3 @@ useSeoMeta({
   ogDescription: () => t('meta.description'),
 })
 </script>
-
-<template>
-  <div class="min-h-dvh">
-    <!-- Dark strip behind the iOS notch / status bar. -->
-    <div
-      class="fixed inset-x-0 top-0 z-40 h-[env(safe-area-inset-top,0px)] bg-night"
-      aria-hidden="true"
-    />
-    <!-- Site-wide interactive dot grid behind all content; follows light/dark mode. -->
-    <DotGrid fixed tone="theme" class="z-0" />
-    <AppHeader />
-    <!-- Content sits above the dot grid; cards and dark panels cover it, open areas show it. -->
-    <div class="relative z-[1]">
-      <slot />
-      <AppFooter />
-    </div>
-    <ContactCallBar />
-  </div>
-</template>

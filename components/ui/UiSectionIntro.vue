@@ -1,8 +1,3 @@
-<script setup lang="ts">
-/** Section heading: hairline on top, title left, intro text right (stacked on mobile). */
-defineProps<{ title: string; text?: string; headingId?: string }>()
-</script>
-
 <template>
   <div
     class="mb-11 grid items-start gap-3.5 border-t border-line pt-7 md:grid-cols-[1.1fr_1fr] md:gap-10"
@@ -13,3 +8,8 @@ defineProps<{ title: string; text?: string; headingId?: string }>()
     </p>
   </div>
 </template>
+
+<script setup lang="ts">
+/** Section heading: hairline on top, title left, intro text right (stacked on mobile). */
+defineProps<{ title: string; text?: string; headingId?: string }>()
+</script>

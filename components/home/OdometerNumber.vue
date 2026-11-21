@@ -1,3 +1,28 @@
+<template>
+  <span class="odo" :class="{ 'is-flashing': flashing }" @animationend="flashing = false">
+    <template v-if="value === null">–</template>
+    <template v-else>
+      <span class="sr-only">{{ text }}</span>
+      <span class="inline-flex" aria-hidden="true">
+        <template v-for="(ch, i) in chars" :key="i">
+          <span v-if="ch.digit" class="odo__digit">
+            <span
+              class="odo__col"
+              :style="{
+                transform: `translateY(-${offset(ch.c)}em)`,
+                transitionDelay: `${i * 90}ms`,
+              }"
+            >
+              <span v-for="d in 10" :key="d">{{ d - 1 }}</span>
+            </span>
+          </span>
+          <span v-else class="mx-[.02em] opacity-45">{{ ch.c }}</span>
+        </template>
+      </span>
+    </template>
+  </span>
+</template>
+
 <script setup lang="ts">
 /**
  * Rolling-digit counter. Shows "–" until a value arrives, then rolls each digit into place.
@@ -37,31 +62,6 @@ watch(
   },
 )
 </script>
-
-<template>
-  <span class="odo" :class="{ 'is-flashing': flashing }" @animationend="flashing = false">
-    <template v-if="value === null">–</template>
-    <template v-else>
-      <span class="sr-only">{{ text }}</span>
-      <span class="inline-flex" aria-hidden="true">
-        <template v-for="(ch, i) in chars" :key="i">
-          <span v-if="ch.digit" class="odo__digit">
-            <span
-              class="odo__col"
-              :style="{
-                transform: `translateY(-${offset(ch.c)}em)`,
-                transitionDelay: `${i * 90}ms`,
-              }"
-            >
-              <span v-for="d in 10" :key="d">{{ d - 1 }}</span>
-            </span>
-          </span>
-          <span v-else class="mx-[.02em] opacity-45">{{ ch.c }}</span>
-        </template>
-      </span>
-    </template>
-  </span>
-</template>
 
 <style scoped>
 .odo {

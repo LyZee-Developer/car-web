@@ -33,10 +33,12 @@ export async function getVisitStats(): Promise<VisitStats> {
   const startOfDay = new Date()
   startOfDay.setHours(0, 0, 0, 0)
 
+  // Real recorded visits are added on top of the demo baseline (see visitBaseline.ts).
+  const base = getVisitBaseline(now)
   return {
-    views: visits.reduce((sum, v) => sum + Math.max(0, v.views), 0),
-    unique: visits.length,
-    today: visits.filter((v) => v.last >= startOfDay.getTime()).length,
-    online: visits.filter((v) => v.seen >= now - ONLINE_WINDOW_MS).length,
+    views: base.views + visits.reduce((sum, v) => sum + Math.max(0, v.views), 0),
+    unique: base.unique + visits.length,
+    today: base.today + visits.filter((v) => v.last >= startOfDay.getTime()).length,
+    online: base.online + visits.filter((v) => v.seen >= now - ONLINE_WINDOW_MS).length,
   }
 }

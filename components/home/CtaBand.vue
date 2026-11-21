@@ -1,7 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-</script>
-
 <template>
   <section class="pb-24">
     <div class="page-wrap">
@@ -20,6 +16,10 @@ const { t } = useI18n()
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+</script>
 
 <style scoped>
 .band {

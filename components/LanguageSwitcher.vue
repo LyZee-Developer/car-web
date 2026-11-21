@@ -1,9 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const { available, locale } = useAppLocale()
-const switchLocalePath = useSwitchLocalePath()
-</script>
-
 <template>
   <!-- Each option links to the same page in the other language, so the user stays where they are. -->
   <nav
@@ -31,3 +25,9 @@ const switchLocalePath = useSwitchLocalePath()
     </NuxtLink>
   </nav>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const { available, locale } = useAppLocale()
+const switchLocalePath = useSwitchLocalePath()
+</script>

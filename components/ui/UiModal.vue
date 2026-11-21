@@ -1,3 +1,36 @@
+<template>
+  <dialog
+    ref="dialog"
+    class="modal m-auto w-[min(440px,calc(100vw-32px))] max-w-none rounded-panel border border-line bg-surface p-0 text-ink"
+    :class="{ 'is-closing': closing }"
+    :aria-labelledby="labelledby"
+    @cancel="onCancel"
+    @click="onClick"
+  >
+    <div class="relative p-6 sm:p-8">
+      <button
+        type="button"
+        class="absolute right-4 top-4 grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+        :aria-label="t('contact.modal.close')"
+        @click="emit('close')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="size-[18px]"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <slot />
+    </div>
+  </dialog>
+</template>
+
 <script setup lang="ts">
 /**
  * Accessible modal built on the native <dialog>: focus is trapped inside, Esc closes it,
@@ -48,39 +81,6 @@ function onClick(event: MouseEvent) {
   if (event.target === dialog.value) emit('close')
 }
 </script>
-
-<template>
-  <dialog
-    ref="dialog"
-    class="modal m-auto w-[min(440px,calc(100vw-32px))] max-w-none rounded-panel border border-line bg-surface p-0 text-ink"
-    :class="{ 'is-closing': closing }"
-    :aria-labelledby="labelledby"
-    @cancel="onCancel"
-    @click="onClick"
-  >
-    <div class="relative p-6 sm:p-8">
-      <button
-        type="button"
-        class="absolute right-4 top-4 grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-ink"
-        :aria-label="t('contact.modal.close')"
-        @click="emit('close')"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          class="size-[18px]"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <path d="M6 6l12 12M18 6L6 18" />
-        </svg>
-      </button>
-      <slot />
-    </div>
-  </dialog>
-</template>
 
 <style scoped>
 .modal::backdrop {

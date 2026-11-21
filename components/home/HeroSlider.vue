@@ -1,76 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const reducedMotion = usePreferredReducedMotion()
-
-const INTERVAL_MS = 6500
-const current = ref(0)
-const paused = ref(false)
-const hovering = ref(false)
-const pageVisible = useDocumentVisibility()
-const total = SLIDES.length
-
-const slides = computed(() =>
-  SLIDES.map((s) => ({
-    ...s,
-    title: t(`hero.slides.${s.key}.title`),
-    text: t(`hero.slides.${s.key}.text`),
-    cta: t(`hero.slides.${s.key}.cta`),
-  })),
-)
-
-function go(index: number) {
-  current.value = (index + total) % total
-}
-
-const { pause: stopTimer, resume: startTimer } = useIntervalFn(
-  () => {
-    if (!hovering.value && pageVisible.value === 'visible') go(current.value + 1)
-  },
-  INTERVAL_MS,
-  { immediate: false },
-)
-
-/** Restart the countdown after a manual change so the next slide gets its full time. */
-function restart() {
-  stopTimer()
-  if (!paused.value) startTimer()
-}
-
-function setPaused(value: boolean) {
-  paused.value = value
-  restart()
-}
-
-function select(index: number) {
-  go(index)
-  restart()
-}
-
-function step(delta: number) {
-  go(current.value + delta)
-  restart()
-}
-
-onMounted(() => {
-  // Respect reduced motion: start paused, the user can still press play.
-  setPaused(reducedMotion.value === 'reduce')
-})
-
-// Swipe left/right on touch screens.
-let startX: number | null = null
-function onPointerDown(event: PointerEvent) {
-  startX = event.clientX
-}
-function onPointerUp(event: PointerEvent) {
-  if (startX === null) return
-  const dx = event.clientX - startX
-  startX = null
-  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1)
-}
-
-const pad = (n: number) => String(n).padStart(2, '0')
-</script>
-
 <template>
   <div
     class="relative touch-pan-y"
@@ -146,6 +73,79 @@ const pad = (n: number) => String(n).padStart(2, '0')
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const reducedMotion = usePreferredReducedMotion()
+
+const INTERVAL_MS = 6500
+const current = ref(0)
+const paused = ref(false)
+const hovering = ref(false)
+const pageVisible = useDocumentVisibility()
+const total = SLIDES.length
+
+const slides = computed(() =>
+  SLIDES.map((s) => ({
+    ...s,
+    title: t(`hero.slides.${s.key}.title`),
+    text: t(`hero.slides.${s.key}.text`),
+    cta: t(`hero.slides.${s.key}.cta`),
+  })),
+)
+
+function go(index: number) {
+  current.value = (index + total) % total
+}
+
+const { pause: stopTimer, resume: startTimer } = useIntervalFn(
+  () => {
+    if (!hovering.value && pageVisible.value === 'visible') go(current.value + 1)
+  },
+  INTERVAL_MS,
+  { immediate: false },
+)
+
+/** Restart the countdown after a manual change so the next slide gets its full time. */
+function restart() {
+  stopTimer()
+  if (!paused.value) startTimer()
+}
+
+function setPaused(value: boolean) {
+  paused.value = value
+  restart()
+}
+
+function select(index: number) {
+  go(index)
+  restart()
+}
+
+function step(delta: number) {
+  go(current.value + delta)
+  restart()
+}
+
+onMounted(() => {
+  // Respect reduced motion: start paused, the user can still press play.
+  setPaused(reducedMotion.value === 'reduce')
+})
+
+// Swipe left/right on touch screens.
+let startX: number | null = null
+function onPointerDown(event: PointerEvent) {
+  startX = event.clientX
+}
+function onPointerUp(event: PointerEvent) {
+  if (startX === null) return
+  const dx = event.clientX - startX
+  startX = null
+  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1)
+}
+
+const pad = (n: number) => String(n).padStart(2, '0')
+</script>
 
 <style scoped>
 .hero-title {

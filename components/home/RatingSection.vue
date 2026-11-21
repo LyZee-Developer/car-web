@@ -1,44 +1,3 @@
-<script setup lang="ts">
-import { ASPECT_KEYS } from '~/types/review'
-
-const { t } = useI18n()
-const reviews = useReviewsStore()
-const formatDecimal = useFormatDecimal()
-const formatDate = useFormatDate()
-
-const subtitle = computed(() => {
-  if (reviews.status === 'error') return t('rating.unavailable')
-  if (!reviews.loaded) return t('rating.loading')
-  return reviews.count
-    ? t('rating.average', { n: reviews.count }, reviews.count)
-    : t('rating.noReviews')
-})
-
-const intro = computed(() =>
-  reviews.loaded && reviews.count
-    ? t('rating.summary', { pct: reviews.recommendPercent, n: reviews.count }, reviews.count)
-    : t('rating.intro'),
-)
-
-const latestQuote = computed(() => {
-  const body = reviews.latest?.body ?? ''
-  return body.length > 180 ? `${body.slice(0, 177).trimEnd()}…` : body
-})
-
-const latestBy = computed(() => {
-  const r = reviews.latest
-  if (!r) return ''
-  return [
-    r.name || t('common.customer'),
-    r.car,
-    t(`services.items.${r.service}.name`),
-    formatDate(r.createdAt),
-  ]
-    .filter(Boolean)
-    .join(' · ')
-})
-</script>
-
 <template>
   <section id="rating" class="pb-[72px] md:pb-24" aria-labelledby="rating-title">
     <div class="page-wrap">
@@ -144,6 +103,47 @@ const latestBy = computed(() => {
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { ASPECT_KEYS } from '~/types/review'
+
+const { t } = useI18n()
+const reviews = useReviewsStore()
+const formatDecimal = useFormatDecimal()
+const formatDate = useFormatDate()
+
+const subtitle = computed(() => {
+  if (reviews.status === 'error') return t('rating.unavailable')
+  if (!reviews.loaded) return t('rating.loading')
+  return reviews.count
+    ? t('rating.average', { n: reviews.count }, reviews.count)
+    : t('rating.noReviews')
+})
+
+const intro = computed(() =>
+  reviews.loaded && reviews.count
+    ? t('rating.summary', { pct: reviews.recommendPercent, n: reviews.count }, reviews.count)
+    : t('rating.intro'),
+)
+
+const latestQuote = computed(() => {
+  const body = reviews.latest?.body ?? ''
+  return body.length > 180 ? `${body.slice(0, 177).trimEnd()}…` : body
+})
+
+const latestBy = computed(() => {
+  const r = reviews.latest
+  if (!r) return ''
+  return [
+    r.name || t('common.customer'),
+    r.car,
+    t(`services.items.${r.service}.name`),
+    formatDate(r.createdAt),
+  ]
+    .filter(Boolean)
+    .join(' · ')
+})
+</script>
 
 <style scoped>
 .dash {

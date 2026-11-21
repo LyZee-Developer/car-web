@@ -1,22 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const { contact, links, alwaysOpen } = useContact()
-const { developer, developerUrl } = useAppConfig()
-const year = new Date().getFullYear()
-
-const hoursSummary = computed(() => {
-  if (alwaysOpen.value) return t('contact.hours.everyDay')
-  const days = contact.hours.filter((h) => !h.closed)
-  const first = days[0]
-  if (days.length === 6 && contact.hours[0]?.closed && first?.open && first.close) {
-    return t('contact.hours.monSat', { hours: `${first.open}–${first.close}` })
-  }
-  return t('contact.hours.seeHours')
-})
-
-const linkClass = 'my-1.5 block text-night-text no-underline hover:underline'
-</script>
-
 <template>
   <footer class="mt-24 bg-night pb-7 pt-16 text-sm text-night-muted">
     <div class="page-wrap">
@@ -90,3 +71,22 @@ const linkClass = 'my-1.5 block text-night-text no-underline hover:underline'
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const { contact, links, alwaysOpen } = useContact()
+const { developer, developerUrl } = useAppConfig()
+const year = new Date().getFullYear()
+
+const hoursSummary = computed(() => {
+  if (alwaysOpen.value) return t('contact.hours.everyDay')
+  const days = contact.hours.filter((h) => !h.closed)
+  const first = days[0]
+  if (days.length === 6 && contact.hours[0]?.closed && first?.open && first.close) {
+    return t('contact.hours.monSat', { hours: `${first.open}–${first.close}` })
+  }
+  return t('contact.hours.seeHours')
+})
+
+const linkClass = 'my-1.5 block text-night-text no-underline hover:underline'
+</script>

@@ -1,50 +1,3 @@
-<script setup lang="ts">
-import type { CarPaint } from '~/utils/catalog'
-
-/** Side-view sports car with floor reflection, ported from the design's inline SVG. Decorative. */
-const props = defineProps<{ paint: CarPaint }>()
-
-const uid = useId()
-const id = (name: string) => `${name}-${uid}`
-const art = (name: string, alpha?: number) =>
-  alpha === undefined ? `rgb(var(--art-${name}))` : `rgb(var(--art-${name}) / ${alpha})`
-
-const paints = computed(() => [1, 2, 3].map((n) => art(`${props.paint}-${n}`)))
-
-const WHEEL_Y = 196
-const spokes = (cx: number) =>
-  Array.from({ length: 10 }, (_, k) => {
-    const a = (k * 36 * Math.PI) / 180
-    return {
-      x1: (cx + 8 * Math.cos(a)).toFixed(1),
-      y1: (WHEEL_Y + 8 * Math.sin(a)).toFixed(1),
-      x2: (cx + 29 * Math.cos(a)).toFixed(1),
-      y2: (WHEEL_Y + 29 * Math.sin(a)).toFixed(1),
-    }
-  })
-const wheels = [210, 606].map((cx) => ({ cx, spokes: spokes(cx) }))
-
-const GLINTS: [number, number][] = [
-  [120, 262],
-  [188, 276],
-  [260, 255],
-  [331, 290],
-  [402, 262],
-  [455, 281],
-  [520, 258],
-  [588, 284],
-  [650, 266],
-  [716, 278],
-  [90, 300],
-  [700, 304],
-  [300, 310],
-  [560, 312],
-]
-
-const BODY =
-  'M70 206 C70 182 80 166 104 160 L214 146 C256 118 304 94 362 88 L470 86 C522 86 562 106 602 132 L688 146 C722 152 738 168 740 190 L740 214 L70 214 Z'
-</script>
-
 <template>
   <svg viewBox="0 40 800 300" aria-hidden="true" focusable="false" class="block h-auto w-full">
     <defs>
@@ -135,3 +88,50 @@ const BODY =
     />
   </svg>
 </template>
+
+<script setup lang="ts">
+import type { CarPaint } from '~/utils/catalog'
+
+/** Side-view sports car with floor reflection, ported from the design's inline SVG. Decorative. */
+const props = defineProps<{ paint: CarPaint }>()
+
+const uid = useId()
+const id = (name: string) => `${name}-${uid}`
+const art = (name: string, alpha?: number) =>
+  alpha === undefined ? `rgb(var(--art-${name}))` : `rgb(var(--art-${name}) / ${alpha})`
+
+const paints = computed(() => [1, 2, 3].map((n) => art(`${props.paint}-${n}`)))
+
+const WHEEL_Y = 196
+const spokes = (cx: number) =>
+  Array.from({ length: 10 }, (_, k) => {
+    const a = (k * 36 * Math.PI) / 180
+    return {
+      x1: (cx + 8 * Math.cos(a)).toFixed(1),
+      y1: (WHEEL_Y + 8 * Math.sin(a)).toFixed(1),
+      x2: (cx + 29 * Math.cos(a)).toFixed(1),
+      y2: (WHEEL_Y + 29 * Math.sin(a)).toFixed(1),
+    }
+  })
+const wheels = [210, 606].map((cx) => ({ cx, spokes: spokes(cx) }))
+
+const GLINTS: [number, number][] = [
+  [120, 262],
+  [188, 276],
+  [260, 255],
+  [331, 290],
+  [402, 262],
+  [455, 281],
+  [520, 258],
+  [588, 284],
+  [650, 266],
+  [716, 278],
+  [90, 300],
+  [700, 304],
+  [300, 310],
+  [560, 312],
+]
+
+const BODY =
+  'M70 206 C70 182 80 166 104 160 L214 146 C256 118 304 94 362 88 L470 86 C522 86 562 106 602 132 L688 146 C722 152 738 168 740 190 L740 214 L70 214 Z'
+</script>

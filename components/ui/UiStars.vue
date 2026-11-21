@@ -1,18 +1,3 @@
-<script setup lang="ts">
-/**
- * Five-star display. `tone="night"` is for the always-dark panels.
- * The label is read by screen readers; the stars themselves are decorative.
- */
-const props = withDefaults(
-  defineProps<{ value: number; size?: number; tone?: 'default' | 'night'; label?: string }>(),
-  { size: 16, tone: 'default', label: undefined },
-)
-
-const { t } = useI18n()
-const filled = computed(() => Math.round(props.value))
-const ariaLabel = computed(() => props.label ?? t('common.starsOutOf', { n: filled.value }))
-</script>
-
 <template>
   <span class="inline-flex gap-0.5 align-middle" role="img" :aria-label="ariaLabel">
     <svg
@@ -36,3 +21,18 @@ const ariaLabel = computed(() => props.label ?? t('common.starsOutOf', { n: fill
     </svg>
   </span>
 </template>
+
+<script setup lang="ts">
+/**
+ * Five-star display. `tone="night"` is for the always-dark panels.
+ * The label is read by screen readers; the stars themselves are decorative.
+ */
+const props = withDefaults(
+  defineProps<{ value: number; size?: number; tone?: 'default' | 'night'; label?: string }>(),
+  { size: 16, tone: 'default', label: undefined },
+)
+
+const { t } = useI18n()
+const filled = computed(() => Math.round(props.value))
+const ariaLabel = computed(() => props.label ?? t('common.starsOutOf', { n: filled.value }))
+</script>

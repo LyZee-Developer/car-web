@@ -1,76 +1,3 @@
-<script setup lang="ts">
-import { ASPECT_KEYS, type ReviewCardData } from '~/types/review'
-
-const props = withDefaults(
-  defineProps<{
-    review: ReviewCardData
-    /** Live preview in the write-a-review panel: no actions, "Today" as the date. */
-    preview?: boolean
-    /** Placeholder body text is shown muted. */
-    placeholder?: boolean
-    /** `night` for the always-dark write-a-review panel. */
-    tone?: 'default' | 'night'
-  }>(),
-  { preview: false, placeholder: false, tone: 'default' },
-)
-
-const emit = defineEmits<{ delete: [] }>()
-
-const { t } = useI18n()
-const formatDate = useFormatDate()
-
-const night = computed(() => props.tone === 'night')
-
-/**
- * Reviews are written by customers in either language, whatever the page language is.
- * Text containing Khmer script gets lang="km" so it uses the Khmer font and line height.
- */
-const KHMER = /[ក-៿]/
-const langOf = (text: string | undefined) => (text && KHMER.test(text) ? 'km' : undefined)
-const mine = computed(() => !props.preview && !!props.review.mine)
-const initial = computed(() => ((props.review.name || 'C').trim()[0] || 'C').toUpperCase())
-const aspects = computed(() =>
-  ASPECT_KEYS.filter((k) => (props.review.aspects[k] ?? 0) >= 1).map((k) => ({
-    key: k,
-    value: props.review.aspects[k]!,
-  })),
-)
-const edited = computed(
-  () =>
-    !!props.review.updatedAt &&
-    !!props.review.createdAt &&
-    props.review.updatedAt - props.review.createdAt > 60_000,
-)
-const dateText = computed(() =>
-  props.preview
-    ? t('common.today')
-    : [formatDate(props.review.createdAt), edited.value ? t('reviews.edited') : '']
-        .filter(Boolean)
-        .join(' · '),
-)
-
-// Colour classes swap to the "night" palette inside the dark panel.
-const c = computed(() =>
-  night.value
-    ? {
-        card: 'bg-night-panel text-night-text border-night-line',
-        muted: 'text-night-muted',
-        line: 'border-night-line',
-        chip: 'bg-night-text/10 text-night-muted',
-        chipStrong: 'text-night-text',
-        accent: 'text-night-accent',
-      }
-    : {
-        card: `bg-surface text-ink hover:border-muted ${mine.value ? 'border-primary' : 'border-line'}`,
-        muted: 'text-muted',
-        line: 'border-line',
-        chip: 'bg-surface-2 text-muted',
-        chipStrong: 'text-ink',
-        accent: 'text-primary',
-      },
-)
-</script>
-
 <template>
   <article
     class="flex min-w-0 flex-col gap-4 rounded-card border p-[26px] transition-colors"
@@ -165,6 +92,79 @@ const c = computed(() =>
     </div>
   </article>
 </template>
+
+<script setup lang="ts">
+import { ASPECT_KEYS, type ReviewCardData } from '~/types/review'
+
+const props = withDefaults(
+  defineProps<{
+    review: ReviewCardData
+    /** Live preview in the write-a-review panel: no actions, "Today" as the date. */
+    preview?: boolean
+    /** Placeholder body text is shown muted. */
+    placeholder?: boolean
+    /** `night` for the always-dark write-a-review panel. */
+    tone?: 'default' | 'night'
+  }>(),
+  { preview: false, placeholder: false, tone: 'default' },
+)
+
+const emit = defineEmits<{ delete: [] }>()
+
+const { t } = useI18n()
+const formatDate = useFormatDate()
+
+const night = computed(() => props.tone === 'night')
+
+/**
+ * Reviews are written by customers in either language, whatever the page language is.
+ * Text containing Khmer script gets lang="km" so it uses the Khmer font and line height.
+ */
+const KHMER = /[ក-៿]/
+const langOf = (text: string | undefined) => (text && KHMER.test(text) ? 'km' : undefined)
+const mine = computed(() => !props.preview && !!props.review.mine)
+const initial = computed(() => ((props.review.name || 'C').trim()[0] || 'C').toUpperCase())
+const aspects = computed(() =>
+  ASPECT_KEYS.filter((k) => (props.review.aspects[k] ?? 0) >= 1).map((k) => ({
+    key: k,
+    value: props.review.aspects[k]!,
+  })),
+)
+const edited = computed(
+  () =>
+    !!props.review.updatedAt &&
+    !!props.review.createdAt &&
+    props.review.updatedAt - props.review.createdAt > 60_000,
+)
+const dateText = computed(() =>
+  props.preview
+    ? t('common.today')
+    : [formatDate(props.review.createdAt), edited.value ? t('reviews.edited') : '']
+        .filter(Boolean)
+        .join(' · '),
+)
+
+// Colour classes swap to the "night" palette inside the dark panel.
+const c = computed(() =>
+  night.value
+    ? {
+        card: 'bg-night-panel text-night-text border-night-line',
+        muted: 'text-night-muted',
+        line: 'border-night-line',
+        chip: 'bg-night-text/10 text-night-muted',
+        chipStrong: 'text-night-text',
+        accent: 'text-night-accent',
+      }
+    : {
+        card: `bg-surface text-ink hover:border-muted ${mine.value ? 'border-primary' : 'border-line'}`,
+        muted: 'text-muted',
+        line: 'border-line',
+        chip: 'bg-surface-2 text-muted',
+        chipStrong: 'text-ink',
+        accent: 'text-primary',
+      },
+)
+</script>
 
 <style scoped>
 .quote-mark {

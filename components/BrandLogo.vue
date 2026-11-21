@@ -1,10 +1,3 @@
-<script setup lang="ts">
-/** Heng Auto Service logo: glowing car mark + wordmark. Sits on the always-dark header/footer. */
-withDefaults(defineProps<{ size?: 'sm' | 'md' }>(), { size: 'md' })
-
-const { t } = useI18n()
-</script>
-
 <template>
   <span
     class="inline-flex items-center whitespace-nowrap font-semibold text-night-text [font-stretch:125%]"
@@ -19,3 +12,10 @@ const { t } = useI18n()
     {{ t('common.brand') }}
   </span>
 </template>
+
+<script setup lang="ts">
+/** Heng Auto Service logo: glowing car mark + wordmark. Sits on the always-dark header/footer. */
+withDefaults(defineProps<{ size?: 'sm' | 'md' }>(), { size: 'md' })
+
+const { t } = useI18n()
+</script>

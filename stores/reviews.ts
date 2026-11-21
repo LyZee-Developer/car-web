@@ -6,33 +6,37 @@ import {
   type ReviewInput,
   type ServiceId,
 } from '~/types/review'
+import { getDailyReviews } from '~/data/reviews'
 
 export type ReviewsStatus = 'idle' | 'loading' | 'ready' | 'error'
 
 const average = (values: number[]) =>
   values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0
 
+/**
+ * Reviews come from fixed data in `data/reviews.ts` for now (no API calls); the order and
+ * dates change once a day. A review written in the form is kept in memory only and is gone
+ * after a page reload.
+ */
 export const useReviewsStore = defineStore('reviews', () => {
-  // Forwards the visitor cookie during SSR so `mine` is correct on first render.
-  const requestFetch = useRequestFetch()
-
-  const items = ref<Review[]>([])
-  const status = ref<ReviewsStatus>('idle')
+  // Built on the server during SSR and handed to the browser, so both render the same list.
+  const items = ref<Review[]>(getDailyReviews())
+  const status = ref<ReviewsStatus>('ready')
 
   async function load() {
-    if (status.value === 'idle') status.value = 'loading'
-    try {
-      // Give up after 5 s so a slow database never stalls the page.
-      items.value = await requestFetch<Review[]>('/api/reviews', { timeout: 5000, retry: 0 })
-      status.value = 'ready'
-    } catch {
-      // Keep showing what we already have; only flag an error if nothing ever loaded.
-      if (status.value !== 'ready') status.value = 'error'
-    }
+    // Nothing to fetch yet: the fixed reviews are already in `items`.
   }
 
   async function saveMine(input: ReviewInput) {
-    const saved = await $fetch<Review>('/api/reviews/mine', { method: 'PUT', body: input })
+    const existing = items.value.find((r) => r.mine)
+    const now = Date.now()
+    const saved: Review = {
+      ...input,
+      id: existing?.id ?? 'mine',
+      createdAt: existing?.createdAt ?? now,
+      updatedAt: now,
+      mine: true,
+    }
     const index = items.value.findIndex((r) => r.id === saved.id)
     if (index >= 0) items.value.splice(index, 1, saved)
     else items.value.push(saved)
@@ -40,7 +44,6 @@ export const useReviewsStore = defineStore('reviews', () => {
   }
 
   async function deleteMine() {
-    await $fetch('/api/reviews/mine', { method: 'DELETE' })
     items.value = items.value.filter((r) => !r.mine)
   }
 

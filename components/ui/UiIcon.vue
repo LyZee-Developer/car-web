@@ -1,3 +1,18 @@
+<template>
+  <!-- eslint-disable vue/no-v-html -- static, trusted SVG paths defined above -->
+  <svg
+    viewBox="0 0 24 24"
+    :fill="filled ? 'currentColor' : 'none'"
+    :stroke="filled ? 'none' : 'currentColor'"
+    :stroke-width="strokeWidth"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false"
+    v-html="PATHS[name]"
+  />
+</template>
+
 <script setup lang="ts">
 import type { IconName } from '~/types/ui'
 
@@ -46,18 +61,3 @@ const PATHS: Record<IconName, string> = {
 
 const filled = computed(() => FILLED.includes(props.name))
 </script>
-
-<template>
-  <!-- eslint-disable vue/no-v-html -- static, trusted SVG paths defined above -->
-  <svg
-    viewBox="0 0 24 24"
-    :fill="filled ? 'currentColor' : 'none'"
-    :stroke="filled ? 'none' : 'currentColor'"
-    :stroke-width="strokeWidth"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-    focusable="false"
-    v-html="PATHS[name]"
-  />
-</template>

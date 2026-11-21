@@ -1,3 +1,14 @@
+<template>
+  <div
+    ref="wrapper"
+    class="pointer-events-none inset-0"
+    :class="fixed ? 'fixed' : 'absolute'"
+    aria-hidden="true"
+  >
+    <canvas ref="canvas" class="block" />
+  </div>
+</template>
+
 <script setup lang="ts">
 import { gsap } from 'gsap'
 import { InertiaPlugin } from 'gsap/InertiaPlugin'
@@ -336,14 +347,3 @@ onBeforeUnmount(() => {
   dots.forEach((d) => gsap.killTweensOf(d))
 })
 </script>
-
-<template>
-  <div
-    ref="wrapper"
-    class="pointer-events-none inset-0"
-    :class="fixed ? 'fixed' : 'absolute'"
-    aria-hidden="true"
-  >
-    <canvas ref="canvas" class="block" />
-  </div>
-</template>

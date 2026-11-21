@@ -1,14 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-
-const links = computed(() => [
-  { hash: '#services', label: t('nav.services') },
-  { hash: '#rating', label: t('nav.rating') },
-  { hash: '#reviews', label: t('nav.reviews') },
-  { hash: '#contact', label: t('nav.contact') },
-])
-</script>
-
 <template>
   <header
     class="sticky top-[env(safe-area-inset-top,0px)] z-30 border-b border-night-line bg-night/80 text-night-text backdrop-blur-md"
@@ -46,3 +35,14 @@ const links = computed(() => [
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+
+const links = computed(() => [
+  { hash: '#services', label: t('nav.services') },
+  { hash: '#rating', label: t('nav.rating') },
+  { hash: '#reviews', label: t('nav.reviews') },
+  { hash: '#contact', label: t('nav.contact') },
+])
+</script>

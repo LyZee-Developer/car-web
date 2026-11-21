@@ -1,60 +1,3 @@
-<script setup lang="ts">
-/** Speedometer-style gauge for the 1–5 average rating. */
-const props = defineProps<{ average: number; count: number }>()
-
-const { t } = useI18n()
-const formatDecimal = useFormatDecimal()
-const uid = useId()
-const id = (name: string) => `${name}-${uid}`
-
-const R = 118
-const CX = 150
-const CY = 150
-
-const point = (deg: number, r: number): [number, number] => {
-  const a = (deg * Math.PI) / 180
-  return [CX + r * Math.sin(a), CY - r * Math.cos(a)]
-}
-const arc = (a0: number, a1: number) => {
-  const [x0, y0] = point(a0, R)
-  const [x1, y1] = point(a1, R)
-  return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R} ${R} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`
-}
-/** Rating 1–5 → angle -120°…120°. */
-const angle = (v: number) => -120 + ((v - 1) / 4) * 240
-
-const track = arc(-120, 120)
-
-const ticks = (() => {
-  const out: {
-    x1: number
-    y1: number
-    x2: number
-    y2: number
-    major: boolean
-    label?: { x: number; y: number; n: number }
-  }[] = []
-  for (let v = 1; v <= 5.001; v += 0.25) {
-    const a = angle(v)
-    const major = Math.abs(v - Math.round(v)) < 0.01
-    const [x1, y1] = point(a, R - 14)
-    const [x2, y2] = point(a, R - (major ? 28 : 21))
-    const tick: (typeof out)[number] = { x1, y1, x2, y2, major }
-    if (major) {
-      const [lx, ly] = point(a, R - 42)
-      tick.label = { x: lx, y: ly + 5, n: Math.round(v) }
-    }
-    out.push(tick)
-  }
-  return out
-})()
-
-const needleAngle = computed(() => (props.count ? angle(props.average) : -120))
-const fill = computed(() =>
-  props.count && needleAngle.value > -119.5 ? arc(-120, needleAngle.value) : '',
-)
-</script>
-
 <template>
   <svg
     class="gauge block w-full max-w-[440px]"
@@ -141,6 +84,63 @@ const fill = computed(() =>
     </text>
   </svg>
 </template>
+
+<script setup lang="ts">
+/** Speedometer-style gauge for the 1–5 average rating. */
+const props = defineProps<{ average: number; count: number }>()
+
+const { t } = useI18n()
+const formatDecimal = useFormatDecimal()
+const uid = useId()
+const id = (name: string) => `${name}-${uid}`
+
+const R = 118
+const CX = 150
+const CY = 150
+
+const point = (deg: number, r: number): [number, number] => {
+  const a = (deg * Math.PI) / 180
+  return [CX + r * Math.sin(a), CY - r * Math.cos(a)]
+}
+const arc = (a0: number, a1: number) => {
+  const [x0, y0] = point(a0, R)
+  const [x1, y1] = point(a1, R)
+  return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R} ${R} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`
+}
+/** Rating 1–5 → angle -120°…120°. */
+const angle = (v: number) => -120 + ((v - 1) / 4) * 240
+
+const track = arc(-120, 120)
+
+const ticks = (() => {
+  const out: {
+    x1: number
+    y1: number
+    x2: number
+    y2: number
+    major: boolean
+    label?: { x: number; y: number; n: number }
+  }[] = []
+  for (let v = 1; v <= 5.001; v += 0.25) {
+    const a = angle(v)
+    const major = Math.abs(v - Math.round(v)) < 0.01
+    const [x1, y1] = point(a, R - 14)
+    const [x2, y2] = point(a, R - (major ? 28 : 21))
+    const tick: (typeof out)[number] = { x1, y1, x2, y2, major }
+    if (major) {
+      const [lx, ly] = point(a, R - 42)
+      tick.label = { x: lx, y: ly + 5, n: Math.round(v) }
+    }
+    out.push(tick)
+  }
+  return out
+})()
+
+const needleAngle = computed(() => (props.count ? angle(props.average) : -120))
+const fill = computed(() =>
+  props.count && needleAngle.value > -119.5 ? arc(-120, needleAngle.value) : '',
+)
+</script>
 
 <style scoped>
 .tick {

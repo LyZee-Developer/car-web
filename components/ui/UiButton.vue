@@ -1,3 +1,22 @@
+<template>
+  <NuxtLinkLocale v-if="to && !disabled" :to="to" :class="classes">
+    <slot />
+  </NuxtLinkLocale>
+  <a
+    v-else-if="href !== undefined"
+    :href="disabled || !href ? undefined : href"
+    :aria-disabled="disabled || !href ? 'true' : undefined"
+    :target="external && href ? '_blank' : undefined"
+    :rel="external && href ? 'noopener' : undefined"
+    :class="[classes, !href && 'pointer-events-none opacity-40']"
+  >
+    <slot />
+  </a>
+  <button v-else :type="type" :disabled="disabled" :class="classes">
+    <slot />
+  </button>
+</template>
+
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router'
 
@@ -51,22 +70,3 @@ const classes = computed(() => [
   props.disabled && 'pointer-events-none opacity-45',
 ])
 </script>
-
-<template>
-  <NuxtLinkLocale v-if="to && !disabled" :to="to" :class="classes">
-    <slot />
-  </NuxtLinkLocale>
-  <a
-    v-else-if="href !== undefined"
-    :href="disabled || !href ? undefined : href"
-    :aria-disabled="disabled || !href ? 'true' : undefined"
-    :target="external && href ? '_blank' : undefined"
-    :rel="external && href ? 'noopener' : undefined"
-    :class="[classes, !href && 'pointer-events-none opacity-40']"
-  >
-    <slot />
-  </a>
-  <button v-else :type="type" :disabled="disabled" :class="classes">
-    <slot />
-  </button>
-</template>

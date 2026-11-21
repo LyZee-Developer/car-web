@@ -1,107 +1,3 @@
-<script setup lang="ts">
-import type { IconName } from '~/types/ui'
-
-const { t } = useI18n()
-const { contact, links, alwaysOpen } = useContact()
-const { today, status } = useOpeningStatus()
-
-// Monday first, as people read the week.
-const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0]
-
-type ContactKey = 'phone' | 'telegram' | 'email' | 'address'
-
-interface ContactItem {
-  key: ContactKey
-  icon: IconName
-  /** What the card and modal show. */
-  value: string
-  /** Where the modal's main button goes (tel:, t.me, mailto:, Maps). */
-  href: string
-  external: boolean
-  /** Link shown under the value in the modal (Telegram / Maps). */
-  link: string
-  /** What the Copy button copies. */
-  copy: string
-}
-
-const items = computed<ContactItem[]>(() => {
-  const telegram = contact.telegram.replace(/^@/, '')
-  return [
-    {
-      key: 'phone',
-      icon: 'phone',
-      value: contact.phone,
-      href: links.value.phone,
-      external: false,
-      link: '',
-      copy: contact.phone,
-    },
-    {
-      key: 'telegram',
-      icon: 'telegram',
-      value: telegram ? `@${telegram}` : '',
-      href: links.value.telegram,
-      external: true,
-      link: links.value.telegram,
-      copy: links.value.telegram,
-    },
-    {
-      key: 'email',
-      icon: 'email',
-      value: contact.email,
-      href: links.value.email,
-      external: false,
-      link: '',
-      copy: contact.email,
-    },
-    {
-      key: 'address',
-      icon: 'address',
-      // With only a Maps link saved, show "Google Maps" as the value.
-      value: contact.address || (links.value.map ? t('contact.address.value') : ''),
-      href: links.value.map,
-      external: true,
-      link: links.value.map,
-      copy: [contact.address, links.value.map].filter(Boolean).join('\n'),
-    },
-  ]
-})
-
-// Contact detail modal.
-const activeKey = ref<ContactKey | null>(null)
-const active = computed(() => items.value.find((i) => i.key === activeKey.value) ?? null)
-// Keeps the last item on screen while the modal fades out.
-const shown = ref<ContactItem | null>(null)
-watch(active, (item) => {
-  if (item) shown.value = item
-})
-const modalTitleId = useId()
-
-const { copy, copied, isSupported } = useClipboard({ copiedDuring: 2000, legacy: true })
-const copyFailed = ref(false)
-async function copyActive() {
-  if (!shown.value) return
-  copyFailed.value = false
-  try {
-    await copy(shown.value.copy)
-  } catch {
-    copyFailed.value = true
-  }
-}
-
-function openModal(key: ContactKey) {
-  copyFailed.value = false
-  activeKey.value = key
-}
-
-function hoursText(day: number) {
-  const h = contact.hours[day]!
-  if (h.closed) return t('contact.hours.closed')
-  if (h.allDay) return t('contact.hours.open24')
-  return `${h.open}–${h.close}`
-}
-</script>
-
 <template>
   <section id="contact" class="pt-24" aria-labelledby="contact-title">
     <div class="page-wrap">
@@ -262,6 +158,110 @@ function hoursText(day: number) {
     </UiModal>
   </section>
 </template>
+
+<script setup lang="ts">
+import type { IconName } from '~/types/ui'
+
+const { t } = useI18n()
+const { contact, links, alwaysOpen } = useContact()
+const { today, status } = useOpeningStatus()
+
+// Monday first, as people read the week.
+const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0]
+
+type ContactKey = 'phone' | 'telegram' | 'email' | 'address'
+
+interface ContactItem {
+  key: ContactKey
+  icon: IconName
+  /** What the card and modal show. */
+  value: string
+  /** Where the modal's main button goes (tel:, t.me, mailto:, Maps). */
+  href: string
+  external: boolean
+  /** Link shown under the value in the modal (Telegram / Maps). */
+  link: string
+  /** What the Copy button copies. */
+  copy: string
+}
+
+const items = computed<ContactItem[]>(() => {
+  const telegram = contact.telegram.replace(/^@/, '')
+  return [
+    {
+      key: 'phone',
+      icon: 'phone',
+      value: contact.phone,
+      href: links.value.phone,
+      external: false,
+      link: '',
+      copy: contact.phone,
+    },
+    {
+      key: 'telegram',
+      icon: 'telegram',
+      value: telegram ? `@${telegram}` : '',
+      href: links.value.telegram,
+      external: true,
+      link: links.value.telegram,
+      copy: links.value.telegram,
+    },
+    {
+      key: 'email',
+      icon: 'email',
+      value: contact.email,
+      href: links.value.email,
+      external: false,
+      link: '',
+      copy: contact.email,
+    },
+    {
+      key: 'address',
+      icon: 'address',
+      // With only a Maps link saved, show "Google Maps" as the value.
+      value: contact.address || (links.value.map ? t('contact.address.value') : ''),
+      href: links.value.map,
+      external: true,
+      link: links.value.map,
+      copy: [contact.address, links.value.map].filter(Boolean).join('\n'),
+    },
+  ]
+})
+
+// Contact detail modal.
+const activeKey = ref<ContactKey | null>(null)
+const active = computed(() => items.value.find((i) => i.key === activeKey.value) ?? null)
+// Keeps the last item on screen while the modal fades out.
+const shown = ref<ContactItem | null>(null)
+watch(active, (item) => {
+  if (item) shown.value = item
+})
+const modalTitleId = useId()
+
+const { copy, copied, isSupported } = useClipboard({ copiedDuring: 2000, legacy: true })
+const copyFailed = ref(false)
+async function copyActive() {
+  if (!shown.value) return
+  copyFailed.value = false
+  try {
+    await copy(shown.value.copy)
+  } catch {
+    copyFailed.value = true
+  }
+}
+
+function openModal(key: ContactKey) {
+  copyFailed.value = false
+  activeKey.value = key
+}
+
+function hoursText(day: number) {
+  const h = contact.hours[day]!
+  if (h.closed) return t('contact.hours.closed')
+  if (h.allDay) return t('contact.hours.open24')
+  return `${h.open}–${h.close}`
+}
+</script>
 
 <style scoped>
 .always-big {

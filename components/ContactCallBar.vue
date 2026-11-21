@@ -1,10 +1,3 @@
-<script setup lang="ts">
-/** Floating "Call / Telegram" bar on phones. Hidden when neither is configured. */
-const { t } = useI18n()
-const { links } = useContact()
-const show = computed(() => !!links.value.phone || !!links.value.telegram)
-</script>
-
 <template>
   <template v-if="show">
     <!-- Spacer so the bar never covers the end of the footer. -->
@@ -35,3 +28,10 @@ const show = computed(() => !!links.value.phone || !!links.value.telegram)
     </nav>
   </template>
 </template>
+
+<script setup lang="ts">
+/** Floating "Call / Telegram" bar on phones. Hidden when neither is configured. */
+const { t } = useI18n()
+const { links } = useContact()
+const show = computed(() => !!links.value.phone || !!links.value.telegram)
+</script>

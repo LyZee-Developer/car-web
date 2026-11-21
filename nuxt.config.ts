@@ -42,7 +42,7 @@ export default defineNuxtConfig({
 
   // Light / Dark / System. classSuffix '' puts a plain `dark` or `light` class on <html>.
   colorMode: {
-    preference: 'system',
+    preference: 'light',
     fallback: 'light',
     classSuffix: '',
     storageKey: 'heng-color-mode',

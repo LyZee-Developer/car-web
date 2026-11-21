@@ -1,58 +1,3 @@
-<script setup lang="ts">
-import { ASPECT_KEYS, REVIEW_LIMITS, SERVICE_IDS } from '~/types/review'
-
-const { t } = useI18n()
-const {
-  form,
-  steps,
-  stepsDone,
-  preview,
-  previewIsPlaceholder,
-  editing,
-  submitting,
-  message,
-  submit,
-} = useReviewForm()
-
-const STEP_KEYS = ['rating', 'visit', 'body'] as const
-
-const starGroup = ref<HTMLElement | null>(null)
-
-function setRating(value: number) {
-  form.rating = Math.min(5, Math.max(1, value))
-  nextTick(() =>
-    starGroup.value?.querySelector<HTMLElement>(`[data-rate="${form.rating}"]`)?.focus(),
-  )
-}
-
-function onStarKeydown(event: KeyboardEvent) {
-  const up = ['ArrowRight', 'ArrowUp']
-  const down = ['ArrowLeft', 'ArrowDown']
-  if (![...up, ...down].includes(event.key)) return
-  event.preventDefault()
-  setRating((form.rating || 0) + (up.includes(event.key) ? 1 : -1))
-}
-
-/** Clicking the selected score again clears it (aspect scores are optional). */
-function toggleAspect(key: (typeof ASPECT_KEYS)[number], value: number) {
-  form.aspects[key] = form.aspects[key] === value ? 0 : value
-}
-
-async function onSubmit() {
-  const focusId = await submit()
-  if (focusId) {
-    const el = document.getElementById(focusId)
-    const target = el?.matches('input, textarea')
-      ? el
-      : (el?.querySelector<HTMLElement>('button') ?? el)
-    target?.focus()
-  }
-}
-
-const inputClass =
-  'w-full rounded-[14px] border border-line bg-bg px-[15px] py-[13px] transition-colors focus:border-ink focus:outline-none'
-</script>
-
 <template>
   <section id="write" aria-labelledby="form-title">
     <div class="page-wrap">
@@ -290,6 +235,61 @@ const inputClass =
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { ASPECT_KEYS, REVIEW_LIMITS, SERVICE_IDS } from '~/types/review'
+
+const { t } = useI18n()
+const {
+  form,
+  steps,
+  stepsDone,
+  preview,
+  previewIsPlaceholder,
+  editing,
+  submitting,
+  message,
+  submit,
+} = useReviewForm()
+
+const STEP_KEYS = ['rating', 'visit', 'body'] as const
+
+const starGroup = ref<HTMLElement | null>(null)
+
+function setRating(value: number) {
+  form.rating = Math.min(5, Math.max(1, value))
+  nextTick(() =>
+    starGroup.value?.querySelector<HTMLElement>(`[data-rate="${form.rating}"]`)?.focus(),
+  )
+}
+
+function onStarKeydown(event: KeyboardEvent) {
+  const up = ['ArrowRight', 'ArrowUp']
+  const down = ['ArrowLeft', 'ArrowDown']
+  if (![...up, ...down].includes(event.key)) return
+  event.preventDefault()
+  setRating((form.rating || 0) + (up.includes(event.key) ? 1 : -1))
+}
+
+/** Clicking the selected score again clears it (aspect scores are optional). */
+function toggleAspect(key: (typeof ASPECT_KEYS)[number], value: number) {
+  form.aspects[key] = form.aspects[key] === value ? 0 : value
+}
+
+async function onSubmit() {
+  const focusId = await submit()
+  if (focusId) {
+    const el = document.getElementById(focusId)
+    const target = el?.matches('input, textarea')
+      ? el
+      : (el?.querySelector<HTMLElement>('button') ?? el)
+    target?.focus()
+  }
+}
+
+const inputClass =
+  'w-full rounded-[14px] border border-line bg-bg px-[15px] py-[13px] transition-colors focus:border-ink focus:outline-none'
+</script>
 
 <style scoped>
 .group-set {

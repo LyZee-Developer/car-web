@@ -1,16 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const reviews = useReviewsStore()
-
-// Reviews are rendered on the server, then refreshed every 30 s so scores stay live.
-await useAsyncData('reviews', () => reviews.load().then(() => true))
-
-const pageVisible = useDocumentVisibility()
-useIntervalFn(() => {
-  if (pageVisible.value === 'visible') reviews.load()
-}, 30_000)
-</script>
-
 <template>
   <main id="top">
     <section
@@ -34,6 +21,11 @@ useIntervalFn(() => {
     <HomeContactSection />
   </main>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+// Reviews use fixed data for now (see data/reviews.ts), so there is nothing to load here.
+</script>
 
 <style scoped>
 /* Soft glow at the top of the hero. */

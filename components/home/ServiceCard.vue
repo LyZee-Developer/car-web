@@ -1,47 +1,3 @@
-<script setup lang="ts">
-import type { ServiceInfo } from '~/utils/catalog'
-
-const props = defineProps<{
-  service: ServiceInfo
-  /** Symptom finder: true = likely fix (highlighted), false = dimmed, null = finder not in use. */
-  matched: boolean | null
-  open: boolean
-  loaded: boolean
-  reviewCount: number
-  reviewAverage: number
-}>()
-
-const emit = defineEmits<{
-  'update:open': [value: boolean]
-  seeReviews: []
-  /** Clear the symptom-finder selection. */
-  clear: []
-}>()
-
-/** While a symptom is selected, the image works as a "clear selection" button. */
-const canClear = computed(() => props.matched !== null)
-
-const { t } = useI18n()
-const formatDecimal = useFormatDecimal()
-const key = computed(() => `services.items.${props.service.id}`)
-const panelId = useId()
-
-const ratingText = computed(() => {
-  if (!props.loaded) return ''
-  if (!props.reviewCount) return t('services.noReviews')
-  return t(
-    'services.ratingFrom',
-    { avg: formatDecimal(props.reviewAverage), n: props.reviewCount },
-    props.reviewCount,
-  )
-})
-
-// Only the arrow button opens/closes the details.
-function toggle() {
-  emit('update:open', !props.open)
-}
-</script>
-
 <template>
   <article
     :id="`svc-${service.id}`"
@@ -134,6 +90,50 @@ function toggle() {
     </UiArrowLink>
   </article>
 </template>
+
+<script setup lang="ts">
+import type { ServiceInfo } from '~/utils/catalog'
+
+const props = defineProps<{
+  service: ServiceInfo
+  /** Symptom finder: true = likely fix (highlighted), false = dimmed, null = finder not in use. */
+  matched: boolean | null
+  open: boolean
+  loaded: boolean
+  reviewCount: number
+  reviewAverage: number
+}>()
+
+const emit = defineEmits<{
+  'update:open': [value: boolean]
+  seeReviews: []
+  /** Clear the symptom-finder selection. */
+  clear: []
+}>()
+
+/** While a symptom is selected, the image works as a "clear selection" button. */
+const canClear = computed(() => props.matched !== null)
+
+const { t } = useI18n()
+const formatDecimal = useFormatDecimal()
+const key = computed(() => `services.items.${props.service.id}`)
+const panelId = useId()
+
+const ratingText = computed(() => {
+  if (!props.loaded) return ''
+  if (!props.reviewCount) return t('services.noReviews')
+  return t(
+    'services.ratingFrom',
+    { avg: formatDecimal(props.reviewAverage), n: props.reviewCount },
+    props.reviewCount,
+  )
+})
+
+// Only the arrow button opens/closes the details.
+function toggle() {
+  emit('update:open', !props.open)
+}
+</script>
 
 <style scoped>
 .svc-visual {
