@@ -1,4 +1,5 @@
 import type { VisitStats } from '~/types/review'
+import { getVisitBaseline } from '~/data/visitStats'
 
 interface StoredVisit {
   views: number
@@ -33,7 +34,7 @@ export async function getVisitStats(): Promise<VisitStats> {
   const startOfDay = new Date()
   startOfDay.setHours(0, 0, 0, 0)
 
-  // Real recorded visits are added on top of the demo baseline (see visitBaseline.ts).
+  // Real recorded visits are added on top of the demo baseline (see data/visitStats.ts).
   const base = getVisitBaseline(now)
   return {
     views: base.views + visits.reduce((sum, v) => sum + Math.max(0, v.views), 0),

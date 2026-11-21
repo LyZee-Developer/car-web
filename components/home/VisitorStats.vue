@@ -1,8 +1,5 @@
 <template>
-  <!--
-    Shown only once real numbers have loaded, so visitors never see "–" placeholders.
-    If the counter can't be reached (e.g. no storage connected on the host), the row stays hidden.
-  -->
+  <!-- Visitor counter with fixed numbers for now (no API yet); see data/visitStats.ts. -->
   <Transition
     enter-active-class="transition-opacity duration-500 motion-reduce:transition-none"
     enter-from-class="opacity-0"
@@ -39,10 +36,13 @@
 
 <script setup lang="ts">
 import type { VisitStats } from '~/types/review'
+import { getVisitBaseline } from '~/data/visitStats'
 
 const { t } = useI18n()
 
-const stats = ref<VisitStats | null>(null)
+// Fixed numbers for now (no API): see data/visitStats.ts. Worked out on the server and
+// handed to the browser, so both render the same values.
+const stats = useState<VisitStats>('visit-stats', () => getVisitBaseline())
 const root = ref<HTMLElement | null>(null)
 const visible = ref(false)
 const pageVisible = useDocumentVisibility()
@@ -59,33 +59,9 @@ const { stop } = useIntersectionObserver(
   { threshold: 0.3 },
 )
 
-async function ping(view: boolean) {
-  try {
-    stats.value = await $fetch<VisitStats>('/api/visits', {
-      method: 'POST',
-      body: { view },
-      timeout: 8000,
-    })
-  } catch {
-    // The counter is decorative; keep the last numbers if the request fails.
-  }
-}
-
-onMounted(() => {
-  // Count one view per browser session; later loads only refresh "last seen".
-  let counted = false
-  try {
-    counted = sessionStorage.getItem('visit-counted') === '1'
-    sessionStorage.setItem('visit-counted', '1')
-  } catch {
-    // Storage blocked (private mode): count the view.
-  }
-  ping(!counted)
-})
-
-// Heartbeat keeps "online now" accurate while the tab is visible.
+// Refresh every minute while the tab is visible, so "online now" and "today" keep moving.
 useIntervalFn(() => {
-  if (pageVisible.value === 'visible') ping(false)
+  if (pageVisible.value === 'visible') stats.value = getVisitBaseline()
 }, 60_000)
 
 const items = computed(() => [
